@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>TouchID | Skate Cloud&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1234567891011121314151617181920212223242526272829func authenticateUser() &amp;#123;        let context = LAContext()        var error: NSError?                if context.canEvaluatePolicy(.deviceOwnerAuth">
+<meta name="keywords" content="UIKit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TouchID">
+<meta property="og:url" content="http://yoursite.com/2017/05/21/TouchID/index.html">
+<meta property="og:site_name" content="Skate Cloud&#39;s Blog">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829func authenticateUser() &amp;#123;        let context = LAContext()        var error: NSError?                if context.canEvaluatePolicy(.deviceOwnerAuth">
+<meta property="og:updated_time" content="2017-05-21T12:44:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TouchID">
+<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829func authenticateUser() &amp;#123;        let context = LAContext()        var error: NSError?                if context.canEvaluatePolicy(.deviceOwnerAuth">
+  
+    <link rel="alternate" href="/atom.xml" title="Skate Cloud&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Skate Cloud&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">^ω^</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-TouchID" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/TouchID/" class="article-date">
+  <time datetime="2017-05-21T12:13:00.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TouchID
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">authenticateUser</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> context = <span class="type">LAContext</span>()</div><div class="line">        <span class="keyword">var</span> error: <span class="type">NSError</span>?</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;error) &#123;</div><div class="line">            <span class="keyword">let</span> reason = <span class="string">"Identify yourself!"</span></div><div class="line">            </div><div class="line">            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) &#123;</div><div class="line">                [<span class="keyword">unowned</span> <span class="keyword">self</span>] success, authenticationError <span class="keyword">in</span></div><div class="line">                </div><div class="line">                <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">                    <span class="keyword">if</span> success &#123;</div><div class="line">                        <span class="keyword">self</span>.runSecretCode()</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        <span class="keyword">let</span> ac = <span class="type">UIAlertController</span>(title: <span class="string">"Authentication failed"</span>, message: <span class="string">"Sorry!"</span>, preferredStyle: .alert)</div><div class="line">                        ac.addAction(<span class="type">UIAlertAction</span>(title: <span class="string">"OK"</span>, style: .<span class="keyword">default</span>))</div><div class="line">                        <span class="keyword">self</span>.present(ac, animated: <span class="literal">true</span>)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">let</span> ac = <span class="type">UIAlertController</span>(title: <span class="string">"Touch ID not available"</span>, message: <span class="string">"Your device is not configured for Touch ID."</span>, preferredStyle: .alert)</div><div class="line">            ac.addAction(<span class="type">UIAlertAction</span>(title: <span class="string">"OK"</span>, style: .<span class="keyword">default</span>))</div><div class="line">            present(ac, animated: <span class="literal">true</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">runSecretCode</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"run secret"</span>)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> myContext = <span class="type">LAContext</span>()</div><div class="line"><span class="keyword">let</span> myLocalizedReasonString = &lt;#<span class="type">String</span> explaining why app needs authentication#&gt;</div><div class="line"> </div><div class="line"><span class="keyword">var</span> authError: <span class="type">NSError</span>? = <span class="literal">nil</span></div><div class="line"><span class="keyword">if</span> #available(iOS <span class="number">8.0</span>, <span class="type">OSX</span> <span class="number">10.12</span>, *) &#123;</div><div class="line">    <span class="keyword">if</span> myContext.canEvaluatePolicy(<span class="type">LAPolicy</span>.<span class="type">DeviceOwnerAuthenticationWithBiometrics</span>, error: &amp;authError) &#123;</div><div class="line">        myContext.evaluatePolicy(<span class="type">LAPolicy</span>.<span class="type">DeviceOwnerAuthenticationWithBiometrics</span>, localizedReason: myLocalizedReasonString) &#123; (success, evaluateError) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> (success) &#123;</div><div class="line">                <span class="comment">// User authenticated successfully, take appropriate action</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// User did not authenticate successfully, look at error and take appropriate action</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// Could not evaluate policy; look at authError and present an appropriate message to user</span></div><div class="line">    &#125;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// Fallback on earlier versions</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">import</span> LocalAuthentication</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> error:<span class="type">NSError</span>?</div><div class="line">    </div><div class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">loginButtonClicked</span><span class="params">(<span class="number">_</span> sender: Any)</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> authenticationContext = <span class="type">LAContext</span>()</div><div class="line">        </div><div class="line">        <span class="comment">// 2. Check if the device has a fingerprint sensor</span></div><div class="line">        <span class="comment">// If not, show the user an alert view and bail out!</span></div><div class="line">        <span class="keyword">guard</span> authenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;error) <span class="keyword">else</span> &#123;</div><div class="line">            </div><div class="line">            showAlertViewIfNoBiometricSensorHasBeenDetected()</div><div class="line">            <span class="keyword">return</span></div><div class="line">        </div><div class="line">    &#125;</div><div class="line">        </div><div class="line">        <span class="comment">// 3. Check the fingerprint</span></div><div class="line">        authenticationContext.evaluatePolicy(</div><div class="line">            .deviceOwnerAuthenticationWithBiometrics,</div><div class="line">            localizedReason: <span class="string">"Only awesome people are allowed"</span>,</div><div class="line">            reply: &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] (success, error) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">                </div><div class="line">                <span class="keyword">if</span>( success ) &#123;</div><div class="line">                    </div><div class="line">                    <span class="comment">// Fingerprint recognized</span></div><div class="line">                    <span class="comment">// Go to view controller</span></div><div class="line">                    <span class="keyword">self</span>.navigateToAuthenticatedViewController()</div><div class="line">                    </div><div class="line">                &#125;<span class="keyword">else</span> &#123;</div><div class="line">                    </div><div class="line">                    <span class="comment">// Check if there is an error</span></div><div class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> error: <span class="type">NSError</span> = (error <span class="keyword">as</span> <span class="type">NSError</span>??)!&#123;</div><div class="line">                        <span class="keyword">let</span> message = <span class="keyword">self</span>.errorMessageForLAErrorCode(errorCode: error.code)</div><div class="line">                        <span class="keyword">self</span>.showAlertViewAfterEvaluatingPolicyWithMessage(message: message)</div><div class="line">                    &#125;&#125;&#125;)&#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will present an UIAlertViewController to inform the user that the device has not a TouchID sensor.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showAlertViewIfNoBiometricSensorHasBeenDetected</span><span class="params">()</span></span>&#123;</div><div class="line">        </div><div class="line">        showAlertWithTitle(title: <span class="string">"Error"</span>, message: <span class="string">"This device does not have a TouchID sensor."</span>)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will present an UIAlertViewController to inform the user that there was a problem with the TouchID sensor.</div><div class="line">     </div><div class="line">     - parameter error: the error message</div><div class="line">     </div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showAlertViewAfterEvaluatingPolicyWithMessage</span><span class="params">( message:String )</span></span>&#123;</div><div class="line">        </div><div class="line">        showAlertWithTitle(title: <span class="string">"Error"</span>, message: message)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method presents an UIAlertViewController to the user.</div><div class="line">     </div><div class="line">     - parameter title:  The title for the UIAlertViewController.</div><div class="line">     - parameter message:The message for the UIAlertViewController.</div><div class="line">     </div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showAlertWithTitle</span><span class="params">( title:String, message:String )</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> alertVC = <span class="type">UIAlertController</span>(title: title, message: message, preferredStyle: .alert)</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> okAction = <span class="type">UIAlertAction</span>(title: <span class="string">"Ok"</span>, style: .<span class="keyword">default</span>, handler: <span class="literal">nil</span>)</div><div class="line">        alertVC.addAction(okAction)</div><div class="line">        </div><div class="line">        <span class="type">DispatchQueue</span>.main.async() &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">            </div><div class="line">            <span class="keyword">self</span>.present(alertVC, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will return an error message string for the provided error code.</div><div class="line">     The method check the error code against all cases described in the `LAError` enum.</div><div class="line">     If the error code can't be found, a default message is returned.</div><div class="line">     </div><div class="line">     - parameter errorCode: the error code</div><div class="line">     - returns: the error message</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">errorMessageForLAErrorCode</span><span class="params">( errorCode:Int )</span></span> -&gt; <span class="type">String</span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> message = <span class="string">""</span></div><div class="line">        </div><div class="line">        <span class="keyword">switch</span> errorCode &#123;</div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.appCancel.rawValue:</div><div class="line">            message = <span class="string">"Authentication was cancelled by application"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.authenticationFailed.rawValue:</div><div class="line">            message = <span class="string">"The user failed to provide valid credentials"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.invalidContext.rawValue:</div><div class="line">            message = <span class="string">"The context is invalid"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.passcodeNotSet.rawValue:</div><div class="line">            message = <span class="string">"Passcode is not set on the device"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.systemCancel.rawValue:</div><div class="line">            message = <span class="string">"Authentication was cancelled by the system"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.touchIDLockout.rawValue:</div><div class="line">            message = <span class="string">"Too many failed attempts."</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.touchIDNotAvailable.rawValue:</div><div class="line">            message = <span class="string">"TouchID is not available on the device"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.userCancel.rawValue:</div><div class="line">            message = <span class="string">"The user did cancel"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.userFallback.rawValue:</div><div class="line">            message = <span class="string">"The user chose to use the fallback"</span></div><div class="line">            </div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            message = <span class="string">"Did not find error code on LAError object"</span></div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> message</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will push the authenticated view controller onto the UINavigationController stack</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">navigateToAuthenticatedViewController</span><span class="params">()</span></span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> loggedInVC = storyboard?.instantiateViewController(withIdentifier: <span class="string">"LoggedInViewController"</span>) &#123;</div><div class="line">            </div><div class="line">            <span class="type">DispatchQueue</span>.main.async()</div><div class="line">                &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">                    </div><div class="line">                    <span class="keyword">self</span>.navigationController?.pushViewController(loggedInVC, animated: <span class="literal">true</span>)</div><div class="line">                    </div><div class="line">                    </div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/TouchID/" data-id="cj2yp3yo50009x7d1yap7jl7h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIKit/">UIKit</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/21/Animation/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Animation
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/21/Time-Line/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Time-Line</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIKit/">UIKit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS学习/">iOS学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/UIKit/" style="font-size: 10px;">UIKit</a> <a href="/tags/iOS-学习/" style="font-size: 15px;">iOS 学习</a> <a href="/tags/iOS学习/" style="font-size: 20px;">iOS学习</a> <a href="/tags/学习笔记/" style="font-size: 10px;">学习笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/21/Life-Cycle-Of-a-project/">Life Cycle Of a project</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Custom-Cell/">Custom Cell</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/AutoLayout/">AutoLayout</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Animation/">Animation</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/TouchID/">TouchID</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Skate Cloud<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

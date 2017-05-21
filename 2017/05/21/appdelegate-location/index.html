@@ -6,12 +6,13 @@
   <title>appdelegate location | Skate Cloud&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="大多数情况下APP会在开启应用的时候获取当前的位置，所以可以写在APPDelegate里第一步 12import CoreLocation var locationManager = CLLocationManager() 第二步 12345678func application(application: UIApplication, didFinishLaunchingWithOptions l">
+<meta name="keywords" content="iOS 学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="appdelegate location">
 <meta property="og:url" content="http://yoursite.com/2017/05/21/appdelegate-location/index.html">
 <meta property="og:site_name" content="Skate Cloud&#39;s Blog">
 <meta property="og:description" content="大多数情况下APP会在开启应用的时候获取当前的位置，所以可以写在APPDelegate里第一步 12import CoreLocation var locationManager = CLLocationManager() 第二步 12345678func application(application: UIApplication, didFinishLaunchingWithOptions l">
-<meta property="og:updated_time" content="2017-05-21T12:01:55.000Z">
+<meta property="og:updated_time" content="2017-05-21T12:43:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="appdelegate location">
 <meta name="twitter:description" content="大多数情况下APP会在开启应用的时候获取当前的位置，所以可以写在APPDelegate里第一步 12import CoreLocation var locationManager = CLLocationManager() 第二步 12345678func application(application: UIApplication, didFinishLaunchingWithOptions l">
@@ -58,7 +59,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -95,16 +96,33 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool &#123;</div><div class="line"></div><div class="line"></div><div class="line">  //开启定位</div><div class="line">    loadLocation()  </div><div class="line"></div><div class="line"> return true</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>第三步 实现代理方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">extension AppDelegate: CLLocationManagerDelegate</div><div class="line">&#123;</div><div class="line"></div><div class="line">//打开定位</div><div class="line">func loadLocation()</div><div class="line">&#123;</div><div class="line"></div><div class="line">    locationManager.delegate = self</div><div class="line">    //定位方式</div><div class="line">    locationManager.desiredAccuracy = kCLLocationAccuracyBest</div><div class="line"></div><div class="line">     //iOS8.0以上才可以使用</div><div class="line">    if(UIDevice.currentDevice().systemVersion &gt;= &quot;8.0&quot;)&#123;</div><div class="line">        //始终允许访问位置信息</div><div class="line">        locationManager.requestAlwaysAuthorization()</div><div class="line">        //使用应用程序期间允许访问位置数据</div><div class="line">        locationManager.requestWhenInUseAuthorization()</div><div class="line">    &#125;</div><div class="line">    //开启定位</div><div class="line">    locationManager.startUpdatingLocation()</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//获取定位信息</div><div class="line">func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) &#123;</div><div class="line"></div><div class="line">    //取得locations数组的最后一个</div><div class="line">    let location:CLLocation = locations[locations.count-1]</div><div class="line">    currLocation = locations.last!</div><div class="line">    //判断是否为空</div><div class="line">    if(location.horizontalAccuracy &gt; 0)&#123;</div><div class="line">        lat = Double(String(format: &quot;%.1f&quot;, location.coordinate.latitude))</div><div class="line">        long = Double(String(format: &quot;%.1f&quot;, location.coordinate.longitude))</div><div class="line">        print(&quot;纬度:\(long!)&quot;)</div><div class="line">        print(&quot;经度:\(lat!)&quot;)</div><div class="line">        LonLatToCity()</div><div class="line">        //停止定位</div><div class="line">        locationManager.stopUpdatingLocation()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">//出现错误</div><div class="line">func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?) &#123;</div><div class="line">    print(error)</div><div class="line">&#125;</div><div class="line"></div><div class="line">///将经纬度转换为城市名</div><div class="line">func LonLatToCity() &#123;</div><div class="line">    let geocoder: CLGeocoder = CLGeocoder()</div><div class="line">    geocoder.reverseGeocodeLocation(currLocation) &#123; (placemark, error) -&gt; Void in</div><div class="line"></div><div class="line">        if(error == nil)</div><div class="line">        &#123;</div><div class="line">            let array = placemark! as NSArray</div><div class="line">            let mark = array.firstObject as! CLPlacemark</div><div class="line">            //城市</div><div class="line">            var city: String = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;City&quot;) as! String</div><div class="line">            //国家</div><div class="line">            let country: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;Country&quot;) as! NSString</div><div class="line">            //国家编码</div><div class="line">            let CountryCode: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;CountryCode&quot;) as! NSString</div><div class="line">            //街道位置</div><div class="line">            let FormattedAddressLines: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;FormattedAddressLines&quot;)?.firstObject as! NSString</div><div class="line">            //具体位置</div><div class="line">            let Name: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;Name&quot;) as! NSString</div><div class="line">            //省</div><div class="line">            var State: String = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;State&quot;) as! String</div><div class="line">            //区</div><div class="line">            let SubLocality: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;SubLocality&quot;) as! NSString</div><div class="line"></div><div class="line"></div><div class="line">            //如果需要去掉“市”和“省”字眼</div><div class="line"></div><div class="line">            State = State.stringByReplacingOccurrencesOfString(&quot;省&quot;, withString: &quot;&quot;)</div><div class="line">            let citynameStr = city.stringByReplacingOccurrencesOfString(&quot;市&quot;, withString: &quot;&quot;)</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            print(error)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/21/appdelegate-location/" data-id="cj2yoxhwe0000vdd1bt048f7x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/21/appdelegate-location/" data-id="cj2yp3yo20008x7d17wco3hc2" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li></ul>
+
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+    <a href="/2017/05/21/Time-Line/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Time-Line
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
@@ -116,13 +134,27 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIKit/">UIKit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS学习/">iOS学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/UIKit/" style="font-size: 10px;">UIKit</a> <a href="/tags/iOS-学习/" style="font-size: 15px;">iOS 学习</a> <a href="/tags/iOS学习/" style="font-size: 20px;">iOS学习</a> <a href="/tags/学习笔记/" style="font-size: 10px;">学习笔记</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
@@ -132,12 +164,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/05/21/appdelegate-location/">appdelegate location</a>
+            <a href="/2017/05/21/Life-Cycle-Of-a-project/">Life Cycle Of a project</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Custom-Cell/">Custom Cell</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/AutoLayout/">AutoLayout</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Animation/">Animation</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/TouchID/">TouchID</a>
           </li>
         
       </ul>

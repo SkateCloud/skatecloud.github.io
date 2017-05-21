@@ -57,7 +57,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Søk"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -67,6 +67,496 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Life-Cycle-Of-a-project" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/Life-Cycle-Of-a-project/" class="article-date">
+  <time datetime="2017-05-21T12:23:59.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/21/Life-Cycle-Of-a-project/">Life Cycle Of a project</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Device-Architecture-And-Conditional-Code"><a href="#Device-Architecture-And-Conditional-Code" class="headerlink" title="Device Architecture And Conditional Code"></a>Device Architecture And Conditional Code</h1><ul>
+<li>iPhone: iPhone/iPod,可以在iPad上运行，但不是原生的，仿生（兼容模式</li>
+<li>iPad：只在iPad运行</li>
+<li>universal：各种</li>
+<li>两种决定运行平台的settings</li>
+<li>Base SDK: </li>
+<li>Xcode 8: iOS10.0/latest iOS(better,自动使用最新SDK)</li>
+<li>iOS Development Target</li>
+</ul>
+<h1 id="向后兼容"><a href="#向后兼容" class="headerlink" title="向后兼容"></a>向后兼容</h1><ul>
+<li>主要问题：</li>
+<li>行为差异：在不同的系统中，功能模块也会存在差异</li>
+<li>不支持的特性： 新系统中，Apple会加入很多新特性</li>
+<li>例如：在iOS10中，绘制一个图形：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let r = UIGraphicsImageRenderer(size:CGSize(width:10,height:10))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>但是UIGraphicsImageRenderer class只在iOS10及以后才会有，所以应该修改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">if #available(iOS 10.0,*)&#123;</div><div class="line">let r = UIGraphicsImageRenderer(size:CGSize(width:10,height:10))</div><div class="line">&#125;else&#123;</div><div class="line">//Fallback on earlier versions</div><div class="line">&#125;</div><div class="line"></div><div class="line"># 版本控制</div><div class="line">* 安全性</div><div class="line">* 合作</div><div class="line">* freedom</div><div class="line"></div><div class="line"></div><div class="line"># Debug</div><div class="line">* 基本断点</div><div class="line">* 监视变量 </div><div class="line">* 全局断点</div><div class="line">* 条件断点</div><div class="line">* 打印</div><div class="line">* NSLog</div><div class="line">* Console命令（lldb）</div><div class="line">* Profile(instruments)</div><div class="line">* &quot;No Warning! Pass Analyze&quot;</div><div class="line">* Xcode视图调试</div><div class="line">* iOS模拟器调试</div><div class="line"></div><div class="line"># Testing</div><div class="line">* Unit tests</div><div class="line">* Interface(UI) tests</div><div class="line"># Clean</div><div class="line"></div><div class="line">Main函数入口</div><div class="line"></div><div class="line">所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现。示例代码如下：</div><div class="line"></div><div class="line">```swift</div><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &quot;AppDelegate.h&quot;</div><div class="line"></div><div class="line">int main(int argc, char * argv[])</div><div class="line">&#123;</div><div class="line">@autoreleasepool &#123;</div><div class="line">return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</div><div class="line">&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面实例代码中有一个很重要的函数UIApplicationMain，它主要是创建app的几个核心对象来处理以下过程：</p>
+<p>从可用Storyboard文件加载用户界面<br>调用AppDelegate自定义代码来做一些初始化设置<br>将app放入Main Run Loop环境中来响应和处理与用户交互产生的事件</p>
+<h1 id="应用程序的架构"><a href="#应用程序的架构" class="headerlink" title="应用程序的架构"></a>应用程序的架构</h1><p>iOS应用程序都遵循<code>Model-View-Controller</code>的架构，<code>Model</code>负责存储数据和处理业务逻辑，<code>View</code>负责显示数据和与用户交互，<code>Controller</code>是两者的中介，协调<code>Model</code>和<code>View</code>相互协作。它们的通讯规则如下：</p>
+<ol>
+<li><code>Controller</code>能够访问<code>Model</code>和<code>View</code>，<code>Model</code>和<code>View</code>不能互相访问</li>
+</ol>
+<p><img src="resources/1CECFB4615999ADC67A4DC2EBFDC19B3.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<ol>
+<li>当<code>View</code>与用户交互产生事件时，使用<code>target-action</code>方式来处理</li>
+</ol>
+<p><img src="resources/20CA350F814109E5A3F7CA7A1B15B04B.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<ol>
+<li>当<code>View</code>需要处理一些特殊UI逻辑或获取数据源时，通过<code>delegate</code>或<code>data source</code>方式交给<code>Controller</code>来处理</li>
+</ol>
+<p><img src="resources/33CBF8FF022F1B8849FD3764617EC6FA.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<ol>
+<li><code>Model</code>不能直接与<code>Controller</code>通信，当<code>Model</code>有数据更新时，可以通过<code>Notification</code>或<code>KVO (Key Value Observing)</code>来通知<code>Controller</code>更新<code>View</code></li>
+</ol>
+<p><img src="resources/82E7A457EC13FD5D49416F14F8193686.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<p><img src="resources/6193AB3A4F8C240888CBA743C85F2384.png" alt=""></p>
+<p>The Structure of an App.png</p>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/" target="_blank" rel="external">UIApplication</a>对象<br>用户与iOS设备交互时产生的事件(Multitouch Events，Motion Event，Remote Control Event)交由<code>UIApplication</code>对象来分发给control objects(<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/index.html#//apple_ref/occ/cl/UIControl" target="_blank" rel="external">UIControl</a>)对应的target objects来处理并且管理整个事件循环，而一些关于app运行时重要事件委托给<code>app delegate</code>来处理。</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/" target="_blank" rel="external">App delegate</a>对象<br><code>App delegate</code>对象遵循<code>UIApplicationDelegate</code>协议，响应app运行时重要事件(app启动、app内存不足、app终止、切换到另一个app、切回app)，主要用于app在启动时初始化一些重要数据结构；例如，初始化<code>UIWindow</code>，设置一些属性，为window添加<code>rootViewController</code>。</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/" target="_blank" rel="external">View controller</a>对象<br><code>View Controller</code>有一个<code>view</code>属性是view层次结构中的根view，你可以添加子view来构建复杂的view；controller有一些<code>viewDidLoad</code>、<code>viewWillAppear</code>等方法来管理view的生命周期；由于它继承<code>UIResponder</code>，所有还会响应和处理用户事件。</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDocument_Class/" target="_blank" rel="external">Documents</a>和data model对象<br>data model对象主要用来存储数据。例如，饿了么app在搜索切换地址后，有历史记录搜索地址历史，当app下次启动时，读取和显示搜索地址历史。<br>document对象(继承UIDocument)用来管理一些或所有的data model对象。document对象并不是必须的，但提供一种方便的方式来分组属于单个文件或多个文件的数据。</li>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIWindow_Class/" target="_blank" rel="external">UIWindow</a>对象<br><code>UIWindow</code>对象位于view层次结构中的最顶层，它充当一个基本容器而不显示内容，如果想显示内容，添加一个content view到window。<br>它也是继承<code>UIResponder</code>，所以它也是会响应和处理用户事件。</li>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">View</a>、<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/" target="_blank" rel="external">control</a>、<a href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CALayer_class/" target="_blank" rel="external">layer</a>对象<br><code>View</code>对象可以通过addSubview和removeFromSuperview 等方法管理view的层次结构，使用layoutIfNeeded和setNeedsLayout等方法布局view的层次结构，当你发现系统提供view已经满足不了你想要的外观需求时，可以重写drawRect方法或通过layer属性来构造复杂的图形外观和动画。还有一点，UIView也是继承UIResponder，所以也能够处理用户事件。<br><code>Control</code>对象通常就是处理特定类型用户交互的View，常用的有button、switch、text field等。<br>除了使用<code>View</code>和<code>Control</code>来构建view层次结构来影响app外观之外，还可以使用Core Animation框架的<code>Layer</code>对象来渲染view外观和构建复杂的动画。</li>
+</ul>
+<h1 id="Main-Run-Loop"><a href="#Main-Run-Loop" class="headerlink" title="Main Run Loop"></a>Main Run Loop</h1><p>一个iOS应用程序的main run loop主要作用是处理所有与用户相关的事件。<code>UIApplication</code>对象在启动时就设置main run loop和使用它来处理事件和更新基于view的界面。正如它名字所示，main run loop是运行在应用程序的主线程。这样就确保与接收到用户相关的事件被有序地处理。</p>
+<p>下图显示main run loop的架构和用户事件最终是怎样被应用程序处理。当用户与设备交互时，系统就会生成与交互关联的事件，然后被应用程序的UIKit通过一个特殊的端口来分发。应用程序把事件放入队列，然后逐个分发到main run loop来执行。<code>UIApplication</code>对象是第一个对象接收到事件，然后决定怎样处理它。一个touch event通常都被分发到main window对象，然后依次分发到发生触碰的view。其他event的接收事件对象路径可能有点不同。</p>
+<p><img src="resources/2649D8A3229B53C7FD8F81D8645A6565.png" alt=""></p>
+<p>Main Run Loop from Apple Document</p>
+<p>大多数的事件通过使用main run loop来分发，但有些不是。有些事件被发送到一个delegate对象或传递到你提供的block中。想了解更多如何处理大多数类型的事件，其中包括touch、remote control、motion、accelerometer和gyroscopic等事件，请查阅<a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Introduction/Introduction.html" target="_blank" rel="external">Event Handle Guide for iOS</a>。</p>
+<h1 id="应用程序的状态和多任务"><a href="#应用程序的状态和多任务" class="headerlink" title="应用程序的状态和多任务"></a>应用程序的状态和多任务</h1><p>有时系统会从app一种状态切换另一种状态来响应系统发生的事件。例如，当用户按下home键、电话打入、或其他中断发生时，当前运行的应用程序会切换状态来响应。应用程序的状态有以下几种：</p>
+<p><img src="resources/BA67975B1CA3730AF7AECBE34153E4D8.png" alt=""></p>
+<p>App State from Apple Document</p>
+<ul>
+<li>Not running：app还没运行</li>
+<li>Inactive：app运行在foreground但没有接收事件</li>
+<li>Active：app运行在foreground和正在接收事件</li>
+<li>Background：运行在background和正在执行代码</li>
+<li>Suspended：运行在background但没有执行代码</li>
+</ul>
+<p>大多数发生状态转换时都会调用<code>delegate</code>对象对应的方法来响应app的状态改变。下面汇总了<code>delegate</code>对象的所有方法，当app状态发生转换时，你可能会使用到它们。</p>
+<ul>
+<li><code>application:willFinishLaunchingWithOptions:</code> - 这个方法是你在启动时的第一次机会来执行代码</li>
+<li><code>application:didFinishLaunchingWithOptions:</code> - 这个方法允许你在显示app给用户之前执行最后的初始化操作</li>
+<li><code>applicationDidBecomeActive:</code> - app已经切换到active状态后需要执行的操作</li>
+<li><code>applicationWillResignActive:</code> - app将要从前台切换到后台时需要执行的操作</li>
+<li><code>applicationDidEnterBackground:</code> - app已经进入后台后需要执行的操作</li>
+<li><code>applicationWillEnterForeground:</code> - app将要从后台切换到前台需要执行的操作，但app还不是active状态</li>
+<li><code>applicationWillTerminate:</code> - app将要结束时需要执行的操作</li>
+</ul>
+<p>现在讲下app启动、来回切换app和锁屏时状态的切换和调用对应哪些delegate对象的方法：</p>
+<ul>
+<li>app启动和active/inactive</li>
+</ul>
+<p><img src="resources/F360F2D7309834625B91EC245E65B0F9.gif" alt=""></p>
+<p>Launch and active/inactive from Apple WWDC 2011 Session</p>
+<p>如图所示，当app启动时，首先由<code>not running</code>状态切换到<code>inactive</code>状态，此时调用<code>application:didFinishLaunchingWithOptions:</code>方法；然后由<code>inactive</code>状态切换到<code>active</code>状态，此时调用<code>applicationDidBecomeActive:</code>方法。</p>
+<p><img src="resources/7E923AE84EB215494E1212FBCA8EC019.gif" alt=""></p>
+<p>Launch and active/inactive 2 from Apple WWDC 2011 Session</p>
+<p>当app发生中断时，由<code>active</code>状态切换到<code>inactive</code>状态，此时调用<code>applicationWillResignActive:</code>方法。</p>
+<ul>
+<li>来回切换app</li>
+</ul>
+<p><img src="resources/A58B11BD99500F91873C0D597B9EE8ED.gif" alt=""></p>
+<p>Switch from an app from Apple WWDC 2011 Session</p>
+<p>如图所示，当切换到另一个app时，由状态<code>active</code>切换到<code>inactive</code>，此时调用<code>applicationWillResignActive:</code>方法；然后从<code>inactive</code>状态切换到<code>running</code>状态，此时调用<code>applicationDidEnterBackground:</code>方法。</p>
+<p><img src="resources/A51653A1539E7C0BFBFE6A2DE07F2678.gif" alt=""></p>
+<p>Switch to an app from Apple WWDC 2011 Session</p>
+<p>而当切换回本来的app时，由<code>running</code>状态切换到<code>inactive</code>状态，此时调用<code>applicationWillEnterForeground:</code>方法，然后由<code>inactive</code>状态切换到<code>active</code>状态，调用<code>applicationDidBecomeActive:</code>方法。</p>
+<ul>
+<li>锁屏</li>
+</ul>
+<p><img src="resources/D83BFA1B5F26C91B285EFAC211904A9D.gif" alt=""></p>
+<p>Device lock from Apple WWDC 2011 Session</p>
+<p>如何所示，当手机锁屏时，由状态<code>active</code>切换到<code>inactive</code>，此时调用<code>applicationWillResignActive:</code>；然后再由<code>inactive</code>状态切换到<code>running</code>状态，此时调用<code>applicationDidEnterBackground:</code>方法。</p>
+<p>更多关于app状态切换以及调用<code>app delegate</code>哪些方法，请观看WWDC 2011 Session的<a href="https://developer.apple.com/videos/wwdc/2011/" target="_blank" rel="external">session_320__adopting_multitasking_in_your_app</a>视频。</p>
+<h1 id="应用程序的终止"><a href="#应用程序的终止" class="headerlink" title="应用程序的终止"></a>应用程序的终止</h1><p>系统常常是为其他app启动时由于内存不足而回收内存最后需要终止应用程序，但有时也会是由于app很长时间才响应而终止。如果app当时运行在后台并且没有暂停，系统会在应用程序终止之前调用<code>applicationWillTerminate:</code>来保存用户的一些重要数据以便下次启动时恢复到app原来的状态。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/" data-id="cj2yp3ynu0004x7d125u071oc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Custom-Cell" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/Custom-Cell/" class="article-date">
+  <time datetime="2017-05-21T12:22:42.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/21/Custom-Cell/">Custom Cell</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>UITableViewCell的使用方法</p>
+<p>重点：UITableView和UITableViewCell的核心方法</p>
+<p>预定义Cell</p>
+<p>iOS自定义了4种常见的Cell格式，在UITableViewCell.h中的注释中Apple给了一些明确的提示这些预置的style一般都适用于什么场景：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef <span class="class"><span class="keyword">enum</span> </span>&#123;</div><div class="line"><span class="type">UITableViewCellStyleDefault</span>, <span class="comment">// Simple cell with text label and optional image view (behavior of UITableViewCell in iPhoneOS 2.x)</span></div><div class="line"><span class="type">UITableViewCellStyleValue1</span>, <span class="comment">// Left aligned label on left and right aligned label on right with blue text (Used in Settings)</span></div><div class="line"><span class="type">UITableViewCellStyleValue2</span>, <span class="comment">// Right aligned label on left with blue text and left aligned label on right (Used in Phone/Contacts)</span></div><div class="line"><span class="type">UITableViewCellStyleSubtitle</span> <span class="comment">// Left aligned label on top and left aligned label on bottom with gray text (Used in iPod).</span></div><div class="line">&#125; <span class="type">UITableViewCellStyle</span></div></pre></td></tr></table></figure>
+<p>4种类型在Xcode中对应的选项为：Basic, Right Detail, Left Detail和Subtitle。</p>
+<p>在这4种格式都统一有3个property可以供你使用：</p>
+<p>textLabel：一个主标题</p>
+<p>detailTextLabel：一个副标题</p>
+<p>imageView：一张详情缩略图片</p>
+<p>实际上这些预置类型就是把这3种元素做了些取舍然后在不同的位置组合了一下。我觉得在设计App的时候，在任何情况下，设计师和工程师都应当首先考虑这些预置的类型能不能满足需求，除非有足够的必要，否则不要轻易的浪费经历在重复构造定制化的View上。个人觉得Subtile模式已经适用于绝大多数对UI要求不高的场合。你完全可以自己修改这3个控件的一些属性来对UI进行微调。比如你可以尝试将imageView的大小放大一些。</p>
+<p>自定义Cell</p>
+<p>UITableView是通过调用UITableViewDataSource中的tableView:cellForRowAtIndexPath:方法来获取每一行所需要的Cell的，所以绝大多自定义Cell的处理过程都是在这一步完成，另外由于UITableViewCell本身也是一个UIView，所以你也可以在UITableViewDelegate中的tableView:willDisplayCell:forRowAtIndexPath: 方法中对Cell的view做最后的定制化。</p>
+<p>注意： Apple明确指出，在tableView:willDisplayCell:forRowAtIndexPath:中应当只修改”state-based properties”，比如selection和background color等等，但是不应该是内容（content），也就是不要在这里进行任何数据处理。</p>
+<p>2.1 自定义Cell的创建</p>
+<p>有以下几种方法：</p>
+<ul>
+<li>方法1：使用Code继承预定义的cell样式，然后再手动添加自己的view</li>
+</ul>
+<p>============================================</p>
+<p>这是Apple官方文档中的示例，它通过调用initWithStyle:reuseIdentifier:使用UITableViewCellStyleDefault参数来创建一个Cell，为了方便期间，我对代码稍做了些改动，一个是简化了数据加载，另一个是用NSTextAlignment替换了废弃的UITextAlignment：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">define MAINLABEL_TAG <span class="number">1</span></div><div class="line"></div><div class="line">define SECONDLABEL_TAG <span class="number">2</span></div><div class="line"></div><div class="line">define PHOTO_TAG <span class="number">3</span></div><div class="line"></div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> )tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *CellIdentifier = <span class="string">@"ImageOnRightCell"</span>;</div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line"><span class="built_in">UILabel</span> *mainLabel, *secondLabel;</div><div class="line"><span class="built_in">UIImageView</span> *photo;</div><div class="line"></div><div class="line"><span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (cell == <span class="literal">nil</span>) &#123;</div><div class="line">cell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:CellIdentifier];</div><div class="line">cell.accessoryType = <span class="built_in">UITableViewCellAccessoryDetailDisclosureButton</span>;</div><div class="line"></div><div class="line">mainLabel = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">220.0</span>, <span class="number">15.0</span>)];</div><div class="line">mainLabel.tag = MAINLABEL_TAG;</div><div class="line">mainLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">mainLabel.textAlignment = <span class="built_in">NSTextAlignmentRight</span>;</div><div class="line">mainLabel.textColor = [<span class="built_in">UIColor</span> blackColor];</div><div class="line">mainLabel.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div><div class="line">[cell.contentView addSubview:mainLabel];</div><div class="line"></div><div class="line">secondLabel = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0.0</span>, <span class="number">20.0</span>, <span class="number">220.0</span>, <span class="number">25.0</span>)];</div><div class="line">secondLabel.tag = SECONDLABEL_TAG;</div><div class="line">secondLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12.0</span>];</div><div class="line">secondLabel.textAlignment = <span class="built_in">NSTextAlignmentRight</span>;</div><div class="line">secondLabel.textColor = [<span class="built_in">UIColor</span> darkGrayColor];</div><div class="line"></div><div class="line">secondLabel.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div><div class="line">[cell.contentView addSubview:secondLabel];</div><div class="line"></div><div class="line">photo = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">225.0</span>, <span class="number">0.0</span>, <span class="number">80.0</span>, <span class="number">45.0</span>)];</div><div class="line">photo.tag = PHOTO_TAG;</div><div class="line">photo.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div><div class="line">[cell.contentView addSubview:photo];</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">mainLabel = (<span class="built_in">UILabel</span> *)[cell.contentView viewWithTag:MAINLABEL_TAG];</div><div class="line">secondLabel = (<span class="built_in">UILabel</span> *)[cell.contentView viewWithTag:SECONDLABEL_TAG];</div><div class="line">photo = (<span class="built_in">UIImageView</span> *)[cell.contentView viewWithTag:PHOTO_TAG];</div><div class="line">&#125;</div><div class="line"></div><div class="line">mainLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Title_%d"</span>, i];</div><div class="line">secondLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Description_%d"</span>, i];</div><div class="line">i++;</div><div class="line"><span class="built_in">NSString</span> *imagePath = [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"test"</span> ofType:<span class="string">@"jpg"</span>];</div><div class="line">photo.image = theImage;</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>1) Cell的重用机制</p>
+<p>重用机制对于UITableView而言是非常重要的概念，这能够显著提高滑动TableView时的性能。如果不使用重用，那么每次新的Cell出现在屏幕上时都需要新创建一个，这对快速滑动而言是非常影响用户体验，并且会占用系统大量的内存开销。iOS的TableView使用的重用机制在原理上很简单，就是系统自动维护一个queue，这个队列放着一定数量的准备好的Cell UI object，滑出屏幕范围之外一定”距离”的Cell都会被回收到这个queue里，给马上要滑入屏幕范围内的Cell复用。</p>
+<p>使用重用的方法核心是两个概念：Cell Identity和dequeue。前者是标识一种具体的Cell的id，后者是将Cell从复用队列中取出的实际操作。首先你需要用这个id告诉系统你将要用于重用的Cell是谁（注册），然后你使用这个id从重用的队列里取出来（复用）。具体到本例中的API就是如下两个：initWithStyle:reuseIdentifier:和dequeueReusableCellWithIdentifier:。后面将看到，对于不同情况下创建的Cell，注册和复用的调用也并不相同。</p>
+<p>2) 必须把自定义的控件添加在cell的contentView上，而不是view上，也就是：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:CellIdentifier];</div><div class="line">...</div><div class="line"><span class="comment">// Correct!</span></div><div class="line">[cell.contentView addSubview:yourCustomComponetView];</div><div class="line"><span class="comment">// Wrong!</span></div><div class="line">[cell.view addSubview:yourCustomComponentView];</div></pre></td></tr></table></figure>
+<p>再次强调一点，Cell的Content View不是自己的root view。关于Cell View的结构可以参考这篇文章：《制作一个可以滑动操作的 Table View Cell》</p>
+<p>对于一个如图所示的Table而言:</p>
+<p><img src="resources/28CD515DE52E2B4F372B17DBEB5DCA34.jpg" alt=""></p>
+<p>sample.png</p>
+<p>它的TableViewCell的View层级结构是：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">UITableViewCell</span>; frame = (<span class="number">0</span> <span class="number">396</span>; <span class="number">320</span> <span class="number">44</span>);&gt; <span class="comment">//1</span></div><div class="line">| &lt;<span class="built_in">UITableViewCellScrollView</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">320</span> <span class="number">44</span>); &gt; <span class="comment">//2</span></div><div class="line">|    | &lt;<span class="built_in">UIButton</span>; frame = (<span class="number">302</span> <span class="number">16</span>; <span class="number">8</span> <span class="number">12.5</span>)&gt; <span class="comment">//3</span></div><div class="line">|    |    | &lt;<span class="built_in">UIImageView</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">8</span> <span class="number">12.5</span>);&gt; <span class="comment">//4</span></div><div class="line">|    | &lt;<span class="built_in">UITableViewCellContentView</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">287</span> <span class="number">44</span>);&gt; <span class="comment">//5</span></div><div class="line">|    |    | &lt;<span class="built_in">UILabel</span>; frame = (<span class="number">15</span> <span class="number">0</span>; <span class="number">270</span> <span class="number">43</span>);&gt; <span class="comment">//6</span></div></pre></td></tr></table></figure>
+<p>这个Cell 里有六个视图：</p>
+<p>UITableViewCell 这是最高层的视图。 Frame 显示它有 320 点宽和 44 点高——宽度和高度都和预期的一致，因为它和屏幕一样宽，而高度就是 44 点。</p>
+<p>UITableViewCellScrollView 虽然你不能直接使用这个私有类，但它的名字很好地暗示了它的功能。它的 Size 和 Cell 的一样。</p>
+<p>UIButton 它在 Cell 的最右边，就是 Disclosure Indicator 按钮。</p>
+<p>UIImageView 是上面 UIButton 的子视图，装载着 Disclosure Indicator 的图像。</p>
+<p>UITableViewCellContentView 另外一个私有类，它包含 Cell 的内容。这个类对于开发者来说就是 UITableViewCell 的 contentView 属性。但它只作为一个 UIView 来暴露在外，这就意味着你只在其上调用使用公开的 UIView 方法；而不能使用任何与这个类关联的任何私有方法。</p>
+<p>UILabel 显示 “Item #“ 文本。</p>
+<p>很显然，这里cell.contentView并不是cell.view。</p>
+<p>方法2：使用xib绘制Custom Cell View</p>
+<p>这是自定义Cell最常见也是最省力的方法：</p>
+<p>1) 首先在xcode中创建custom xib，拖拽需要的控件到xib上，并做好布局和限制；</p>
+<p>2）新建自己的custom class，定义对应的outlet properties；</p>
+<p>3）将xib的class设置成对应的custom class，然后将outlet和控件连接起来；</p>
+<p>4）在适当的位置（一般为初始化的地方）调用registerNib:forCellReuseIdentifier:注册Cell；</p>
+<p>5）在tableView:cellForRowAtIndexPath:中调用dequeueReusableCellWithIdentifier:forIndexPath:复用cell</p>
+<p>下面的这个示例演示了上述步骤。在这个示例中，首先创建Custom Cell和xib的界面，其中有一张大图，下面有两个独立的label，然后我使用了tableView:willDisplayCell:forRowAtIndexPath:对每一行Cell的背景颜色做出最终设置，而在tableView cellForRowAtIndexPath:中对Cell的内容进行填充：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Custom View：</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MyTableCellView</span> : <span class="title">UITableViewCell</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIImageView</span> imageView;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> name;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *date;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">在table View Controller中：</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">[<span class="keyword">super</span> viewDidLoad];</div><div class="line"><span class="comment">// Do any additional setup here ...</span></div><div class="line">...</div><div class="line"><span class="comment">// register the cell to tell the system preparing to reuse it.</span></div><div class="line">[<span class="keyword">self</span>.tableView registerNib:[<span class="built_in">UINib</span> nibWithNibName:<span class="string">@"TableCellView"</span> bundle:<span class="literal">nil</span>] forCellReuseIdentifier:cellId];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line"><span class="comment">// always reuse the cell</span></div><div class="line">MyTableCellView *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];</div><div class="line"></div><div class="line">cell.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, [[<span class="built_in">UIScreen</span> mainScreen] bounds].size.width, <span class="number">250</span>);</div><div class="line"><span class="built_in">NSString</span> *path = [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"test"</span> ofType:<span class="string">@"jpg"</span>];</div><div class="line">cell.imageView.image = [<span class="built_in">UIImage</span> imageWithContentsOfFile:path];</div><div class="line"><span class="built_in">NSDate</span> *object = <span class="keyword">self</span>.objects[indexPath.row];</div><div class="line">cell.date.text = [object description];</div><div class="line"><span class="keyword">return</span> cell;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView willDisplayCell:(<span class="built_in">UITableViewCell</span> *)cell forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"indexpath = %ld"</span>, indexPath.row);</div><div class="line"><span class="keyword">if</span> ( indexPath.row % <span class="number">2</span> == <span class="number">0</span>) &#123;</div><div class="line">cell.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">cell.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法3：使用code定义一个Custom Cell Class</p>
+<p>这个在本质上和上一种使用xib的方法是一样的，只不过一个是用代码完全定制，一个是借助xib操作。但是在Cell重用的方式上有一定区别。上一种方法中，需要调用registerNib:forCellReuseIdentifier:来注册重用的Cell，在这里就需要用registerClass:forCellReuseIdentifier:方法来注册。与之对应的，获取重用的Cell的时候，调用dequeueReusableCellWithIdentifier:forIndexPath:方法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Class myClass = [MyTableCellView <span class="keyword">class</span>];</div><div class="line">[<span class="keyword">self</span>.tableView registerClass: myClass forCellReuseIdentifier:<span class="string">@"CustomCell"</span>];</div><div class="line">...</div><div class="line">...</div><div class="line">MyTableCellView *cell = [<span class="keyword">self</span>.tableView dequeueReusableCellWithIdentifier:<span class="string">@"CustomCell"</span> forIndexPath:path];</div><div class="line">cell.label.text = <span class="string">@"text"</span>;</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>注意 dequeueReusableCellWithIdentifier:和dequeueReusableCellWithIdentifier:forIndexPath:的区别!!</p>
+<p>如果你注册过Cell，在没有可用的cell时，前者会返回nil；而后者永远都会从注册的nib或者class中替你创建一个可用的Cell。也就是说，前者调用你需要手动检查nil，而后者不需要；<br>如果你从没有注册过cell，在没有可用的cell时，前者会返回nil，后者……直接崩溃！也就是说，调用后者你 必须确保注册过cell </p>
+<p>2.2 访问Cell中的控件：</p>
+<p>xib中使用outlet</p>
+<p>这个应该不用多说，在Cell的原型中（不管是Static cell还是Dynamic cell）定义outlet properties，然后在xib中拖拽连接对应的控件即可；Apple官方文档上的示意图：</p>
+<p>connect_outlet.jpg</p>
+<p>connect_static_objects.jpg</p>
+<p>代码中使用viewWithTag:</p>
+<p>这个是获取parent view上某个特定view的快捷方法，首先需要设置一个sub view的tag，然后使用viewWithTag:来访问这个sub view。设置时可以通过xcode在xib中设置tag标签，也可以直接通过tag property手动设置：</p>
+<p>创建时：</p>
+<p>mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 220.0, 15.0)];</p>
+<p>mainLabel.tag = MAINLABEL_TAG;</p>
+<p>// customize the label here…</p>
+<p>[cell.contentView addSubview:mainLabel];</p>
+<p>44</p>
+<p>mainLabel = (UILabel *)[cell.contentView viewWithTag:MAINLABEL_TAG];</p>
+<p>有关Table和Cell的性能需要注意的问题</p>
+<p>关于这个话题，Apple并没有用过多的篇幅介绍，但是在官方开发文档中明确提出了3点意见：</p>
+<p>注意重用（Reuse Cell）</p>
+<p>这点我们已经在上文中着重强调过了。</p>
+<p>避免反复的调整Cell的布局（Avoid relayout of content）</p>
+<p>只在创建每一个Cell的时候布局一次，而不要每一次获取Cell的时候都去重新布局。</p>
+<p>避免透明的subviews （Use opaque subviews）</p>
+<p>自定义cell的时候，尽可能避免使用透明的控件，因为透明控件在table滑动时将增大渲染开销。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/Custom-Cell/" data-id="cj2yp3ynt0003x7d1xdhta839" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS学习/">iOS学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-AutoLayout" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/AutoLayout/" class="article-date">
+  <time datetime="2017-05-21T12:17:00.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/21/AutoLayout/">AutoLayout</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Auto-Layout的本质原理"><a href="#Auto-Layout的本质原理" class="headerlink" title="Auto Layout的本质原理"></a>Auto Layout的本质原理</h2><p>Auto Layout的本质是用一些约束条件对元素进行约束。<br>分类：</p>
+<ul>
+<li>相对于父 view 的约束。如：距离上边距 10，左边距 10。</li>
+<li>相对于前一个元素的约束。如：距离上一个元素 20，距离左边的元素 5 等。</li>
+<li>对齐类约束。如：跟父 view 左对齐，跟上一个元素居中对齐等。</li>
+<li>相等约束。如：跟父 view 等宽。<br>三等分设计思路:如图：<br><img src="https://lvwenhan.com/content/uploadfile/201503/b5e91425647800.gif" alt=""><br>根据 label 自动计算 firstTableViewCell 高度<br>选中 label，设置 lines 行数为 0，表示不限长度自动折行：</li>
+</ul>
+<p>Image</p>
+<p>修改 label 的文字内容让其超出一行：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">firstTableViewController</span>: <span class="title">UITableViewController</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="keyword">var</span> labelArray = <span class="type">Array</span>&lt;<span class="type">String</span>&gt;() <span class="comment">// 用于存储 label 文字内容</span></div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line"><span class="keyword">var</span> nib = <span class="type">UINib</span>(nibName: <span class="string">"firstTableViewCell"</span>, bundle: <span class="literal">nil</span>)</div><div class="line"></div><div class="line"><span class="keyword">self</span>.tableView.registerNib(nib, forCellReuseIdentifier: <span class="string">"firstTableViewCell"</span>)</div><div class="line"></div><div class="line"><span class="comment">// 循环生成 label 文字内容</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>...<span class="number">10</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">var</span> text = <span class="string">""</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">1</span>...i &#123;</div><div class="line"></div><div class="line">text += <span class="string">"Auto Layout"</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">labelArray.append(text)</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MARK: - Table view data source</span></div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="number">50</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="number">1</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> labelArray.<span class="built_in">count</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"firstTableViewCell"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! firstTableViewCell</div><div class="line"></div><div class="line">cell.firstLabel.text = labelArray[indexPath.row]</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在到了最关键的时刻，驱动 UITableViewCell 适应 Label 内容：</p>
+<ol>
+<li>使用 estimatedHeightForRowAtIndexPath 替代 heightForRowAtIndexPath</li>
+</ol>
+<p>estimatedHeightForRowAtIndexPath 是 iOS 7 推出的新 API。如果列表行数有一万行，那么 heightForRowAtIndexPath 就会在列表显示之前计算一万次，而 estimatedHeightForRowAtIndexPath 只会计算当前屏幕中显示着的几行，会大大提高数据量很大时候的性能。</p>
+<ol>
+<li>新建一个 prototypeCell 成员变量以复用，并在 viewDidLoad 中初始化</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">firstTableViewController</span>: <span class="title">UITableViewController</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="keyword">var</span> labelArray = <span class="type">Array</span>&lt;<span class="type">String</span>&gt;() <span class="comment">// 用于存储 label 文字内容</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> prototypeCell: firstTableViewCell!</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line"><span class="keyword">var</span> nib = <span class="type">UINib</span>(nibName: <span class="string">"firstTableViewCell"</span>, bundle: <span class="literal">nil</span>)</div><div class="line"></div><div class="line"><span class="keyword">self</span>.tableView.registerNib(nib, forCellReuseIdentifier: <span class="string">"firstTableViewCell"</span>)</div><div class="line"></div><div class="line"><span class="comment">// 初始化 prototypeCell 以便复用</span></div><div class="line"></div><div class="line">prototypeCell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"firstTableViewCell"</span>) <span class="keyword">as</span>! firstTableViewCell</div></pre></td></tr></table></figure>
+<ol>
+<li>计算出高度</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat &#123;</div><div class="line"></div><div class="line">let cell = prototypeCell</div><div class="line"></div><div class="line">cell.firstLabel.text = labelArray[indexPath.row]</div><div class="line"></div><div class="line">return cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height + 1</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>超级大坑<br>上面让 firstTableViewCell 根据 label 自动计算高度的过程中，有一个超级大坑：图片可能会被撑大</p>
+<p>这只是因为图片把 UITableViewCell 撑大了，并不是我们的计算没有效果。</p>
+<p>解决方法：根据图片自动计算 firstTableViewCell 高度<br>首先，把图片的渲染模式改成 Aspect Fit：（在Xcode的Inspector里面把view后的mode栏选为Aspect Fit）</p>
+<p>给 cellForRowAtIndexPath 增加代码：</p>
+<p>if indexPath.row &lt; 3 {<br>cell.logoImageView.image = UIImage(named: indexPath.row.description)<br>}<br>使用 Auto Layout 限制图片宽度为 80px 的原生问题：宽度虽然限制了，高度却依然是原图的高度。解决办法也很简单：如果图片宽度大于 80px，就重绘一张 80px 宽度的图片填充进去。</p>
+<p>新建一个 Group（虚拟文件夹），叫 Extensions，并在其内部新建 UIImage.swift 文件，内容如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIImage</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">resizeToSize</span><span class="params">(size: CGSize)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line"><span class="type">UIGraphicsBeginImageContext</span>(size)</div><div class="line"></div><div class="line"><span class="keyword">self</span>.drawInRect(<span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, size.width, size.height))</div><div class="line"></div><div class="line"><span class="keyword">let</span> newImage = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>()</div><div class="line"></div><div class="line"><span class="type">UIGraphicsEndImageContext</span>()</div><div class="line"></div><div class="line"><span class="keyword">return</span> newImage</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>给 UIImage 类扩展了一个名为 resizeToSize 的方法，返回一个按照要求的大小重绘过的 UIImage 对象。修改 cellForRowAtIndexPath 的代码为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"firstTableViewCell"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! firstTableViewCell</div><div class="line"></div><div class="line">cell.firstLabel.text = labelArray[indexPath.row]</div><div class="line"></div><div class="line"><span class="keyword">var</span> image = <span class="type">UIImage</span>(named: (indexPath.row % <span class="number">3</span>).description)!</div><div class="line"></div><div class="line"><span class="keyword">if</span> image.size.width &gt; <span class="number">80</span> &#123;</div><div class="line"></div><div class="line">image = image.resizeToSize(<span class="type">CGSizeMake</span>(<span class="number">80</span>, image.size.height * (<span class="number">80</span> / image.size.width)))</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">cell.logoImageView.image = image</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/AutoLayout/" data-id="cj2yp3ynl0001x7d17txbg7ga" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS学习/">iOS学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Animation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/Animation/" class="article-date">
+  <time datetime="2017-05-21T12:15:27.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/21/Animation/">Animation</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Playground-动画"><a href="#Playground-动画" class="headerlink" title="Playground 动画"></a>Playground 动画</h3><ul>
+<li>XCPlayground<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">XCPShowView(identifier: String, view: UIView) 调用告诉XCPlayground在时间轴中绘制容器视图。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><ul>
+<li>position 位置</li>
+<li>opacity 透明度</li>
+<li><p>scale 缩放</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIView.animateWithDuration(1, animations: &#123;</div><div class="line">    self.uiview.transform = CGAffineTransform(scaleX: 5.0, y: 5.0)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>color 变色</p>
+</li>
+<li><p>rotation 旋转</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let rotationTransform = CGAffineTransform(rotationAngle: 3.14)</div></pre></td></tr></table></figure>
+</li>
+<li><p>repeat 重复</p>
+</li>
+<li>easing 缓动动画： easein easeout easein and easeout</li>
+<li>spring 弹性动画</li>
+</ul>
+<h3 id="动画的12个原则"><a href="#动画的12个原则" class="headerlink" title="动画的12个原则"></a>动画的12个原则</h3><ul>
+<li><p>挤压和拉伸<br><img src="quiver-image-url/02647182423DED4995E9D35044930AAF.jpg =600x380" alt="IMAGE"></p>
+<ul>
+<li>预备动作<br><img src="http://upload-images.jianshu.io/upload_images/30690-402201e2c4d5f545.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>演出布局<br><img src="http://upload-images.jianshu.io/upload_images/30690-c2cd46f600bc046d.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>连续运动和姿态对应<br><img src="http://upload-images.jianshu.io/upload_images/30690-cc498fd86a7b9ce4.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>跟随和重叠动作<br><img src="http://upload-images.jianshu.io/upload_images/30690-cc498fd86a7b9ce4.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>缓入缓出<br><img src="http://upload-images.jianshu.io/upload_images/30690-1ec34e5a8e104353.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>弧线运动<br><img src="http://upload-images.jianshu.io/upload_images/30690-2f3fa4504f762ca2.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>次要动作<br><img src="http://upload-images.jianshu.io/upload_images/30690-8efa2601c5533902.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>时间节奏<br><img src="http://upload-images.jianshu.io/upload_images/30690-e8a244db24cd47e2.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>夸张手法<br><img src="http://upload-images.jianshu.io/upload_images/30690-bb55410e135a0003.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>扎实的描绘<br><img src="http://upload-images.jianshu.io/upload_images/30690-f3bc2bf16ba13cf7.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>吸引力<br><img src="http://upload-images.jianshu.io/upload_images/30690-b14ebf2f48208bb6.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+</ul>
+</li>
+<li><p>常用属性</p>
+</li>
+</ul>
+<p>duration : 动画的持续时间<br>beginTime : 动画的开始时间<br>repeatCount : 动画的重复次数<br>autoreverses : 执行的动画按照原动画返回执行<br>timingFunction : 控制动画的显示节奏系统提供五种值选择，分别是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">kCAMediaTimingFunctionLinear 线性动画</div><div class="line">kCAMediaTimingFunctionEaseIn 先快后慢</div><div class="line">kCAMediaTimingFunctionEaseOut 先慢后快</div><div class="line">kCAMediaTimingFunctionEaseInEaseOut 先慢后快再慢</div><div class="line">kCAMediaTimingFunctionDefault 默认，也属于中间比较快</div></pre></td></tr></table></figure></p>
+<p>delegate ： 动画代理。能够检测动画的执行和结束<br>path：关键帧动画中的执行路径<br>type：过渡动画的动画类型</p>
+<h3 id="CABaseAnimation"><a href="#CABaseAnimation" class="headerlink" title="CABaseAnimation"></a>CABaseAnimation</h3><p>重要属性<br>fromValue：keyPath对应的初始值<br>toValue：keyPath对应的结束值<br>基础动画主要提供了对于CALayer对象中的可变属性进行简单动画的操作。比如：位移、透明度、缩放、旋转、背景色等等。</p>
+<h3 id="CAKeyframeAnimation"><a href="#CAKeyframeAnimation" class="headerlink" title="CAKeyframeAnimation"></a>CAKeyframeAnimation</h3><p>CAKeyframeAnimation和CABaseAnimation都属于CAPropertyAnimatin的子类。CABaseAnimation只能从一个数值（fromValue）变换成另一个数值（toValue）,而CAKeyframeAnimation则会使用一个NSArray保存一组关键帧。<br>重要属性<br>values：就是上述的NSArray对象。里面的元素称为”关键帧”(keyframe)。动画对象会在指定的时间(duration)内，依次显示values数组中的每一个关键帧<br>path：可以设置一个CGPathRef\CGMutablePathRef,让层跟着路径移动。path只对CALayer的anchorPoint和position起作用。如果你设置了path，那么values将被忽略。<br>keyTimes：可以为对应的关键帧指定对应的时间点,其取值范围为0到1.0,keyTimes中的每一个时间值都对应values中的每一帧.当keyTimes没有设置的时候,各个关键帧的时间是平分的。</p>
+<h3 id="CAAnimationGroup"><a href="#CAAnimationGroup" class="headerlink" title="CAAnimationGroup"></a>CAAnimationGroup</h3><p>CAAnimation的子类，可以保存一组动画对象，将CAAnimationGroup对象加入层后，组中所有动画对象可以同时并发运行。<br>重要属性<br>animations: 用来保存一组动画对象的NSArray</p>
+<h3 id="CATransition）"><a href="#CATransition）" class="headerlink" title="CATransition）"></a>CATransition）</h3><p>CAAnimation的子类，用于做过渡动画或者转场动画，能够为层提供移出屏幕和移入屏幕的动画效果。<br>重要属性<br>type：动画过渡类型<br>Apple 官方的SDK其实只提供了四种过渡效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kCATransitionFade 渐变效果</div><div class="line">kCATransitionMoveIn 进入覆盖效果</div><div class="line">kCATransitionPush 推出效果</div><div class="line">kCATransitionReveal 揭露离开效果</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/Animation/" data-id="cj2yp3yng0000x7d1dvaapx4r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS学习/">iOS学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-TouchID" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/TouchID/" class="article-date">
+  <time datetime="2017-05-21T12:13:00.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/21/TouchID/">TouchID</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">authenticateUser</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">let</span> context = <span class="type">LAContext</span>()</div><div class="line">        <span class="keyword">var</span> error: <span class="type">NSError</span>?</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;error) &#123;</div><div class="line">            <span class="keyword">let</span> reason = <span class="string">"Identify yourself!"</span></div><div class="line">            </div><div class="line">            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) &#123;</div><div class="line">                [<span class="keyword">unowned</span> <span class="keyword">self</span>] success, authenticationError <span class="keyword">in</span></div><div class="line">                </div><div class="line">                <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">                    <span class="keyword">if</span> success &#123;</div><div class="line">                        <span class="keyword">self</span>.runSecretCode()</div><div class="line">                    &#125; <span class="keyword">else</span> &#123;</div><div class="line">                        <span class="keyword">let</span> ac = <span class="type">UIAlertController</span>(title: <span class="string">"Authentication failed"</span>, message: <span class="string">"Sorry!"</span>, preferredStyle: .alert)</div><div class="line">                        ac.addAction(<span class="type">UIAlertAction</span>(title: <span class="string">"OK"</span>, style: .<span class="keyword">default</span>))</div><div class="line">                        <span class="keyword">self</span>.present(ac, animated: <span class="literal">true</span>)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">let</span> ac = <span class="type">UIAlertController</span>(title: <span class="string">"Touch ID not available"</span>, message: <span class="string">"Your device is not configured for Touch ID."</span>, preferredStyle: .alert)</div><div class="line">            ac.addAction(<span class="type">UIAlertAction</span>(title: <span class="string">"OK"</span>, style: .<span class="keyword">default</span>))</div><div class="line">            present(ac, animated: <span class="literal">true</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">runSecretCode</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"run secret"</span>)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> myContext = <span class="type">LAContext</span>()</div><div class="line"><span class="keyword">let</span> myLocalizedReasonString = &lt;#<span class="type">String</span> explaining why app needs authentication#&gt;</div><div class="line"> </div><div class="line"><span class="keyword">var</span> authError: <span class="type">NSError</span>? = <span class="literal">nil</span></div><div class="line"><span class="keyword">if</span> #available(iOS <span class="number">8.0</span>, <span class="type">OSX</span> <span class="number">10.12</span>, *) &#123;</div><div class="line">    <span class="keyword">if</span> myContext.canEvaluatePolicy(<span class="type">LAPolicy</span>.<span class="type">DeviceOwnerAuthenticationWithBiometrics</span>, error: &amp;authError) &#123;</div><div class="line">        myContext.evaluatePolicy(<span class="type">LAPolicy</span>.<span class="type">DeviceOwnerAuthenticationWithBiometrics</span>, localizedReason: myLocalizedReasonString) &#123; (success, evaluateError) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> (success) &#123;</div><div class="line">                <span class="comment">// User authenticated successfully, take appropriate action</span></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">// User did not authenticate successfully, look at error and take appropriate action</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">// Could not evaluate policy; look at authError and present an appropriate message to user</span></div><div class="line">    &#125;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// Fallback on earlier versions</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">import</span> LocalAuthentication</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> error:<span class="type">NSError</span>?</div><div class="line">    </div><div class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">loginButtonClicked</span><span class="params">(<span class="number">_</span> sender: Any)</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> authenticationContext = <span class="type">LAContext</span>()</div><div class="line">        </div><div class="line">        <span class="comment">// 2. Check if the device has a fingerprint sensor</span></div><div class="line">        <span class="comment">// If not, show the user an alert view and bail out!</span></div><div class="line">        <span class="keyword">guard</span> authenticationContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &amp;error) <span class="keyword">else</span> &#123;</div><div class="line">            </div><div class="line">            showAlertViewIfNoBiometricSensorHasBeenDetected()</div><div class="line">            <span class="keyword">return</span></div><div class="line">        </div><div class="line">    &#125;</div><div class="line">        </div><div class="line">        <span class="comment">// 3. Check the fingerprint</span></div><div class="line">        authenticationContext.evaluatePolicy(</div><div class="line">            .deviceOwnerAuthenticationWithBiometrics,</div><div class="line">            localizedReason: <span class="string">"Only awesome people are allowed"</span>,</div><div class="line">            reply: &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] (success, error) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">                </div><div class="line">                <span class="keyword">if</span>( success ) &#123;</div><div class="line">                    </div><div class="line">                    <span class="comment">// Fingerprint recognized</span></div><div class="line">                    <span class="comment">// Go to view controller</span></div><div class="line">                    <span class="keyword">self</span>.navigateToAuthenticatedViewController()</div><div class="line">                    </div><div class="line">                &#125;<span class="keyword">else</span> &#123;</div><div class="line">                    </div><div class="line">                    <span class="comment">// Check if there is an error</span></div><div class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> error: <span class="type">NSError</span> = (error <span class="keyword">as</span> <span class="type">NSError</span>??)!&#123;</div><div class="line">                        <span class="keyword">let</span> message = <span class="keyword">self</span>.errorMessageForLAErrorCode(errorCode: error.code)</div><div class="line">                        <span class="keyword">self</span>.showAlertViewAfterEvaluatingPolicyWithMessage(message: message)</div><div class="line">                    &#125;&#125;&#125;)&#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will present an UIAlertViewController to inform the user that the device has not a TouchID sensor.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showAlertViewIfNoBiometricSensorHasBeenDetected</span><span class="params">()</span></span>&#123;</div><div class="line">        </div><div class="line">        showAlertWithTitle(title: <span class="string">"Error"</span>, message: <span class="string">"This device does not have a TouchID sensor."</span>)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will present an UIAlertViewController to inform the user that there was a problem with the TouchID sensor.</div><div class="line">     </div><div class="line">     - parameter error: the error message</div><div class="line">     </div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showAlertViewAfterEvaluatingPolicyWithMessage</span><span class="params">( message:String )</span></span>&#123;</div><div class="line">        </div><div class="line">        showAlertWithTitle(title: <span class="string">"Error"</span>, message: message)</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method presents an UIAlertViewController to the user.</div><div class="line">     </div><div class="line">     - parameter title:  The title for the UIAlertViewController.</div><div class="line">     - parameter message:The message for the UIAlertViewController.</div><div class="line">     </div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showAlertWithTitle</span><span class="params">( title:String, message:String )</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> alertVC = <span class="type">UIAlertController</span>(title: title, message: message, preferredStyle: .alert)</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> okAction = <span class="type">UIAlertAction</span>(title: <span class="string">"Ok"</span>, style: .<span class="keyword">default</span>, handler: <span class="literal">nil</span>)</div><div class="line">        alertVC.addAction(okAction)</div><div class="line">        </div><div class="line">        <span class="type">DispatchQueue</span>.main.async() &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">            </div><div class="line">            <span class="keyword">self</span>.present(alertVC, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will return an error message string for the provided error code.</div><div class="line">     The method check the error code against all cases described in the `LAError` enum.</div><div class="line">     If the error code can't be found, a default message is returned.</div><div class="line">     </div><div class="line">     - parameter errorCode: the error code</div><div class="line">     - returns: the error message</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">errorMessageForLAErrorCode</span><span class="params">( errorCode:Int )</span></span> -&gt; <span class="type">String</span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> message = <span class="string">""</span></div><div class="line">        </div><div class="line">        <span class="keyword">switch</span> errorCode &#123;</div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.appCancel.rawValue:</div><div class="line">            message = <span class="string">"Authentication was cancelled by application"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.authenticationFailed.rawValue:</div><div class="line">            message = <span class="string">"The user failed to provide valid credentials"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.invalidContext.rawValue:</div><div class="line">            message = <span class="string">"The context is invalid"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.passcodeNotSet.rawValue:</div><div class="line">            message = <span class="string">"Passcode is not set on the device"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.systemCancel.rawValue:</div><div class="line">            message = <span class="string">"Authentication was cancelled by the system"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.touchIDLockout.rawValue:</div><div class="line">            message = <span class="string">"Too many failed attempts."</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.touchIDNotAvailable.rawValue:</div><div class="line">            message = <span class="string">"TouchID is not available on the device"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.userCancel.rawValue:</div><div class="line">            message = <span class="string">"The user did cancel"</span></div><div class="line">            </div><div class="line">        <span class="keyword">case</span> <span class="type">LAError</span>.userFallback.rawValue:</div><div class="line">            message = <span class="string">"The user chose to use the fallback"</span></div><div class="line">            </div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            message = <span class="string">"Did not find error code on LAError object"</span></div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> message</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">/**</span></div><div class="line">     This method will push the authenticated view controller onto the UINavigationController stack</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">navigateToAuthenticatedViewController</span><span class="params">()</span></span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> loggedInVC = storyboard?.instantiateViewController(withIdentifier: <span class="string">"LoggedInViewController"</span>) &#123;</div><div class="line">            </div><div class="line">            <span class="type">DispatchQueue</span>.main.async()</div><div class="line">                &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">                    </div><div class="line">                    <span class="keyword">self</span>.navigationController?.pushViewController(loggedInVC, animated: <span class="literal">true</span>)</div><div class="line">                    </div><div class="line">                    </div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="comment">// Do any additional setup after loading the view, typically from a nib.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/TouchID/" data-id="cj2yp3yo50009x7d1yap7jl7h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIKit/">UIKit</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Time-Line" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/Time-Line/" class="article-date">
+  <time datetime="2017-05-21T12:09:44.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/21/Time-Line/">Time-Line</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//根据cell判断cell中bottomLine的颜色，如果不是最后一个，则颜色和topLine颜色一样。</div><div class="line">    cell.buttomLine.backgroundColor = indexPath.row == (_dataArray.count-1) ? [UIColor grayColor] : cell.topLine.backgroundColor;</div><div class="line">     self.topLine.backgroundColor = cell.topLine.backgroundColor;</div><div class="line">   // cell.topLine.backgroundColor = indexPath.row == 0 ? [UIColor clearColor] : self.topLine.backgroundColor;</div><div class="line">     </div><div class="line">    //使创建的 topLine 视图背景颜色 等于 cell中 topLine 的背景颜色</div><div class="line">    self.topLine.backgroundColor = cell.topLine.backgroundColor;</div><div class="line">    //获取cell中topLine 或者bottomLine 的 x 位置。</div><div class="line">    /**</div><div class="line">     *   将像素point由point所在视图转换到目标视图view中，返回在目标视图view中的像素值</div><div class="line">     *   (CGPoint)convertPoint:(CGPoint)point toView:(UIView *)view</div><div class="line">     */</div><div class="line">     self.leadingSpaceOfLines =  [cell convertPoint:cell.topLine.frame.origin toView:self.view].x;</div><div class="line">     </div><div class="line">    [self scrollViewDidScroll:tableView];</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#pragma mark --important code--</div><div class="line">//根据上下拉动，动态改变 topLine 和 bottomLine 的 y 轴坐标。</div><div class="line">- (void)scrollViewDidScroll:(UIScrollView *)scrollView</div><div class="line">&#123;</div><div class="line">    _topLine.frame = CGRectMake(_leadingSpaceOfLines, 0, 3, -scrollView.contentOffset.y);</div><div class="line"> </div><div class="line">    CGFloat yOffSet = scrollView.frame.size.height - scrollView.contentSize.height + scrollView.contentOffset.y ;</div><div class="line">    _bottomLine.frame = CGRectMake(_leadingSpaceOfLines, self.view.frame.size.height - yOffSet, 3, self.view.frame.size.height);</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/Time-Line/" data-id="cj2yp3ynx0005x7d1lu8zrbyc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-appdelegate-location" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -96,12 +586,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool &#123;</div><div class="line"></div><div class="line"></div><div class="line">  //开启定位</div><div class="line">    loadLocation()  </div><div class="line"></div><div class="line"> return true</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>第三步 实现代理方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">extension AppDelegate: CLLocationManagerDelegate</div><div class="line">&#123;</div><div class="line"></div><div class="line">//打开定位</div><div class="line">func loadLocation()</div><div class="line">&#123;</div><div class="line"></div><div class="line">    locationManager.delegate = self</div><div class="line">    //定位方式</div><div class="line">    locationManager.desiredAccuracy = kCLLocationAccuracyBest</div><div class="line"></div><div class="line">     //iOS8.0以上才可以使用</div><div class="line">    if(UIDevice.currentDevice().systemVersion &gt;= &quot;8.0&quot;)&#123;</div><div class="line">        //始终允许访问位置信息</div><div class="line">        locationManager.requestAlwaysAuthorization()</div><div class="line">        //使用应用程序期间允许访问位置数据</div><div class="line">        locationManager.requestWhenInUseAuthorization()</div><div class="line">    &#125;</div><div class="line">    //开启定位</div><div class="line">    locationManager.startUpdatingLocation()</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//获取定位信息</div><div class="line">func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) &#123;</div><div class="line"></div><div class="line">    //取得locations数组的最后一个</div><div class="line">    let location:CLLocation = locations[locations.count-1]</div><div class="line">    currLocation = locations.last!</div><div class="line">    //判断是否为空</div><div class="line">    if(location.horizontalAccuracy &gt; 0)&#123;</div><div class="line">        lat = Double(String(format: &quot;%.1f&quot;, location.coordinate.latitude))</div><div class="line">        long = Double(String(format: &quot;%.1f&quot;, location.coordinate.longitude))</div><div class="line">        print(&quot;纬度:\(long!)&quot;)</div><div class="line">        print(&quot;经度:\(lat!)&quot;)</div><div class="line">        LonLatToCity()</div><div class="line">        //停止定位</div><div class="line">        locationManager.stopUpdatingLocation()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">//出现错误</div><div class="line">func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?) &#123;</div><div class="line">    print(error)</div><div class="line">&#125;</div><div class="line"></div><div class="line">///将经纬度转换为城市名</div><div class="line">func LonLatToCity() &#123;</div><div class="line">    let geocoder: CLGeocoder = CLGeocoder()</div><div class="line">    geocoder.reverseGeocodeLocation(currLocation) &#123; (placemark, error) -&gt; Void in</div><div class="line"></div><div class="line">        if(error == nil)</div><div class="line">        &#123;</div><div class="line">            let array = placemark! as NSArray</div><div class="line">            let mark = array.firstObject as! CLPlacemark</div><div class="line">            //城市</div><div class="line">            var city: String = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;City&quot;) as! String</div><div class="line">            //国家</div><div class="line">            let country: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;Country&quot;) as! NSString</div><div class="line">            //国家编码</div><div class="line">            let CountryCode: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;CountryCode&quot;) as! NSString</div><div class="line">            //街道位置</div><div class="line">            let FormattedAddressLines: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;FormattedAddressLines&quot;)?.firstObject as! NSString</div><div class="line">            //具体位置</div><div class="line">            let Name: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;Name&quot;) as! NSString</div><div class="line">            //省</div><div class="line">            var State: String = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;State&quot;) as! String</div><div class="line">            //区</div><div class="line">            let SubLocality: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;SubLocality&quot;) as! NSString</div><div class="line"></div><div class="line"></div><div class="line">            //如果需要去掉“市”和“省”字眼</div><div class="line"></div><div class="line">            State = State.stringByReplacingOccurrencesOfString(&quot;省&quot;, withString: &quot;&quot;)</div><div class="line">            let citynameStr = city.stringByReplacingOccurrencesOfString(&quot;市&quot;, withString: &quot;&quot;)</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            print(error)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/21/appdelegate-location/" data-id="cj2yoxhwe0000vdd1bt048f7x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/05/21/appdelegate-location/" data-id="cj2yp3yo20008x7d17wco3hc2" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li></ul>
+
     </footer>
   </div>
   
@@ -118,13 +611,27 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIKit/">UIKit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS学习/">iOS学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/UIKit/" style="font-size: 10px;">UIKit</a> <a href="/tags/iOS-学习/" style="font-size: 15px;">iOS 学习</a> <a href="/tags/iOS学习/" style="font-size: 20px;">iOS学习</a> <a href="/tags/学习笔记/" style="font-size: 10px;">学习笔记</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Arkiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
     </div>
@@ -134,12 +641,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Siste innlegg</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/05/21/appdelegate-location/">appdelegate location</a>
+            <a href="/2017/05/21/Life-Cycle-Of-a-project/">Life Cycle Of a project</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Custom-Cell/">Custom Cell</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/AutoLayout/">AutoLayout</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Animation/">Animation</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/TouchID/">TouchID</a>
           </li>
         
       </ul>

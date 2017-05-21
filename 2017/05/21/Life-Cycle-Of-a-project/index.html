@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Life Cycle Of a project | Skate Cloud&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Device Architecture And Conditional Code iPhone: iPhone/iPod,可以在iPad上运行，但不是原生的，仿生（兼容模式 iPad：只在iPad运行 universal：各种 两种决定运行平台的settings Base SDK:  Xcode 8: iOS10.0/latest iOS(better,自动使用最新SDK) iOS Develop">
+<meta name="keywords" content="iOS 学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Life Cycle Of a project">
+<meta property="og:url" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/index.html">
+<meta property="og:site_name" content="Skate Cloud&#39;s Blog">
+<meta property="og:description" content="Device Architecture And Conditional Code iPhone: iPhone/iPod,可以在iPad上运行，但不是原生的，仿生（兼容模式 iPad：只在iPad运行 universal：各种 两种决定运行平台的settings Base SDK:  Xcode 8: iOS10.0/latest iOS(better,自动使用最新SDK) iOS Develop">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/1CECFB4615999ADC67A4DC2EBFDC19B3.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/20CA350F814109E5A3F7CA7A1B15B04B.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/33CBF8FF022F1B8849FD3764617EC6FA.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/82E7A457EC13FD5D49416F14F8193686.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/6193AB3A4F8C240888CBA743C85F2384.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/2649D8A3229B53C7FD8F81D8645A6565.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/BA67975B1CA3730AF7AECBE34153E4D8.png">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/F360F2D7309834625B91EC245E65B0F9.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/7E923AE84EB215494E1212FBCA8EC019.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/A58B11BD99500F91873C0D597B9EE8ED.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/A51653A1539E7C0BFBFE6A2DE07F2678.gif">
+<meta property="og:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/D83BFA1B5F26C91B285EFAC211904A9D.gif">
+<meta property="og:updated_time" content="2017-05-21T12:44:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Life Cycle Of a project">
+<meta name="twitter:description" content="Device Architecture And Conditional Code iPhone: iPhone/iPod,可以在iPad上运行，但不是原生的，仿生（兼容模式 iPad：只在iPad运行 universal：各种 两种决定运行平台的settings Base SDK:  Xcode 8: iOS10.0/latest iOS(better,自动使用最新SDK) iOS Develop">
+<meta name="twitter:image" content="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/resources/1CECFB4615999ADC67A4DC2EBFDC19B3.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Skate Cloud&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Skate Cloud&#39;s Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">^ω^</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Life-Cycle-Of-a-project" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/21/Life-Cycle-Of-a-project/" class="article-date">
+  <time datetime="2017-05-21T12:23:59.000Z" itemprop="datePublished">2017-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Life Cycle Of a project
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Device-Architecture-And-Conditional-Code"><a href="#Device-Architecture-And-Conditional-Code" class="headerlink" title="Device Architecture And Conditional Code"></a>Device Architecture And Conditional Code</h1><ul>
+<li>iPhone: iPhone/iPod,可以在iPad上运行，但不是原生的，仿生（兼容模式</li>
+<li>iPad：只在iPad运行</li>
+<li>universal：各种</li>
+<li>两种决定运行平台的settings</li>
+<li>Base SDK: </li>
+<li>Xcode 8: iOS10.0/latest iOS(better,自动使用最新SDK)</li>
+<li>iOS Development Target</li>
+</ul>
+<h1 id="向后兼容"><a href="#向后兼容" class="headerlink" title="向后兼容"></a>向后兼容</h1><ul>
+<li>主要问题：</li>
+<li>行为差异：在不同的系统中，功能模块也会存在差异</li>
+<li>不支持的特性： 新系统中，Apple会加入很多新特性</li>
+<li>例如：在iOS10中，绘制一个图形：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let r = UIGraphicsImageRenderer(size:CGSize(width:10,height:10))</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>但是UIGraphicsImageRenderer class只在iOS10及以后才会有，所以应该修改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">if #available(iOS 10.0,*)&#123;</div><div class="line">let r = UIGraphicsImageRenderer(size:CGSize(width:10,height:10))</div><div class="line">&#125;else&#123;</div><div class="line">//Fallback on earlier versions</div><div class="line">&#125;</div><div class="line"></div><div class="line"># 版本控制</div><div class="line">* 安全性</div><div class="line">* 合作</div><div class="line">* freedom</div><div class="line"></div><div class="line"></div><div class="line"># Debug</div><div class="line">* 基本断点</div><div class="line">* 监视变量 </div><div class="line">* 全局断点</div><div class="line">* 条件断点</div><div class="line">* 打印</div><div class="line">* NSLog</div><div class="line">* Console命令（lldb）</div><div class="line">* Profile(instruments)</div><div class="line">* &quot;No Warning! Pass Analyze&quot;</div><div class="line">* Xcode视图调试</div><div class="line">* iOS模拟器调试</div><div class="line"></div><div class="line"># Testing</div><div class="line">* Unit tests</div><div class="line">* Interface(UI) tests</div><div class="line"># Clean</div><div class="line"></div><div class="line">Main函数入口</div><div class="line"></div><div class="line">所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现。示例代码如下：</div><div class="line"></div><div class="line">```swift</div><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &quot;AppDelegate.h&quot;</div><div class="line"></div><div class="line">int main(int argc, char * argv[])</div><div class="line">&#123;</div><div class="line">@autoreleasepool &#123;</div><div class="line">return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</div><div class="line">&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面实例代码中有一个很重要的函数UIApplicationMain，它主要是创建app的几个核心对象来处理以下过程：</p>
+<p>从可用Storyboard文件加载用户界面<br>调用AppDelegate自定义代码来做一些初始化设置<br>将app放入Main Run Loop环境中来响应和处理与用户交互产生的事件</p>
+<h1 id="应用程序的架构"><a href="#应用程序的架构" class="headerlink" title="应用程序的架构"></a>应用程序的架构</h1><p>iOS应用程序都遵循<code>Model-View-Controller</code>的架构，<code>Model</code>负责存储数据和处理业务逻辑，<code>View</code>负责显示数据和与用户交互，<code>Controller</code>是两者的中介，协调<code>Model</code>和<code>View</code>相互协作。它们的通讯规则如下：</p>
+<ol>
+<li><code>Controller</code>能够访问<code>Model</code>和<code>View</code>，<code>Model</code>和<code>View</code>不能互相访问</li>
+</ol>
+<p><img src="resources/1CECFB4615999ADC67A4DC2EBFDC19B3.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<ol>
+<li>当<code>View</code>与用户交互产生事件时，使用<code>target-action</code>方式来处理</li>
+</ol>
+<p><img src="resources/20CA350F814109E5A3F7CA7A1B15B04B.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<ol>
+<li>当<code>View</code>需要处理一些特殊UI逻辑或获取数据源时，通过<code>delegate</code>或<code>data source</code>方式交给<code>Controller</code>来处理</li>
+</ol>
+<p><img src="resources/33CBF8FF022F1B8849FD3764617EC6FA.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<ol>
+<li><code>Model</code>不能直接与<code>Controller</code>通信，当<code>Model</code>有数据更新时，可以通过<code>Notification</code>或<code>KVO (Key Value Observing)</code>来通知<code>Controller</code>更新<code>View</code></li>
+</ol>
+<p><img src="resources/82E7A457EC13FD5D49416F14F8193686.png" alt=""></p>
+<p>MVC Communication - Reference from Stanford University.png</p>
+<p><img src="resources/6193AB3A4F8C240888CBA743C85F2384.png" alt=""></p>
+<p>The Structure of an App.png</p>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/" target="_blank" rel="external">UIApplication</a>对象<br>用户与iOS设备交互时产生的事件(Multitouch Events，Motion Event，Remote Control Event)交由<code>UIApplication</code>对象来分发给control objects(<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/index.html#//apple_ref/occ/cl/UIControl" target="_blank" rel="external">UIControl</a>)对应的target objects来处理并且管理整个事件循环，而一些关于app运行时重要事件委托给<code>app delegate</code>来处理。</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/" target="_blank" rel="external">App delegate</a>对象<br><code>App delegate</code>对象遵循<code>UIApplicationDelegate</code>协议，响应app运行时重要事件(app启动、app内存不足、app终止、切换到另一个app、切回app)，主要用于app在启动时初始化一些重要数据结构；例如，初始化<code>UIWindow</code>，设置一些属性，为window添加<code>rootViewController</code>。</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/" target="_blank" rel="external">View controller</a>对象<br><code>View Controller</code>有一个<code>view</code>属性是view层次结构中的根view，你可以添加子view来构建复杂的view；controller有一些<code>viewDidLoad</code>、<code>viewWillAppear</code>等方法来管理view的生命周期；由于它继承<code>UIResponder</code>，所有还会响应和处理用户事件。</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDocument_Class/" target="_blank" rel="external">Documents</a>和data model对象<br>data model对象主要用来存储数据。例如，饿了么app在搜索切换地址后，有历史记录搜索地址历史，当app下次启动时，读取和显示搜索地址历史。<br>document对象(继承UIDocument)用来管理一些或所有的data model对象。document对象并不是必须的，但提供一种方便的方式来分组属于单个文件或多个文件的数据。</li>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIWindow_Class/" target="_blank" rel="external">UIWindow</a>对象<br><code>UIWindow</code>对象位于view层次结构中的最顶层，它充当一个基本容器而不显示内容，如果想显示内容，添加一个content view到window。<br>它也是继承<code>UIResponder</code>，所以它也是会响应和处理用户事件。</li>
+<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">View</a>、<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/" target="_blank" rel="external">control</a>、<a href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CALayer_class/" target="_blank" rel="external">layer</a>对象<br><code>View</code>对象可以通过addSubview和removeFromSuperview 等方法管理view的层次结构，使用layoutIfNeeded和setNeedsLayout等方法布局view的层次结构，当你发现系统提供view已经满足不了你想要的外观需求时，可以重写drawRect方法或通过layer属性来构造复杂的图形外观和动画。还有一点，UIView也是继承UIResponder，所以也能够处理用户事件。<br><code>Control</code>对象通常就是处理特定类型用户交互的View，常用的有button、switch、text field等。<br>除了使用<code>View</code>和<code>Control</code>来构建view层次结构来影响app外观之外，还可以使用Core Animation框架的<code>Layer</code>对象来渲染view外观和构建复杂的动画。</li>
+</ul>
+<h1 id="Main-Run-Loop"><a href="#Main-Run-Loop" class="headerlink" title="Main Run Loop"></a>Main Run Loop</h1><p>一个iOS应用程序的main run loop主要作用是处理所有与用户相关的事件。<code>UIApplication</code>对象在启动时就设置main run loop和使用它来处理事件和更新基于view的界面。正如它名字所示，main run loop是运行在应用程序的主线程。这样就确保与接收到用户相关的事件被有序地处理。</p>
+<p>下图显示main run loop的架构和用户事件最终是怎样被应用程序处理。当用户与设备交互时，系统就会生成与交互关联的事件，然后被应用程序的UIKit通过一个特殊的端口来分发。应用程序把事件放入队列，然后逐个分发到main run loop来执行。<code>UIApplication</code>对象是第一个对象接收到事件，然后决定怎样处理它。一个touch event通常都被分发到main window对象，然后依次分发到发生触碰的view。其他event的接收事件对象路径可能有点不同。</p>
+<p><img src="resources/2649D8A3229B53C7FD8F81D8645A6565.png" alt=""></p>
+<p>Main Run Loop from Apple Document</p>
+<p>大多数的事件通过使用main run loop来分发，但有些不是。有些事件被发送到一个delegate对象或传递到你提供的block中。想了解更多如何处理大多数类型的事件，其中包括touch、remote control、motion、accelerometer和gyroscopic等事件，请查阅<a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Introduction/Introduction.html" target="_blank" rel="external">Event Handle Guide for iOS</a>。</p>
+<h1 id="应用程序的状态和多任务"><a href="#应用程序的状态和多任务" class="headerlink" title="应用程序的状态和多任务"></a>应用程序的状态和多任务</h1><p>有时系统会从app一种状态切换另一种状态来响应系统发生的事件。例如，当用户按下home键、电话打入、或其他中断发生时，当前运行的应用程序会切换状态来响应。应用程序的状态有以下几种：</p>
+<p><img src="resources/BA67975B1CA3730AF7AECBE34153E4D8.png" alt=""></p>
+<p>App State from Apple Document</p>
+<ul>
+<li>Not running：app还没运行</li>
+<li>Inactive：app运行在foreground但没有接收事件</li>
+<li>Active：app运行在foreground和正在接收事件</li>
+<li>Background：运行在background和正在执行代码</li>
+<li>Suspended：运行在background但没有执行代码</li>
+</ul>
+<p>大多数发生状态转换时都会调用<code>delegate</code>对象对应的方法来响应app的状态改变。下面汇总了<code>delegate</code>对象的所有方法，当app状态发生转换时，你可能会使用到它们。</p>
+<ul>
+<li><code>application:willFinishLaunchingWithOptions:</code> - 这个方法是你在启动时的第一次机会来执行代码</li>
+<li><code>application:didFinishLaunchingWithOptions:</code> - 这个方法允许你在显示app给用户之前执行最后的初始化操作</li>
+<li><code>applicationDidBecomeActive:</code> - app已经切换到active状态后需要执行的操作</li>
+<li><code>applicationWillResignActive:</code> - app将要从前台切换到后台时需要执行的操作</li>
+<li><code>applicationDidEnterBackground:</code> - app已经进入后台后需要执行的操作</li>
+<li><code>applicationWillEnterForeground:</code> - app将要从后台切换到前台需要执行的操作，但app还不是active状态</li>
+<li><code>applicationWillTerminate:</code> - app将要结束时需要执行的操作</li>
+</ul>
+<p>现在讲下app启动、来回切换app和锁屏时状态的切换和调用对应哪些delegate对象的方法：</p>
+<ul>
+<li>app启动和active/inactive</li>
+</ul>
+<p><img src="resources/F360F2D7309834625B91EC245E65B0F9.gif" alt=""></p>
+<p>Launch and active/inactive from Apple WWDC 2011 Session</p>
+<p>如图所示，当app启动时，首先由<code>not running</code>状态切换到<code>inactive</code>状态，此时调用<code>application:didFinishLaunchingWithOptions:</code>方法；然后由<code>inactive</code>状态切换到<code>active</code>状态，此时调用<code>applicationDidBecomeActive:</code>方法。</p>
+<p><img src="resources/7E923AE84EB215494E1212FBCA8EC019.gif" alt=""></p>
+<p>Launch and active/inactive 2 from Apple WWDC 2011 Session</p>
+<p>当app发生中断时，由<code>active</code>状态切换到<code>inactive</code>状态，此时调用<code>applicationWillResignActive:</code>方法。</p>
+<ul>
+<li>来回切换app</li>
+</ul>
+<p><img src="resources/A58B11BD99500F91873C0D597B9EE8ED.gif" alt=""></p>
+<p>Switch from an app from Apple WWDC 2011 Session</p>
+<p>如图所示，当切换到另一个app时，由状态<code>active</code>切换到<code>inactive</code>，此时调用<code>applicationWillResignActive:</code>方法；然后从<code>inactive</code>状态切换到<code>running</code>状态，此时调用<code>applicationDidEnterBackground:</code>方法。</p>
+<p><img src="resources/A51653A1539E7C0BFBFE6A2DE07F2678.gif" alt=""></p>
+<p>Switch to an app from Apple WWDC 2011 Session</p>
+<p>而当切换回本来的app时，由<code>running</code>状态切换到<code>inactive</code>状态，此时调用<code>applicationWillEnterForeground:</code>方法，然后由<code>inactive</code>状态切换到<code>active</code>状态，调用<code>applicationDidBecomeActive:</code>方法。</p>
+<ul>
+<li>锁屏</li>
+</ul>
+<p><img src="resources/D83BFA1B5F26C91B285EFAC211904A9D.gif" alt=""></p>
+<p>Device lock from Apple WWDC 2011 Session</p>
+<p>如何所示，当手机锁屏时，由状态<code>active</code>切换到<code>inactive</code>，此时调用<code>applicationWillResignActive:</code>；然后再由<code>inactive</code>状态切换到<code>running</code>状态，此时调用<code>applicationDidEnterBackground:</code>方法。</p>
+<p>更多关于app状态切换以及调用<code>app delegate</code>哪些方法，请观看WWDC 2011 Session的<a href="https://developer.apple.com/videos/wwdc/2011/" target="_blank" rel="external">session_320__adopting_multitasking_in_your_app</a>视频。</p>
+<h1 id="应用程序的终止"><a href="#应用程序的终止" class="headerlink" title="应用程序的终止"></a>应用程序的终止</h1><p>系统常常是为其他app启动时由于内存不足而回收内存最后需要终止应用程序，但有时也会是由于app很长时间才响应而终止。如果app当时运行在后台并且没有暂停，系统会在应用程序终止之前调用<code>applicationWillTerminate:</code>来保存用户的一些重要数据以便下次启动时恢复到app原来的状态。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/" data-id="cj2yp3ynu0004x7d125u071oc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/05/21/Custom-Cell/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Custom Cell</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIKit/">UIKit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS-学习/">iOS 学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS学习/">iOS学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/UIKit/" style="font-size: 10px;">UIKit</a> <a href="/tags/iOS-学习/" style="font-size: 15px;">iOS 学习</a> <a href="/tags/iOS学习/" style="font-size: 20px;">iOS学习</a> <a href="/tags/学习笔记/" style="font-size: 10px;">学习笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/21/Life-Cycle-Of-a-project/">Life Cycle Of a project</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Custom-Cell/">Custom Cell</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/AutoLayout/">AutoLayout</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/Animation/">Animation</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/21/TouchID/">TouchID</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Skate Cloud<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
