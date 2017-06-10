@@ -339,20 +339,12 @@
 <ul>
 <li>optional</li>
 </ul>
-<blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="function"><span class="keyword">func</span> <span class="title">optionalExpecter</span><span class="params">(<span class="number">_</span> s: String)</span></span>&#123;&#125;</div><div class="line">&gt;<span class="keyword">let</span> str: <span class="type">String</span>? = <span class="string">"he"</span></div><div class="line">&gt;optionalExpecter(str)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; // 错误信息： Value of optional type &apos;String?&apos; not unwrapped; did you mean to use &apos;!&apos; or &apos;?&apos;?</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">func optionalExpecter(_ s: String)&#123;&#125;</div><div class="line">let str: String? = &quot;he&quot;</div><div class="line">optionalExpecter(str)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// 错误信息： Value of optional type &apos;String?&apos; not unwrapped; did you mean to use &apos;!&apos; or &apos;?&apos;?</div></pre></td></tr></table></figure>
 <ul>
 <li>unwrapping</li>
 </ul>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;func optionalExpecter(_ s: String)&#123;&#125;</div><div class="line">&gt;let str: String? = &quot;he&quot;</div><div class="line">&gt;optionalExpecter(str!)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</blockquote>
-<p>&gt;</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">optionalExpecter</span><span class="params">(<span class="number">_</span> s: String)</span></span>&#123;&#125;</div><div class="line"><span class="keyword">let</span> str: <span class="type">String</span>? = <span class="string">"he"</span></div><div class="line">optionalExpecter(str!)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>str是可选的string，而<code>str!</code>则是获取了str的内容，即string</p>
 </blockquote>
@@ -365,24 +357,19 @@
 <ul>
 <li>nil</li>
 </ul>
-<blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="keyword">var</span> str: <span class="type">String</span>? = <span class="string">"how"</span></div><div class="line">&gt;<span class="keyword">if</span> str == <span class="literal">nil</span>&#123;</div><div class="line">&gt;    <span class="built_in">print</span>(<span class="string">"str is empty"</span>)</div><div class="line">&gt;&#125;<span class="keyword">else</span>&#123;</div><div class="line">&gt;    str = <span class="literal">nil</span></div><div class="line">&gt;    <span class="built_in">print</span>(<span class="string">"now str is empty"</span>)</div><div class="line">&gt;&#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</blockquote>
-<p>&gt;</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str: <span class="type">String</span>? = <span class="string">"how"</span></div><div class="line"><span class="keyword">if</span> str == <span class="literal">nil</span>&#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"str is empty"</span>)</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    str = <span class="literal">nil</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"now str is empty"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>// <em>output</em>: <strong>now str is empty</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="keyword">var</span> str: <span class="type">String</span>? = <span class="literal">nil</span></div><div class="line">&gt;<span class="built_in">print</span>(str!)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p>&gt;</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str: <span class="type">String</span>? = <span class="literal">nil</span></div><div class="line"><span class="built_in">print</span>(str!)</div></pre></td></tr></table></figure>
 <blockquote>
 <p>//<strong>fatal error: unexpectedly found nil while unwrapping an Optional value</strong></p>
 <p>//<strong>reason: str is empty,there is nothing to unwrap</strong></p>
 <ul>
 <li>修改：</li>
 </ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="keyword">var</span> str: <span class="type">String</span>? = <span class="literal">nil</span></div><div class="line">&gt;<span class="keyword">if</span> str != <span class="literal">nil</span>&#123;</div><div class="line">&gt;  <span class="built_in">print</span>(str!)</div><div class="line">&gt;&#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-<p>​</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str: <span class="type">String</span>? = <span class="literal">nil</span></div><div class="line"><span class="keyword">if</span> str != <span class="literal">nil</span>&#123;  <span class="built_in">print</span>(str!)&#125;</div></pre></td></tr></table></figure>
 
           
         
