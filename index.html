@@ -240,7 +240,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/07/post/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/07/post-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skate Cloud">
@@ -262,7 +262,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/06/07/post/" itemprop="url">
+                <a class="post-title-link" href="/2017/06/07/post-1/" itemprop="url">
                   swift3.0 变量和简单的类型
                 </a>
               
@@ -318,23 +318,27 @@
         
           
             <ul>
-<li><p>didset/willset </p>
+<li>didset/willset </li>
+</ul>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//普通属性</span></div><div class="line"><span class="keyword">var</span> str = <span class="string">"hello"</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//计算属性</span></div><div class="line"><span class="keyword">var</span> str1:<span class="type">String</span> &#123;</div><div class="line">  <span class="keyword">get</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"hi"</span>+str</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//属性监察器</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</div><div class="line">   <span class="comment">//提示：属性监察器只能在class内部使用，直接定义变量时不可用 </span></div><div class="line">    <span class="keyword">var</span> str:<span class="type">String</span> = <span class="string">"hello"</span>&#123;</div><div class="line">        <span class="keyword">willSet</span>&#123;</div><div class="line">          <span class="built_in">print</span>(<span class="string">"str will change"</span>)</div><div class="line">            <span class="built_in">print</span>(<span class="string">"now: <span class="subst">\(str)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">didSet</span>&#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"str has changed"</span>)</div><div class="line">            <span class="built_in">print</span>(<span class="string">"after: <span class="subst">\(str)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> h = <span class="type">Test</span>()</div><div class="line">h.str = <span class="string">"hi"</span></div><div class="line"><span class="comment">//output:</span></div><div class="line">str will change</div><div class="line">now: hello</div><div class="line">str has changed</div><div class="line">after: hi</div></pre></td></tr></table></figure>
-</li>
-<li><p>lazy initialization</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//计算属性</span></div><div class="line"><span class="keyword">var</span> str1:<span class="type">String</span> &#123;</div><div class="line"><span class="keyword">get</span>&#123;</div><div class="line"><span class="keyword">return</span> <span class="string">"hi"</span>+str</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//属性监察器</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</div><div class="line"><span class="comment">//提示：属性监察器只能在class内部使用，直接定义变量时不可用 </span></div><div class="line"><span class="keyword">var</span> str:<span class="type">String</span> = <span class="string">"hello"</span>&#123;</div><div class="line"><span class="keyword">willSet</span>&#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"str will change"</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"now: <span class="subst">\(str)</span>"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">didSet</span>&#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"str has changed"</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"after: <span class="subst">\(str)</span>"</span>)</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> h = <span class="type">Test</span>()</div><div class="line">h.str = <span class="string">"hi"</span></div><div class="line"><span class="comment">//output:</span></div><div class="line">str will change</div><div class="line">now: hello</div><div class="line">str has changed</div><div class="line">after: hi</div></pre></td></tr></table></figure>
+<ul>
+<li>lazy initialization</li>
+</ul>
 <blockquote>
 <p>创建一个新的值是很昂贵的开销，所以我们应该避免在未使用的时候就创建，所以我们使用<code>lazy</code>关键字（一般用于view／image的加载）</p>
 </blockquote>
-</li>
-<li><p>typealias</p>
+<ul>
+<li>typealias</li>
+</ul>
 <blockquote>
 <p>typealias Point = (x:Int, y:Int)</p>
 <p><code>typealias</code>类似于C语言中的<code>typedef</code></p>
 </blockquote>
-</li>
-<li><p>optional</p>
+<ul>
+<li>optional</li>
+</ul>
 <blockquote>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="function"><span class="keyword">func</span> <span class="title">optionalExpecter</span><span class="params">(<span class="number">_</span> s: String)</span></span>&#123;&#125;</div><div class="line">&gt;<span class="keyword">let</span> str: <span class="type">String</span>? = <span class="string">"he"</span></div><div class="line">&gt;optionalExpecter(str)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
@@ -342,8 +346,9 @@
 <blockquote>
 <p>// 错误信息： Value of optional type ‘String?’ not unwrapped; did you mean to use ‘!’ or ‘?’?</p>
 </blockquote>
-</li>
-<li><p>unwrapping</p>
+<ul>
+<li>unwrapping</li>
+</ul>
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;func optionalExpecter(_ s: String)&#123;&#125;</div><div class="line">&gt;let str: String? = &quot;he&quot;</div><div class="line">&gt;optionalExpecter(str!)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
@@ -351,13 +356,15 @@
 <blockquote>
 <p>str是可选的string，而<code>str!</code>则是获取了str的内容，即string</p>
 </blockquote>
-</li>
-<li><p>implicitly unwrapped optional</p>
+<ul>
+<li>implicitly unwrapped optional</li>
+</ul>
 <blockquote>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="function"><span class="keyword">func</span> <span class="title">realString</span><span class="params">(<span class="number">_</span> s: String)</span></span>&#123;&#125;</div><div class="line">&gt;<span class="keyword">var</span> str: <span class="type">String</span>! = <span class="string">"how"</span></div><div class="line">&gt;realString(str)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-</li>
-<li><p>nil</p>
+<ul>
+<li>nil</li>
+</ul>
 <blockquote>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="keyword">var</span> str: <span class="type">String</span>? = <span class="string">"how"</span></div><div class="line">&gt;<span class="keyword">if</span> str == <span class="literal">nil</span>&#123;</div><div class="line">&gt;    <span class="built_in">print</span>(<span class="string">"str is empty"</span>)</div><div class="line">&gt;&#125;<span class="keyword">else</span>&#123;</div><div class="line">&gt;    str = <span class="literal">nil</span></div><div class="line">&gt;    <span class="built_in">print</span>(<span class="string">"now str is empty"</span>)</div><div class="line">&gt;&#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
@@ -375,9 +382,8 @@
 </ul>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="keyword">var</span> str: <span class="type">String</span>? = <span class="literal">nil</span></div><div class="line">&gt;<span class="keyword">if</span> str != <span class="literal">nil</span>&#123;</div><div class="line">&gt;  <span class="built_in">print</span>(str!)</div><div class="line">&gt;&#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
-</li>
-<li><p>​</p>
-</li>
+<ul>
+<li>​</li>
 </ul>
 
           
