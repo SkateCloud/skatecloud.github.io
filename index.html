@@ -197,7 +197,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Accueil
           </a>
         </li>
       
@@ -207,7 +207,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -230,6 +230,149 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/11/object-types/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/11/object-types/" itemprop="url">
+                  object types
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-11T01:24:31+08:00">
+                2017-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Object Type：</p>
+<ul>
+<li><p><a href="#jump1">class</a></p>
+</li>
+<li><p><a href="#jump2">struct</a> </p>
+</li>
+<li><p><a href="#jump3">enum</a></p>
+<h3 id="class"><a href="#class" class="headerlink" title="class"></a><span id="jump1">class</span></h3></li>
+<li><code>init</code></li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span></span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="string">"hello"</span></div><div class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.name = name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> puppy = <span class="type">Dog</span>(name: <span class="string">"puppy"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span></span>&#123;</div><div class="line">    <span class="keyword">var</span> name:<span class="type">String</span></div><div class="line">    <span class="keyword">init</span>(name: <span class="type">String</span> = <span class="string">"hello"</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.name = name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> puppy = <span class="type">Dog</span>()</div><div class="line"><span class="comment">//puppy.name:hello</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>property</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span></span>&#123;</div><div class="line"><span class="keyword">let</span> name = <span class="string">"pupy"</span></div><div class="line"><span class="keyword">let</span> lastname = <span class="string">"M"</span></div><div class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> all:<span class="type">String</span> = <span class="keyword">self</span>.name + <span class="keyword">self</span>.lastname</div><div class="line"><span class="comment">// var all:String = &#123;return self.name + self.lastname&#125;</span></div><div class="line"><span class="comment">//lazy var wholo:String = &#123;</span></div><div class="line"><span class="comment">//     return self.first</span></div><div class="line"><span class="comment">// &#125;()</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><code>static</code></li>
+</ul>
+<blockquote>
+<p>static 属性可以互相引用来进行初始化工作，因为它也是采用lazy的方式初始化</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dag</span> </span>&#123;</div><div class="line"> <span class="keyword">static</span> <span class="keyword">let</span> a = <span class="string">"A"</span></div><div class="line"> <span class="keyword">static</span> <span class="keyword">let</span> b = <span class="string">"B"</span></div><div class="line"> <span class="keyword">static</span> <span class="keyword">let</span> <span class="built_in">c</span> = a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure></blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -277,7 +420,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-07T10:20:58+08:00">
                 2017-06-07
@@ -448,7 +591,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T20:23:59+08:00">
                 2017-05-21
@@ -670,7 +813,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T20:22:42+08:00">
                 2017-05-21
@@ -868,7 +1011,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T20:17:00+08:00">
                 2017-05-21
@@ -1020,7 +1163,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T20:15:27+08:00">
                 2017-05-21
@@ -1185,7 +1328,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T20:13:00+08:00">
                 2017-05-21
@@ -1308,7 +1451,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T20:09:44+08:00">
                 2017-05-21
@@ -1430,7 +1573,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-21T20:00:02+08:00">
                 2017-05-21
@@ -1555,8 +1698,8 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">8</span>
-                <span class="site-state-item-name">Artikel</span>
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">articles</span>
               </a>
             </div>
           
@@ -1568,8 +1711,8 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">Tags</span>
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">tags</span>
               
             </div>
           
@@ -1619,11 +1762,11 @@
 
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  Theme -
+  Thème -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
