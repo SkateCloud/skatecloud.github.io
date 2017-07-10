@@ -250,6 +250,316 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/05/post/" itemprop="url">
+                  swift4.0_Self_Conclusion
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T15:44:48+08:00">
+                2017-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>String</p>
+<blockquote>
+<p>Swift的String类型是值类型。如果创建一个新String值，则该String值在传递给函数或方法时被复制，或者当被赋值给常量或变量时被复制。在每种情况下，将String创建现有值的新副本，并且新副本被传递或分配，而不是原始版本。</p>
+<p>Swift的编译器优化了字符串使用情况，以便仅在绝对必要时进行实际复制，这意味着当使用字符串作为值类型时，总是获得很好的性能。</p>
+</blockquote>
+</li>
+<li><p>index</p>
+<blockquote>
+<p>每个String值都有一个相关联的索引类型，String.Index它与每个Character字符串的位置相对应。使用startIndex属性访问Charactera 的第一个的位置String。该endIndex属性是最后一个字符之后的位置String。因此，该endIndex属性不是字符串下标的有效参数。如果a String是空的，startIndex并且endIndex是相等的。</p>
+</blockquote>
+</li>
+<li><p>集合类型</p>
+<blockquote>
+<p>Swift提供三种主要的集合类型：数组，集合，字典</p>
+</blockquote>
+</li>
+<li>String:一个阵列存储在有序列表中的相同类型的值。相同的值可以在不同位置多次出现在数组中</li>
+<li>Set:集合中没有定义顺序,集合中存储相同类型的不同值。当项目的顺序不重要时，或者当您需要确保一个项目只出现一次时，可以使用集合而不是数组。</li>
+<li>Dictionary:字典存储相同类型的key和value，没有顺序，每个value与唯一的key关联。</li>
+<li>控制流<blockquote>
+<p>stride(from:to:by:)功能跳过不需要的标记。(右区间开)</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: <span class="number">1</span>, to: <span class="number">5</span>, by: <span class="number">2</span>)&#123;</div><div class="line"><span class="built_in">print</span>(i)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 1 3</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>stride(from:through:by:)（闭合区间）</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: <span class="number">1</span>, through: <span class="number">5</span>, by: <span class="number">2</span>)&#123;</div><div class="line"><span class="built_in">print</span>(i)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 1 3 5</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>fallthrough</p>
+<p>switch中，当匹配到一个case时，程序就不会往下执行，因此用fallthrough关键字进行下一个匹配</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">let</span> a = <span class="number">4</span></div><div class="line"><span class="keyword">var</span> s = <span class="type">String</span>()</div><div class="line"><span class="keyword">switch</span> a &#123;</div><div class="line"><span class="keyword">case</span> <span class="number">4</span>:</div><div class="line">s = <span class="string">"a = 4"</span></div><div class="line"><span class="keyword">fallthrough</span></div><div class="line"><span class="keyword">default</span>:</div><div class="line"><span class="built_in">print</span>(s + <span class="string">" and a is Int"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">//a = 4 and a is Int</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>检查API可用性</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> #available(platform name version, ..., *) &#123;</div><div class="line">statements to execute <span class="keyword">if</span> the <span class="type">APIs</span> are available</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">fallback statements to execute <span class="keyword">if</span> the <span class="type">APIs</span> are unavailable</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>递归枚举</p>
+<blockquote>
+<p>关键字：<code>indirect</code></p>
+</blockquote>
+</li>
+<li><p>类和结构体</p>
+<blockquote>
+<p>共同之处：</p>
+<pre><code>1.定义属性以存储值
+2.定义提供功能的方法
+3.定义下标使用下标语法提供对其值的访问
+4.定义初始化器以设置其初始状态
+5.扩展到扩展其功能超出默认实现
+6.符合协议提供某种特定的标准功能
+</code></pre><p>类的附加功能：</p>
+<pre><code>1.继承使一个类能够继承另一个类的特征。
+2.类型转换使您能够在运行时检查和解释类实例的类型。
+3.取消初始化使类的实例可以释放其分配的任何资源。
+4.引用计数允许多个对类实例的引用。
+</code></pre><p>类是引用类型：<br>与值类型不同，当引用类型被分配给变量或常量或将其传递给函数时，不会复制引用类型。而不是复制，而是使用对同一个现有实例的引用</p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/24/cocoa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/24/cocoa/" itemprop="url">
+                  Cocoa框架
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-24T23:50:04+08:00">
+                2017-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>应用程序<br>应用程序实际上就是文件夹，其中包含了编译后的二进制文件以及它们可能需要的所有资源<blockquote>
+<p>在Xcode中编译一个项目并生成应用程序时，Xcode会创建应用程序包，并向其中复制所有必要的资源。</p>
+</blockquote>
+</li>
+<li>框架<br>框架就是可以加载的代码和资源包，可供其他应用程序使用，框架不是独立的，它们被设计来供其他App使用</li>
+<li>App的构成<br>iOS 或 OS X上的应用程序至少包含两项：<br>1.编译后的二进制文件<br>2.一个用于向系统描述该App的信息文件</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/11/object-types/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1558,135 +1868,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/appdelegate-location/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Skate Cloud">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skate Cloud's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/21/appdelegate-location/" itemprop="url">
-                  appdelegate location
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T20:00:02+08:00">
-                2017-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>大多数情况下APP会在开启应用的时候获取当前的位置，所以可以写在APPDelegate里<br>第一步</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import CoreLocation</div><div class="line"> var locationManager = CLLocationManager()</div></pre></td></tr></table></figure>
-<p>第二步</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool &#123;</div><div class="line"></div><div class="line"></div><div class="line">  //开启定位</div><div class="line">    loadLocation()  </div><div class="line"></div><div class="line"> return true</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>第三步 实现代理方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line">extension AppDelegate: CLLocationManagerDelegate</div><div class="line">&#123;</div><div class="line"></div><div class="line">//打开定位</div><div class="line">func loadLocation()</div><div class="line">&#123;</div><div class="line"></div><div class="line">    locationManager.delegate = self</div><div class="line">    //定位方式</div><div class="line">    locationManager.desiredAccuracy = kCLLocationAccuracyBest</div><div class="line"></div><div class="line">     //iOS8.0以上才可以使用</div><div class="line">    if(UIDevice.currentDevice().systemVersion &gt;= &quot;8.0&quot;)&#123;</div><div class="line">        //始终允许访问位置信息</div><div class="line">        locationManager.requestAlwaysAuthorization()</div><div class="line">        //使用应用程序期间允许访问位置数据</div><div class="line">        locationManager.requestWhenInUseAuthorization()</div><div class="line">    &#125;</div><div class="line">    //开启定位</div><div class="line">    locationManager.startUpdatingLocation()</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">//获取定位信息</div><div class="line">func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) &#123;</div><div class="line"></div><div class="line">    //取得locations数组的最后一个</div><div class="line">    let location:CLLocation = locations[locations.count-1]</div><div class="line">    currLocation = locations.last!</div><div class="line">    //判断是否为空</div><div class="line">    if(location.horizontalAccuracy &gt; 0)&#123;</div><div class="line">        lat = Double(String(format: &quot;%.1f&quot;, location.coordinate.latitude))</div><div class="line">        long = Double(String(format: &quot;%.1f&quot;, location.coordinate.longitude))</div><div class="line">        print(&quot;纬度:\(long!)&quot;)</div><div class="line">        print(&quot;经度:\(lat!)&quot;)</div><div class="line">        LonLatToCity()</div><div class="line">        //停止定位</div><div class="line">        locationManager.stopUpdatingLocation()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">//出现错误</div><div class="line">func locationManager(manager: CLLocationManager, didFinishDeferredUpdatesWithError error: NSError?) &#123;</div><div class="line">    print(error)</div><div class="line">&#125;</div><div class="line"></div><div class="line">///将经纬度转换为城市名</div><div class="line">func LonLatToCity() &#123;</div><div class="line">    let geocoder: CLGeocoder = CLGeocoder()</div><div class="line">    geocoder.reverseGeocodeLocation(currLocation) &#123; (placemark, error) -&gt; Void in</div><div class="line"></div><div class="line">        if(error == nil)</div><div class="line">        &#123;</div><div class="line">            let array = placemark! as NSArray</div><div class="line">            let mark = array.firstObject as! CLPlacemark</div><div class="line">            //城市</div><div class="line">            var city: String = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;City&quot;) as! String</div><div class="line">            //国家</div><div class="line">            let country: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;Country&quot;) as! NSString</div><div class="line">            //国家编码</div><div class="line">            let CountryCode: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;CountryCode&quot;) as! NSString</div><div class="line">            //街道位置</div><div class="line">            let FormattedAddressLines: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;FormattedAddressLines&quot;)?.firstObject as! NSString</div><div class="line">            //具体位置</div><div class="line">            let Name: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;Name&quot;) as! NSString</div><div class="line">            //省</div><div class="line">            var State: String = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;State&quot;) as! String</div><div class="line">            //区</div><div class="line">            let SubLocality: NSString = (mark.addressDictionary! as NSDictionary).valueForKey(&quot;SubLocality&quot;) as! NSString</div><div class="line"></div><div class="line"></div><div class="line">            //如果需要去掉“市”和“省”字眼</div><div class="line"></div><div class="line">            State = State.stringByReplacingOccurrencesOfString(&quot;省&quot;, withString: &quot;&quot;)</div><div class="line">            let citynameStr = city.stringByReplacingOccurrencesOfString(&quot;市&quot;, withString: &quot;&quot;)</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">        &#123;</div><div class="line">            print(error)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1729,7 +1917,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

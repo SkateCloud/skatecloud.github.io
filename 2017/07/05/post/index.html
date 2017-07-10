@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="学习笔记," />
+  <meta name="keywords" content="swift4.0 个人总结," />
 
 
 
@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="123456789101112131415//根据cell判断cell中bottomLine的颜色，如果不是最后一个，则颜色和topLine颜色一样。    cell.buttomLine.backgroundColor = indexPath.row == (_dataArray.count-1) ? [UIColor grayColor] : cell.topLine.backgroundCo">
-<meta name="keywords" content="学习笔记">
+<meta name="description" content="String  Swift的String类型是值类型。如果创建一个新String值，则该String值在传递给函数或方法时被复制，或者当被赋值给常量或变量时被复制。在每种情况下，将String创建现有值的新副本，并且新副本被传递或分配，而不是原始版本。 Swift的编译器优化了字符串使用情况，以便仅在绝对必要时进行实际复制，这意味着当使用字符串作为值类型时，总是获得很好的性能。   index">
+<meta name="keywords" content="swift4.0 个人总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Time-Line">
-<meta property="og:url" content="http://yoursite.com/2017/05/21/Time-Line/index.html">
+<meta property="og:title" content="swift4.0_Self_Conclusion">
+<meta property="og:url" content="http://yoursite.com/2017/07/05/post/index.html">
 <meta property="og:site_name" content="Skate Cloud&#39;s Blog">
-<meta property="og:description" content="123456789101112131415//根据cell判断cell中bottomLine的颜色，如果不是最后一个，则颜色和topLine颜色一样。    cell.buttomLine.backgroundColor = indexPath.row == (_dataArray.count-1) ? [UIColor grayColor] : cell.topLine.backgroundCo">
-<meta property="og:updated_time" content="2017-05-21T12:44:22.000Z">
+<meta property="og:description" content="String  Swift的String类型是值类型。如果创建一个新String值，则该String值在传递给函数或方法时被复制，或者当被赋值给常量或变量时被复制。在每种情况下，将String创建现有值的新副本，并且新副本被传递或分配，而不是原始版本。 Swift的编译器优化了字符串使用情况，以便仅在绝对必要时进行实际复制，这意味着当使用字符串作为值类型时，总是获得很好的性能。   index">
+<meta property="og:updated_time" content="2017-07-10T08:06:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Time-Line">
-<meta name="twitter:description" content="123456789101112131415//根据cell判断cell中bottomLine的颜色，如果不是最后一个，则颜色和topLine颜色一样。    cell.buttomLine.backgroundColor = indexPath.row == (_dataArray.count-1) ? [UIColor grayColor] : cell.topLine.backgroundCo">
+<meta name="twitter:title" content="swift4.0_Self_Conclusion">
+<meta name="twitter:description" content="String  Swift的String类型是值类型。如果创建一个新String值，则该String值在传递给函数或方法时被复制，或者当被赋值给常量或变量时被复制。在每种情况下，将String创建现有值的新副本，并且新副本被传递或分配，而不是原始版本。 Swift的编译器优化了字符串使用情况，以便仅在绝对必要时进行实际复制，这意味着当使用字符串作为值类型时，总是获得很好的性能。   index">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/21/Time-Line/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/05/post/"/>
 
 
 
 
 
-  <title> Time-Line | Skate Cloud's Blog </title>
+  <title> swift4.0_Self_Conclusion | Skate Cloud's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -250,7 +250,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/Time-Line/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/post/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Skate Cloud">
@@ -271,7 +271,7 @@
             
             
               
-                Time-Line
+                swift4.0_Self_Conclusion
               
             
           </h1>
@@ -286,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T20:09:44+08:00">
-                2017-05-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T15:44:48+08:00">
+                2017-07-05
               </time>
             
 
@@ -322,8 +322,68 @@
       
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//根据cell判断cell中bottomLine的颜色，如果不是最后一个，则颜色和topLine颜色一样。</div><div class="line">    cell.buttomLine.backgroundColor = indexPath.row == (_dataArray.count-1) ? [UIColor grayColor] : cell.topLine.backgroundColor;</div><div class="line">     self.topLine.backgroundColor = cell.topLine.backgroundColor;</div><div class="line">   // cell.topLine.backgroundColor = indexPath.row == 0 ? [UIColor clearColor] : self.topLine.backgroundColor;</div><div class="line">     </div><div class="line">    //使创建的 topLine 视图背景颜色 等于 cell中 topLine 的背景颜色</div><div class="line">    self.topLine.backgroundColor = cell.topLine.backgroundColor;</div><div class="line">    //获取cell中topLine 或者bottomLine 的 x 位置。</div><div class="line">    /**</div><div class="line">     *   将像素point由point所在视图转换到目标视图view中，返回在目标视图view中的像素值</div><div class="line">     *   (CGPoint)convertPoint:(CGPoint)point toView:(UIView *)view</div><div class="line">     */</div><div class="line">     self.leadingSpaceOfLines =  [cell convertPoint:cell.topLine.frame.origin toView:self.view].x;</div><div class="line">     </div><div class="line">    [self scrollViewDidScroll:tableView];</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#pragma mark --important code--</div><div class="line">//根据上下拉动，动态改变 topLine 和 bottomLine 的 y 轴坐标。</div><div class="line">- (void)scrollViewDidScroll:(UIScrollView *)scrollView</div><div class="line">&#123;</div><div class="line">    _topLine.frame = CGRectMake(_leadingSpaceOfLines, 0, 3, -scrollView.contentOffset.y);</div><div class="line"> </div><div class="line">    CGFloat yOffSet = scrollView.frame.size.height - scrollView.contentSize.height + scrollView.contentOffset.y ;</div><div class="line">    _bottomLine.frame = CGRectMake(_leadingSpaceOfLines, self.view.frame.size.height - yOffSet, 3, self.view.frame.size.height);</div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <ul>
+<li><p>String</p>
+<blockquote>
+<p>Swift的String类型是值类型。如果创建一个新String值，则该String值在传递给函数或方法时被复制，或者当被赋值给常量或变量时被复制。在每种情况下，将String创建现有值的新副本，并且新副本被传递或分配，而不是原始版本。</p>
+<p>Swift的编译器优化了字符串使用情况，以便仅在绝对必要时进行实际复制，这意味着当使用字符串作为值类型时，总是获得很好的性能。</p>
+</blockquote>
+</li>
+<li><p>index</p>
+<blockquote>
+<p>每个String值都有一个相关联的索引类型，String.Index它与每个Character字符串的位置相对应。使用startIndex属性访问Charactera 的第一个的位置String。该endIndex属性是最后一个字符之后的位置String。因此，该endIndex属性不是字符串下标的有效参数。如果a String是空的，startIndex并且endIndex是相等的。</p>
+</blockquote>
+</li>
+<li><p>集合类型</p>
+<blockquote>
+<p>Swift提供三种主要的集合类型：数组，集合，字典</p>
+</blockquote>
+</li>
+<li>String:一个阵列存储在有序列表中的相同类型的值。相同的值可以在不同位置多次出现在数组中</li>
+<li>Set:集合中没有定义顺序,集合中存储相同类型的不同值。当项目的顺序不重要时，或者当您需要确保一个项目只出现一次时，可以使用集合而不是数组。</li>
+<li>Dictionary:字典存储相同类型的key和value，没有顺序，每个value与唯一的key关联。</li>
+<li>控制流<blockquote>
+<p>stride(from:to:by:)功能跳过不需要的标记。(右区间开)</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: <span class="number">1</span>, to: <span class="number">5</span>, by: <span class="number">2</span>)&#123;</div><div class="line"><span class="built_in">print</span>(i)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 1 3</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>stride(from:through:by:)（闭合区间）</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: <span class="number">1</span>, through: <span class="number">5</span>, by: <span class="number">2</span>)&#123;</div><div class="line"><span class="built_in">print</span>(i)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 1 3 5</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>fallthrough</p>
+<p>switch中，当匹配到一个case时，程序就不会往下执行，因此用fallthrough关键字进行下一个匹配</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">let</span> a = <span class="number">4</span></div><div class="line"><span class="keyword">var</span> s = <span class="type">String</span>()</div><div class="line"><span class="keyword">switch</span> a &#123;</div><div class="line"><span class="keyword">case</span> <span class="number">4</span>:</div><div class="line">s = <span class="string">"a = 4"</span></div><div class="line"><span class="keyword">fallthrough</span></div><div class="line"><span class="keyword">default</span>:</div><div class="line"><span class="built_in">print</span>(s + <span class="string">" and a is Int"</span>)</div><div class="line">&#125;</div><div class="line"><span class="comment">//a = 4 and a is Int</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>检查API可用性</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> #available(platform name version, ..., *) &#123;</div><div class="line">statements to execute <span class="keyword">if</span> the <span class="type">APIs</span> are available</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">fallback statements to execute <span class="keyword">if</span> the <span class="type">APIs</span> are unavailable</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>递归枚举</p>
+<blockquote>
+<p>关键字：<code>indirect</code></p>
+</blockquote>
+</li>
+<li><p>类和结构体</p>
+<blockquote>
+<p>共同之处：</p>
+<pre><code>1.定义属性以存储值
+2.定义提供功能的方法
+3.定义下标使用下标语法提供对其值的访问
+4.定义初始化器以设置其初始状态
+5.扩展到扩展其功能超出默认实现
+6.符合协议提供某种特定的标准功能
+</code></pre><p>类的附加功能：</p>
+<pre><code>1.继承使一个类能够继承另一个类的特征。
+2.类型转换使您能够在运行时检查和解释类实例的类型。
+3.取消初始化使类的实例可以释放其分配的任何资源。
+4.引用计数允许多个对类实例的引用。
+</code></pre><p>类是引用类型：<br>与值类型不同，当引用类型被分配给变量或常量或将其传递给函数时，不会复制引用类型。而不是复制，而是使用对同一个现有实例的引用</p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -353,7 +413,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/学习笔记/" rel="tag"># 学习笔记</a>
+            <a href="/tags/swift4-0-个人总结/" rel="tag"># swift4.0 个人总结</a>
           
         </div>
       
@@ -366,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/21/appdelegate-location/" rel="next" title="appdelegate location">
-                <i class="fa fa-chevron-left"></i> appdelegate location
+              <a href="/2017/06/24/cocoa/" rel="next" title="Cocoa框架">
+                <i class="fa fa-chevron-left"></i> Cocoa框架
               </a>
             
           </div>
@@ -375,10 +435,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/21/TouchID/" rel="prev" title="TouchID">
-                TouchID <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
