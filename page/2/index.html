@@ -250,6 +250,171 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/Animation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/21/Animation/" itemprop="url">
+                  Animation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T20:15:27+08:00">
+                2017-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Playground-动画"><a href="#Playground-动画" class="headerlink" title="Playground 动画"></a>Playground 动画</h3><ul>
+<li>XCPlayground<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">XCPShowView(identifier: String, view: UIView) 调用告诉XCPlayground在时间轴中绘制容器视图。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="重要概念"><a href="#重要概念" class="headerlink" title="重要概念"></a>重要概念</h3><ul>
+<li>position 位置</li>
+<li>opacity 透明度</li>
+<li><p>scale 缩放</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">UIView.animateWithDuration(1, animations: &#123;</div><div class="line">    self.uiview.transform = CGAffineTransform(scaleX: 5.0, y: 5.0)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>color 变色</p>
+</li>
+<li><p>rotation 旋转</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let rotationTransform = CGAffineTransform(rotationAngle: 3.14)</div></pre></td></tr></table></figure>
+</li>
+<li><p>repeat 重复</p>
+</li>
+<li>easing 缓动动画： easein easeout easein and easeout</li>
+<li>spring 弹性动画</li>
+</ul>
+<h3 id="动画的12个原则"><a href="#动画的12个原则" class="headerlink" title="动画的12个原则"></a>动画的12个原则</h3><ul>
+<li><p>挤压和拉伸<br><img src="quiver-image-url/02647182423DED4995E9D35044930AAF.jpg =600x380" alt="IMAGE"></p>
+<ul>
+<li>预备动作<br><img src="http://upload-images.jianshu.io/upload_images/30690-402201e2c4d5f545.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>演出布局<br><img src="http://upload-images.jianshu.io/upload_images/30690-c2cd46f600bc046d.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>连续运动和姿态对应<br><img src="http://upload-images.jianshu.io/upload_images/30690-cc498fd86a7b9ce4.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>跟随和重叠动作<br><img src="http://upload-images.jianshu.io/upload_images/30690-cc498fd86a7b9ce4.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>缓入缓出<br><img src="http://upload-images.jianshu.io/upload_images/30690-1ec34e5a8e104353.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>弧线运动<br><img src="http://upload-images.jianshu.io/upload_images/30690-2f3fa4504f762ca2.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>次要动作<br><img src="http://upload-images.jianshu.io/upload_images/30690-8efa2601c5533902.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>时间节奏<br><img src="http://upload-images.jianshu.io/upload_images/30690-e8a244db24cd47e2.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>夸张手法<br><img src="http://upload-images.jianshu.io/upload_images/30690-bb55410e135a0003.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>扎实的描绘<br><img src="http://upload-images.jianshu.io/upload_images/30690-f3bc2bf16ba13cf7.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+<li>吸引力<br><img src="http://upload-images.jianshu.io/upload_images/30690-b14ebf2f48208bb6.gif?imageView2/2/w/1240/q/100" alt="IMAGE"></li>
+</ul>
+</li>
+<li><p>常用属性</p>
+</li>
+</ul>
+<p>duration : 动画的持续时间<br>beginTime : 动画的开始时间<br>repeatCount : 动画的重复次数<br>autoreverses : 执行的动画按照原动画返回执行<br>timingFunction : 控制动画的显示节奏系统提供五种值选择，分别是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">kCAMediaTimingFunctionLinear 线性动画</div><div class="line">kCAMediaTimingFunctionEaseIn 先快后慢</div><div class="line">kCAMediaTimingFunctionEaseOut 先慢后快</div><div class="line">kCAMediaTimingFunctionEaseInEaseOut 先慢后快再慢</div><div class="line">kCAMediaTimingFunctionDefault 默认，也属于中间比较快</div></pre></td></tr></table></figure></p>
+<p>delegate ： 动画代理。能够检测动画的执行和结束<br>path：关键帧动画中的执行路径<br>type：过渡动画的动画类型</p>
+<h3 id="CABaseAnimation"><a href="#CABaseAnimation" class="headerlink" title="CABaseAnimation"></a>CABaseAnimation</h3><p>重要属性<br>fromValue：keyPath对应的初始值<br>toValue：keyPath对应的结束值<br>基础动画主要提供了对于CALayer对象中的可变属性进行简单动画的操作。比如：位移、透明度、缩放、旋转、背景色等等。</p>
+<h3 id="CAKeyframeAnimation"><a href="#CAKeyframeAnimation" class="headerlink" title="CAKeyframeAnimation"></a>CAKeyframeAnimation</h3><p>CAKeyframeAnimation和CABaseAnimation都属于CAPropertyAnimatin的子类。CABaseAnimation只能从一个数值（fromValue）变换成另一个数值（toValue）,而CAKeyframeAnimation则会使用一个NSArray保存一组关键帧。<br>重要属性<br>values：就是上述的NSArray对象。里面的元素称为”关键帧”(keyframe)。动画对象会在指定的时间(duration)内，依次显示values数组中的每一个关键帧<br>path：可以设置一个CGPathRef\CGMutablePathRef,让层跟着路径移动。path只对CALayer的anchorPoint和position起作用。如果你设置了path，那么values将被忽略。<br>keyTimes：可以为对应的关键帧指定对应的时间点,其取值范围为0到1.0,keyTimes中的每一个时间值都对应values中的每一帧.当keyTimes没有设置的时候,各个关键帧的时间是平分的。</p>
+<h3 id="CAAnimationGroup"><a href="#CAAnimationGroup" class="headerlink" title="CAAnimationGroup"></a>CAAnimationGroup</h3><p>CAAnimation的子类，可以保存一组动画对象，将CAAnimationGroup对象加入层后，组中所有动画对象可以同时并发运行。<br>重要属性<br>animations: 用来保存一组动画对象的NSArray</p>
+<h3 id="CATransition）"><a href="#CATransition）" class="headerlink" title="CATransition）"></a>CATransition）</h3><p>CAAnimation的子类，用于做过渡动画或者转场动画，能够为层提供移出屏幕和移入屏幕的动画效果。<br>重要属性<br>type：动画过渡类型<br>Apple 官方的SDK其实只提供了四种过渡效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kCATransitionFade 渐变效果</div><div class="line">kCATransitionMoveIn 进入覆盖效果</div><div class="line">kCATransitionPush 推出效果</div><div class="line">kCATransitionReveal 揭露离开效果</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/TouchID/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -661,7 +826,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

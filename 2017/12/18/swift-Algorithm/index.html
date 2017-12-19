@@ -1,0 +1,680 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="swift 语法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="插入排序 𝛩(n^2) 12345678910111213func insertsort(arr :inout [Int]) -&amp;gt; Void &amp;#123;    var temp = 0    var i = 0, j = 0    for i in 1..&amp;lt;arr.count &amp;#123;        temp = arr[i]        for j in (1...i).">
+<meta name="keywords" content="swift 语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法导论-笔记">
+<meta property="og:url" content="http://yoursite.com/2017/12/18/swift-Algorithm/index.html">
+<meta property="og:site_name" content="Skate Cloud&#39;s Blog">
+<meta property="og:description" content="插入排序 𝛩(n^2) 12345678910111213func insertsort(arr :inout [Int]) -&amp;gt; Void &amp;#123;    var temp = 0    var i = 0, j = 0    for i in 1..&amp;lt;arr.count &amp;#123;        temp = arr[i]        for j in (1...i).">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1fmm5gt49ivj30y004umxa.jpg = 300*30">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcgy1fmm5njrzlfj30ok05q3yl.jpg = 300*20">
+<meta property="og:updated_time" content="2017-12-19T10:57:38.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法导论-笔记">
+<meta name="twitter:description" content="插入排序 𝛩(n^2) 12345678910111213func insertsort(arr :inout [Int]) -&amp;gt; Void &amp;#123;    var temp = 0    var i = 0, j = 0    for i in 1..&amp;lt;arr.count &amp;#123;        temp = arr[i]        for j in (1...i).">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1fmm5gt49ivj30y004umxa.jpg = 300*30">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/18/swift-Algorithm/"/>
+
+
+
+
+
+  <title> 算法导论-笔记 | Skate Cloud's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Skate Cloud's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">^ω^</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/18/swift-Algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法导论-笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-18T22:47:31+08:00">
+                2017-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>插入排序 𝛩(n^2)</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertsort</span><span class="params">(arr :<span class="keyword">inout</span> [Int])</span></span> -&gt; <span class="type">Void</span> &#123;</div><div class="line">    <span class="keyword">var</span> temp = <span class="number">0</span></div><div class="line">    <span class="keyword">var</span> i = <span class="number">0</span>, j = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>..&lt;arr.<span class="built_in">count</span> &#123;</div><div class="line">        temp = arr[i]</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> (<span class="number">1</span>...i).reversed() &#123;</div><div class="line">            <span class="keyword">if</span> arr[j-<span class="number">1</span>] &gt; temp &#123;</div><div class="line">                arr[j] = arr[j-<span class="number">1</span>]</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        arr[j] = temp</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>归并排序 𝛩(nlgn)</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">merge_sort</span><span class="params">(arr: <span class="keyword">inout</span> [Int],result: <span class="keyword">inout</span> [Int],start : Int,end : Int)</span></span> &#123;</div><div class="line">    <span class="keyword">if</span> start &gt;= end &#123; <span class="keyword">return</span> &#125;</div><div class="line">    <span class="keyword">let</span> len = end - start, mid = start + len / <span class="number">2</span></div><div class="line">    <span class="keyword">var</span> start1 = start, end1 = mid, start2 = mid + <span class="number">1</span>, end2 = end</div><div class="line">    merge_sort(arr: &amp;arr, result: &amp;result, start: start1, end: end1)</div><div class="line">    merge_sort(arr: &amp;arr, result: &amp;result, start: start2, end: end2)</div><div class="line">    <span class="keyword">var</span> k = start</div><div class="line">    <span class="keyword">while</span> start1 &lt;= end1 &amp;&amp; start2 &lt;= end2 &#123;</div><div class="line">        <span class="keyword">if</span> arr[start1] &lt; arr[start2] &#123;</div><div class="line">            result[k] = arr[start1]</div><div class="line">            k += <span class="number">1</span></div><div class="line">            start1 += <span class="number">1</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            result[k] = arr[start2]</div><div class="line">            k += <span class="number">1</span></div><div class="line">            start2 += <span class="number">1</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> start1 &lt;= end1 &#123;</div><div class="line">        result[k] = arr[start1]</div><div class="line">        k += <span class="number">1</span></div><div class="line">        start1 += <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> start2 &lt;= end2 &#123;</div><div class="line">        result[k] = arr[start2]</div><div class="line">        k += <span class="number">1</span></div><div class="line">        start2 += <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> start...end &#123;</div><div class="line">        arr[k] = result[k]</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>分治策略</code></p>
+<blockquote>
+<p>在分治策略中，我们递归的求解一个问题，在每层递归中应用如下三个步骤：</p>
+</blockquote>
+<ul>
+<li><strong>分解</strong>将问题划分为一些子问题，子问题的形式与原问题一样，只是规模更小</li>
+<li><strong>解决</strong>步骤递归地求解出子问题。如果子问题的规模足够小，则停止递归，直接求解</li>
+<li><strong>合并</strong>步骤将子问题的解组合成原问题的解</li>
+</ul>
+<blockquote>
+<p>当子问题足够大，需要递归求解 时，我们称之为递归情况，当子问题变得足够小，不再需要递归时，我们说递归已经“触底”，进入了基本情况</p>
+<ul>
+<li>最大子数组问题<br>之前在leetcode上做过类似的题，因此贴上来。</li>
+</ul>
+</blockquote>
+<p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
+<p>If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
+<p>Example 1:<br>Input: [7, 1, 5, 3, 6, 4]<br>Output: 5<br>max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)</p>
+<p>Example 2:<br>Input: [7, 6, 4, 3, 1]<br>Output: 0<br>In this case, no transaction is done, i.e. max profit = 0.<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxProfit</span><span class="params">(prices : [Int])</span></span>-&gt;<span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> maxprofit = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;prices.<span class="built_in">count</span>-<span class="number">1</span> &#123;</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i+<span class="number">1</span>..&lt;prices.<span class="built_in">count</span> &#123;</div><div class="line">            <span class="keyword">var</span> profit = prices[j] - prices[i]</div><div class="line">            maxprofit = profit &gt; maxprofit ? profit : maxprofit</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxprofit</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fmm5gt49ivj30y004umxa.jpg = 300*30" alt=""></p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxProfit</span><span class="params">(prices : [Int])</span></span>-&gt;<span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> minprice = <span class="type">Int</span>.<span class="built_in">max</span>, maxprofit = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;prices.<span class="built_in">count</span> &#123;</div><div class="line">        <span class="keyword">if</span> prices[i] &lt; minprice &#123;</div><div class="line">            minprice = prices[i]</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> prices[i] - minprice &gt; maxprofit &#123;</div><div class="line">            maxprofit = prices[i] - minprice</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxprofit</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fmm5njrzlfj30ok05q3yl.jpg = 300*20" alt=""></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/swift-语法/" rel="tag"># swift 语法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/06/learn-swift-standard-libray/" rel="next" title="learn-swift-standard-libray">
+                <i class="fa fa-chevron-left"></i> learn-swift-standard-libray
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Skate Cloud" />
+          <p class="site-author-name" itemprop="name">Skate Cloud</p>
+           
+              <p class="site-description motion-element" itemprop="description">hi,这里是记录我学习还有一些思考的地方，欢迎您的访问(-_^)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Skate Cloud</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
