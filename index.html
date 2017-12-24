@@ -250,6 +250,182 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/24/Alipay-SDK-swift4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/12/24/Alipay-SDK-swift4/" itemprop="url">
+                  Alipay-SDK-swift4
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T23:07:02+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前言：这个是我做LinkHust的过程中遇到的问题，在这个上面花了挺多时间的，下面就让我们来一步一步的搭建支付功能吧。</p>
+<blockquote>
+<p>我还写了一个小的Demo便于参考,地址：<a href="https://github.com/SkateCloud/BYAliPayDemo" target="_blank" rel="external">Github 地址</a></p>
+<p>别忘了star呦，嘻嘻</p>
+<p>如果还有问题的话可以联系我：baiyun@bingyan.net</p>
+</blockquote>
+<h2 id="first-of-all"><a href="#first-of-all" class="headerlink" title="first of all"></a>first of all</h2><p>先按官方文档给的，将文件拖入demo，这里要注意，拖入<code>Utils</code>时要记得选择<code>creat group</code>选项</p>
+<p>然后要建立桥接文件：</p>
+<ul>
+<li>手动建立的话，流程应该是File-&gt;New File-&gt;header file确定一个名字就可以了，然后在Project-&gt;Bulid Settings搜索<code>header</code>,选择OC-Bridging  Header,双击，将你的头文件拖进去，就可以了。</li>
+</ul>
+<p>效果应该是这样的：<img src="https://ws3.sinaimg.cn/large/006tNc79gy1fmsbabceoyj319g0eimxx.jpg" alt=""></p>
+<p>可以看到，Xcode会自动识别你的头文件路径的</p>
+<blockquote>
+<p>按照官方给的demo，header中应该引入头文件：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#import &lt;AlipaySDK/AlipaySDK.h&gt;</div><div class="line">#import &quot;APAuthInfo.h&quot;</div><div class="line">#import &quot;APOrderInfo.h&quot;</div><div class="line">#import &quot;APRSASigner.h&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>或者可以Xcode为你自动生成头文件，但是我的Xcode9从来没有成功过，我还是选择Manually比较好</li>
+</ul>
+<p>这个是拖完的效果</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fmsb1ug2u5j30fw16075j.jpg" alt=""></p>
+<p>Command+R一下，会发现</p>
+<blockquote>
+<p>Undefined symbols for architecture x86_64:</p>
+<p>  “_BIO_new”, referenced from:</p>
+<p>​      _rsa_sign_with_private_key_pem in openssl_wrapper.o</p>
+</blockquote>
+<p>报错原因是：没有拖入<code>libcrypto.a</code>&amp;<code>libssl.a</code>文件，拖入进去</p>
+<p>command+R就build成功了😄</p>
+<p><em>要注意的地方：</em>header中如果找不到文件的话，记得Targets-&gt;SearchPaths中加入，为了防止报错，我全加了一遍，可以看一下<img src="https://ws3.sinaimg.cn/large/006tNc79gy1fmsbtekte8j31120ay0td.jpg" alt=""></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fmsbtdgwv8j310w0ekab4.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fmsbtc2ogyj319g0eimxx.jpg" alt=""></p>
+<h2 id="second"><a href="#second" class="headerlink" title="second"></a>second</h2><p>下面我们要做的就是使用支付宝的功能了呢，踩完了一遍这个坑，现在使用这个SDK居然有些得心应手？喵喵喵？</p>
+<ul>
+<li><p>首先在<code>Appdelegate.swift</code>文件中加入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">if</span> url.host == <span class="string">"safepay"</span> &#123;</div><div class="line">        <span class="type">AlipaySDK</span>.defaultService().processAuthResult(url, standbyCallback: &#123;(resultDic) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(resultDic)</div><div class="line">        &#125;)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:])</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">if</span> url.host == <span class="string">"safepay"</span> &#123;</div><div class="line">        <span class="type">AlipaySDK</span>.defaultService().processAuthResult(url, standbyCallback: &#123;(resultDic) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(resultDic)</div><div class="line">        &#125;)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>然后应该是在viewcontroller中加入代码使我们的app可以跟SDK联系起来</p>
+<ul>
+<li><p>在开始coding之前我要提醒一下，不要忘了添加<code>URL Shemes</code>这个可以告诉iOS，在完成支付之后跳回哪个app，具体步骤Targets-&gt;Info-&gt;URL Types,完成后长这样：<img src="https://ws4.sinaimg.cn/large/006tNc79gy1fmscbrijbvj30to0bot8t.jpg" alt=""></p>
+</li>
+<li><p>好啦，我们终于可以开始心心念念的coding啦，我在这里按照官方文档给的，直接将app的orderstring放在本地拼接，实际使用中还是要向后台请求的。我们来看一下代码</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">clickbutton</span><span class="params">(<span class="number">_</span> sender: UIButton)</span></span> &#123;</div><div class="line">        <span class="keyword">var</span> orderString = <span class="string">""</span></div><div class="line">        <span class="keyword">let</span> rsa2PrivateKey = <span class="string">""</span> <span class="comment">//私钥rsa2格式，这里可以二者选一(rsa2或者rsa)，但是官方建议是选择rsa2</span></div><div class="line">        <span class="comment">//拼接过程</span></div><div class="line">        <span class="keyword">let</span> appId = <span class="string">""</span> <span class="comment">//公司申请的支付宝appid</span></div><div class="line">        <span class="keyword">let</span> order = <span class="type">APOrderInfo</span>()</div><div class="line">        order.app_id = appId</div><div class="line">        order.method = <span class="string">"alipay.trade.app.pay"</span></div><div class="line">        order.charset = <span class="string">"utf-8"</span></div><div class="line">        order.notify_url = <span class="string">""</span> <span class="comment">//请求结果，填入后台地址，阿里会异步通知后台</span></div><div class="line">        <span class="keyword">let</span> dateFormatter = <span class="type">DateFormatter</span>()</div><div class="line">        dateFormatter.dateFormat = <span class="string">"yyyy-MM-dd HH:mm:ss"</span></div><div class="line">        order.timestamp = dateFormatter.string(from: <span class="type">Date</span>())</div><div class="line">        order.version = <span class="string">"1.0"</span></div><div class="line">        order.sign_type = <span class="string">"RSA2"</span></div><div class="line">        <span class="comment">//商品数据</span></div><div class="line">        order.biz_content = <span class="type">APBizContent</span>()</div><div class="line">        order.biz_content.body = <span class="string">"测试"</span> <span class="comment">//自定订单内容，这个其实在使用的时候看不出来</span></div><div class="line">        order.biz_content.subject = <span class="string">"LinkHust联网费用"</span> <span class="comment">//自定订单title，这个要记得说明这项费用的明目</span></div><div class="line">        order.biz_content.out_trade_no = <span class="string">"0000134"</span><span class="comment">//自己定id，记得id不可重复哦</span></div><div class="line">        order.biz_content.timeout_express = <span class="string">"30m"</span></div><div class="line">        order.biz_content.total_amount = <span class="string">"0.01"</span> <span class="comment">//价格，测试的话记得改成一分钱，我这次测试才花了几毛钱哈哈哈</span></div><div class="line">        <span class="comment">//以下将商品信息拼成string</span></div><div class="line">        <span class="keyword">let</span> orderInfo = order.orderInfoEncoded(<span class="literal">false</span>)</div><div class="line">        <span class="keyword">let</span> orderInfoEncoded = order.orderInfoEncoded(<span class="literal">true</span>)</div><div class="line">        <span class="keyword">let</span> signer = <span class="type">APRSASigner</span>(privateKey: rsa2PrivateKey)</div><div class="line">        <span class="keyword">let</span> signString = signer?.sign(orderInfo, withRSA2: <span class="literal">true</span>)</div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> signString = signString ,<span class="keyword">let</span> orderInfoEncoded = orderInfoEncoded&#123;</div><div class="line">        <span class="keyword">let</span> appScheme = <span class="string">"BYshemes"</span>   <span class="comment">//避免使用 alipay</span></div><div class="line">        orderString = <span class="type">String</span>.<span class="keyword">init</span>(format: <span class="string">"%@&amp;sign=%@"</span>,orderInfoEncoded,signString)</div><div class="line">            </div><div class="line">            <span class="type">AlipaySDK</span>.defaultService().payOrder(orderString, fromScheme: appScheme, callback: &#123; (resultDic) <span class="keyword">in</span></div><div class="line">                <span class="built_in">print</span>(resultDic)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>我们来测试一下吧</p>
+<p><strong>rsa_private read error : private key is NULL</strong>遇到了这样的错误，不要方，It’s fine</p>
+<blockquote>
+<p>在RSADataSigner.m文件中 搜索代码 [result appendString:@”—–BEGIN PRIVATE KEY—–\n”]; 将其改成 [result appendString:@”—–BEGIN RSA PRIVATE KEY—–\n”];</p>
+<p> 在RSADataSigner.m文件中 搜索代码 [result appendString:@”\n—–END PRIVATE KEY—–”]; 将其改成 [result appendString:@”\n—–END RSA PRIVATE KEY—–”];就OK了</p>
+</blockquote>
+<p>来看一下结果吧：<img src="https://ws1.sinaimg.cn/large/006tNc79gy1fmsde72pgtj30i40xeq30.jpg" alt=""></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>不要怕，支付宝的SDK已经比微信好很多了哈哈，just enjoy it</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/18/swift-Algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -355,11 +531,11 @@
 <p>Example 1:<br>Input: [7, 1, 5, 3, 6, 4]<br>Output: 5<br>max. difference = 6-1 = 5 (not 7-1 = 6, as selling price needs to be larger than buying price)</p>
 <p>Example 2:<br>Input: [7, 6, 4, 3, 1]<br>Output: 0<br>In this case, no transaction is done, i.e. max profit = 0.<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxProfit</span><span class="params">(prices : [Int])</span></span>-&gt;<span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> maxprofit = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;prices.<span class="built_in">count</span>-<span class="number">1</span> &#123;</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i+<span class="number">1</span>..&lt;prices.<span class="built_in">count</span> &#123;</div><div class="line">            <span class="keyword">var</span> profit = prices[j] - prices[i]</div><div class="line">            maxprofit = profit &gt; maxprofit ? profit : maxprofit</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxprofit</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <blockquote>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fmm5gt49ivj30y004umxa.jpg = 300*30" alt=""></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fmm5gt49ivj30y004umxa.jpg =300x30" alt=""></p>
 </blockquote>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxProfit</span><span class="params">(prices : [Int])</span></span>-&gt;<span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> minprice = <span class="type">Int</span>.<span class="built_in">max</span>, maxprofit = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;prices.<span class="built_in">count</span> &#123;</div><div class="line">        <span class="keyword">if</span> prices[i] &lt; minprice &#123;</div><div class="line">            minprice = prices[i]</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> prices[i] - minprice &gt; maxprofit &#123;</div><div class="line">            maxprofit = prices[i] - minprice</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> maxprofit</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fmm5njrzlfj30ok05q3yl.jpg = 300*20" alt=""></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fmm5njrzlfj30ok05q3yl.jpg" width="600" height="130"></p>
 </blockquote>
 
           
@@ -1757,158 +1933,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/AutoLayout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Skate Cloud">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skate Cloud's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/21/AutoLayout/" itemprop="url">
-                  AutoLayout
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T20:17:00+08:00">
-                2017-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Auto-Layout的本质原理"><a href="#Auto-Layout的本质原理" class="headerlink" title="Auto Layout的本质原理"></a>Auto Layout的本质原理</h2><p>Auto Layout的本质是用一些约束条件对元素进行约束。<br>分类：</p>
-<ul>
-<li>相对于父 view 的约束。如：距离上边距 10，左边距 10。</li>
-<li>相对于前一个元素的约束。如：距离上一个元素 20，距离左边的元素 5 等。</li>
-<li>对齐类约束。如：跟父 view 左对齐，跟上一个元素居中对齐等。</li>
-<li>相等约束。如：跟父 view 等宽。<br>三等分设计思路:如图：<br><img src="https://lvwenhan.com/content/uploadfile/201503/b5e91425647800.gif" alt=""><br>根据 label 自动计算 firstTableViewCell 高度<br>选中 label，设置 lines 行数为 0，表示不限长度自动折行：</li>
-</ul>
-<p>Image</p>
-<p>修改 label 的文字内容让其超出一行：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">firstTableViewController</span>: <span class="title">UITableViewController</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="keyword">var</span> labelArray = <span class="type">Array</span>&lt;<span class="type">String</span>&gt;() <span class="comment">// 用于存储 label 文字内容</span></div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line"><span class="keyword">var</span> nib = <span class="type">UINib</span>(nibName: <span class="string">"firstTableViewCell"</span>, bundle: <span class="literal">nil</span>)</div><div class="line"></div><div class="line"><span class="keyword">self</span>.tableView.registerNib(nib, forCellReuseIdentifier: <span class="string">"firstTableViewCell"</span>)</div><div class="line"></div><div class="line"><span class="comment">// 循环生成 label 文字内容</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>...<span class="number">10</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">var</span> text = <span class="string">""</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">1</span>...i &#123;</div><div class="line"></div><div class="line">text += <span class="string">"Auto Layout"</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">labelArray.append(text)</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// MARK: - Table view data source</span></div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="number">50</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">numberOfSectionsInTableView</span><span class="params">(tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="number">1</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">return</span> labelArray.<span class="built_in">count</span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"firstTableViewCell"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! firstTableViewCell</div><div class="line"></div><div class="line">cell.firstLabel.text = labelArray[indexPath.row]</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在到了最关键的时刻，驱动 UITableViewCell 适应 Label 内容：</p>
-<ol>
-<li>使用 estimatedHeightForRowAtIndexPath 替代 heightForRowAtIndexPath</li>
-</ol>
-<p>estimatedHeightForRowAtIndexPath 是 iOS 7 推出的新 API。如果列表行数有一万行，那么 heightForRowAtIndexPath 就会在列表显示之前计算一万次，而 estimatedHeightForRowAtIndexPath 只会计算当前屏幕中显示着的几行，会大大提高数据量很大时候的性能。</p>
-<ol>
-<li>新建一个 prototypeCell 成员变量以复用，并在 viewDidLoad 中初始化</li>
-</ol>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">firstTableViewController</span>: <span class="title">UITableViewController</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="keyword">var</span> labelArray = <span class="type">Array</span>&lt;<span class="type">String</span>&gt;() <span class="comment">// 用于存储 label 文字内容</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> prototypeCell: firstTableViewCell!</div><div class="line"></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line"><span class="keyword">var</span> nib = <span class="type">UINib</span>(nibName: <span class="string">"firstTableViewCell"</span>, bundle: <span class="literal">nil</span>)</div><div class="line"></div><div class="line"><span class="keyword">self</span>.tableView.registerNib(nib, forCellReuseIdentifier: <span class="string">"firstTableViewCell"</span>)</div><div class="line"></div><div class="line"><span class="comment">// 初始化 prototypeCell 以便复用</span></div><div class="line"></div><div class="line">prototypeCell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"firstTableViewCell"</span>) <span class="keyword">as</span>! firstTableViewCell</div></pre></td></tr></table></figure>
-<ol>
-<li>计算出高度</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat &#123;</div><div class="line"></div><div class="line">let cell = prototypeCell</div><div class="line"></div><div class="line">cell.firstLabel.text = labelArray[indexPath.row]</div><div class="line"></div><div class="line">return cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height + 1</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>超级大坑<br>上面让 firstTableViewCell 根据 label 自动计算高度的过程中，有一个超级大坑：图片可能会被撑大</p>
-<p>这只是因为图片把 UITableViewCell 撑大了，并不是我们的计算没有效果。</p>
-<p>解决方法：根据图片自动计算 firstTableViewCell 高度<br>首先，把图片的渲染模式改成 Aspect Fit：（在Xcode的Inspector里面把view后的mode栏选为Aspect Fit）</p>
-<p>给 cellForRowAtIndexPath 增加代码：</p>
-<p>if indexPath.row &lt; 3 {<br>cell.logoImageView.image = UIImage(named: indexPath.row.description)<br>}<br>使用 Auto Layout 限制图片宽度为 80px 的原生问题：宽度虽然限制了，高度却依然是原图的高度。解决办法也很简单：如果图片宽度大于 80px，就重绘一张 80px 宽度的图片填充进去。</p>
-<p>新建一个 Group（虚拟文件夹），叫 Extensions，并在其内部新建 UIImage.swift 文件，内容如下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIImage</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">resizeToSize</span><span class="params">(size: CGSize)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line"><span class="type">UIGraphicsBeginImageContext</span>(size)</div><div class="line"></div><div class="line"><span class="keyword">self</span>.drawInRect(<span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, size.width, size.height))</div><div class="line"></div><div class="line"><span class="keyword">let</span> newImage = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>()</div><div class="line"></div><div class="line"><span class="type">UIGraphicsEndImageContext</span>()</div><div class="line"></div><div class="line"><span class="keyword">return</span> newImage</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>给 UIImage 类扩展了一个名为 resizeToSize 的方法，返回一个按照要求的大小重绘过的 UIImage 对象。修改 cellForRowAtIndexPath 的代码为：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line"></div><div class="line"><span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="string">"firstTableViewCell"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! firstTableViewCell</div><div class="line"></div><div class="line">cell.firstLabel.text = labelArray[indexPath.row]</div><div class="line"></div><div class="line"><span class="keyword">var</span> image = <span class="type">UIImage</span>(named: (indexPath.row % <span class="number">3</span>).description)!</div><div class="line"></div><div class="line"><span class="keyword">if</span> image.size.width &gt; <span class="number">80</span> &#123;</div><div class="line"></div><div class="line">image = image.resizeToSize(<span class="type">CGSizeMake</span>(<span class="number">80</span>, image.size.height * (<span class="number">80</span> / image.size.width)))</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">cell.logoImageView.image = image</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1958,7 +1982,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1971,7 +1995,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

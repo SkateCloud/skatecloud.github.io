@@ -1,0 +1,732 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans,default">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS开发经验," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前言：这个是我做LinkHust的过程中遇到的问题，在这个上面花了挺多时间的，下面就让我们来一步一步的搭建支付功能吧。  我还写了一个小的Demo便于参考,地址：Github 地址 别忘了star呦，嘻嘻 如果还有问题的话可以联系我：baiyun@bingyan.net  first of all先按官方文档给的，将文件拖入demo，这里要注意，拖入Utils时要记得选择creat group选项">
+<meta name="keywords" content="iOS开发经验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alipay-SDK-swift4">
+<meta property="og:url" content="http://yoursite.com/2017/12/24/Alipay-SDK-swift4/index.html">
+<meta property="og:site_name" content="Skate Cloud&#39;s Blog">
+<meta property="og:description" content="前言：这个是我做LinkHust的过程中遇到的问题，在这个上面花了挺多时间的，下面就让我们来一步一步的搭建支付功能吧。  我还写了一个小的Demo便于参考,地址：Github 地址 别忘了star呦，嘻嘻 如果还有问题的话可以联系我：baiyun@bingyan.net  first of all先按官方文档给的，将文件拖入demo，这里要注意，拖入Utils时要记得选择creat group选项">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fmsbabceoyj319g0eimxx.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fmsb1ug2u5j30fw16075j.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fmsbtekte8j31120ay0td.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fmsbtdgwv8j310w0ekab4.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fmsbtc2ogyj319g0eimxx.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fmscbrijbvj30to0bot8t.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1fmsde72pgtj30i40xeq30.jpg">
+<meta property="og:updated_time" content="2017-12-24T17:28:19.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Alipay-SDK-swift4">
+<meta name="twitter:description" content="前言：这个是我做LinkHust的过程中遇到的问题，在这个上面花了挺多时间的，下面就让我们来一步一步的搭建支付功能吧。  我还写了一个小的Demo便于参考,地址：Github 地址 别忘了star呦，嘻嘻 如果还有问题的话可以联系我：baiyun@bingyan.net  first of all先按官方文档给的，将文件拖入demo，这里要注意，拖入Utils时要记得选择creat group选项">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNc79gy1fmsbabceoyj319g0eimxx.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/24/Alipay-SDK-swift4/"/>
+
+
+
+
+
+  <title> Alipay-SDK-swift4 | Skate Cloud's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Skate Cloud's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">^ω^</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/24/Alipay-SDK-swift4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Alipay-SDK-swift4
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T23:07:02+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前言：这个是我做LinkHust的过程中遇到的问题，在这个上面花了挺多时间的，下面就让我们来一步一步的搭建支付功能吧。</p>
+<blockquote>
+<p>我还写了一个小的Demo便于参考,地址：<a href="https://github.com/SkateCloud/BYAliPayDemo" target="_blank" rel="external">Github 地址</a></p>
+<p>别忘了star呦，嘻嘻</p>
+<p>如果还有问题的话可以联系我：baiyun@bingyan.net</p>
+</blockquote>
+<h2 id="first-of-all"><a href="#first-of-all" class="headerlink" title="first of all"></a>first of all</h2><p>先按官方文档给的，将文件拖入demo，这里要注意，拖入<code>Utils</code>时要记得选择<code>creat group</code>选项</p>
+<p>然后要建立桥接文件：</p>
+<ul>
+<li>手动建立的话，流程应该是File-&gt;New File-&gt;header file确定一个名字就可以了，然后在Project-&gt;Bulid Settings搜索<code>header</code>,选择OC-Bridging  Header,双击，将你的头文件拖进去，就可以了。</li>
+</ul>
+<p>效果应该是这样的：<img src="https://ws3.sinaimg.cn/large/006tNc79gy1fmsbabceoyj319g0eimxx.jpg" alt=""></p>
+<p>可以看到，Xcode会自动识别你的头文件路径的</p>
+<blockquote>
+<p>按照官方给的demo，header中应该引入头文件：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#import &lt;AlipaySDK/AlipaySDK.h&gt;</div><div class="line">#import &quot;APAuthInfo.h&quot;</div><div class="line">#import &quot;APOrderInfo.h&quot;</div><div class="line">#import &quot;APRSASigner.h&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>或者可以Xcode为你自动生成头文件，但是我的Xcode9从来没有成功过，我还是选择Manually比较好</li>
+</ul>
+<p>这个是拖完的效果</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fmsb1ug2u5j30fw16075j.jpg" alt=""></p>
+<p>Command+R一下，会发现</p>
+<blockquote>
+<p>Undefined symbols for architecture x86_64:</p>
+<p>  “_BIO_new”, referenced from:</p>
+<p>​      _rsa_sign_with_private_key_pem in openssl_wrapper.o</p>
+</blockquote>
+<p>报错原因是：没有拖入<code>libcrypto.a</code>&amp;<code>libssl.a</code>文件，拖入进去</p>
+<p>command+R就build成功了😄</p>
+<p><em>要注意的地方：</em>header中如果找不到文件的话，记得Targets-&gt;SearchPaths中加入，为了防止报错，我全加了一遍，可以看一下<img src="https://ws3.sinaimg.cn/large/006tNc79gy1fmsbtekte8j31120ay0td.jpg" alt=""></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fmsbtdgwv8j310w0ekab4.jpg" alt=""></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fmsbtc2ogyj319g0eimxx.jpg" alt=""></p>
+<h2 id="second"><a href="#second" class="headerlink" title="second"></a>second</h2><p>下面我们要做的就是使用支付宝的功能了呢，踩完了一遍这个坑，现在使用这个SDK居然有些得心应手？喵喵喵？</p>
+<ul>
+<li><p>首先在<code>Appdelegate.swift</code>文件中加入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">if</span> url.host == <span class="string">"safepay"</span> &#123;</div><div class="line">        <span class="type">AlipaySDK</span>.defaultService().processAuthResult(url, standbyCallback: &#123;(resultDic) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(resultDic)</div><div class="line">        &#125;)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:])</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">if</span> url.host == <span class="string">"safepay"</span> &#123;</div><div class="line">        <span class="type">AlipaySDK</span>.defaultService().processAuthResult(url, standbyCallback: &#123;(resultDic) <span class="keyword">in</span></div><div class="line">            <span class="built_in">print</span>(resultDic)</div><div class="line">        &#125;)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>然后应该是在viewcontroller中加入代码使我们的app可以跟SDK联系起来</p>
+<ul>
+<li><p>在开始coding之前我要提醒一下，不要忘了添加<code>URL Shemes</code>这个可以告诉iOS，在完成支付之后跳回哪个app，具体步骤Targets-&gt;Info-&gt;URL Types,完成后长这样：<img src="https://ws4.sinaimg.cn/large/006tNc79gy1fmscbrijbvj30to0bot8t.jpg" alt=""></p>
+</li>
+<li><p>好啦，我们终于可以开始心心念念的coding啦，我在这里按照官方文档给的，直接将app的orderstring放在本地拼接，实际使用中还是要向后台请求的。我们来看一下代码</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">clickbutton</span><span class="params">(<span class="number">_</span> sender: UIButton)</span></span> &#123;</div><div class="line">        <span class="keyword">var</span> orderString = <span class="string">""</span></div><div class="line">        <span class="keyword">let</span> rsa2PrivateKey = <span class="string">""</span> <span class="comment">//私钥rsa2格式，这里可以二者选一(rsa2或者rsa)，但是官方建议是选择rsa2</span></div><div class="line">        <span class="comment">//拼接过程</span></div><div class="line">        <span class="keyword">let</span> appId = <span class="string">""</span> <span class="comment">//公司申请的支付宝appid</span></div><div class="line">        <span class="keyword">let</span> order = <span class="type">APOrderInfo</span>()</div><div class="line">        order.app_id = appId</div><div class="line">        order.method = <span class="string">"alipay.trade.app.pay"</span></div><div class="line">        order.charset = <span class="string">"utf-8"</span></div><div class="line">        order.notify_url = <span class="string">""</span> <span class="comment">//请求结果，填入后台地址，阿里会异步通知后台</span></div><div class="line">        <span class="keyword">let</span> dateFormatter = <span class="type">DateFormatter</span>()</div><div class="line">        dateFormatter.dateFormat = <span class="string">"yyyy-MM-dd HH:mm:ss"</span></div><div class="line">        order.timestamp = dateFormatter.string(from: <span class="type">Date</span>())</div><div class="line">        order.version = <span class="string">"1.0"</span></div><div class="line">        order.sign_type = <span class="string">"RSA2"</span></div><div class="line">        <span class="comment">//商品数据</span></div><div class="line">        order.biz_content = <span class="type">APBizContent</span>()</div><div class="line">        order.biz_content.body = <span class="string">"测试"</span> <span class="comment">//自定订单内容，这个其实在使用的时候看不出来</span></div><div class="line">        order.biz_content.subject = <span class="string">"LinkHust联网费用"</span> <span class="comment">//自定订单title，这个要记得说明这项费用的明目</span></div><div class="line">        order.biz_content.out_trade_no = <span class="string">"0000134"</span><span class="comment">//自己定id，记得id不可重复哦</span></div><div class="line">        order.biz_content.timeout_express = <span class="string">"30m"</span></div><div class="line">        order.biz_content.total_amount = <span class="string">"0.01"</span> <span class="comment">//价格，测试的话记得改成一分钱，我这次测试才花了几毛钱哈哈哈</span></div><div class="line">        <span class="comment">//以下将商品信息拼成string</span></div><div class="line">        <span class="keyword">let</span> orderInfo = order.orderInfoEncoded(<span class="literal">false</span>)</div><div class="line">        <span class="keyword">let</span> orderInfoEncoded = order.orderInfoEncoded(<span class="literal">true</span>)</div><div class="line">        <span class="keyword">let</span> signer = <span class="type">APRSASigner</span>(privateKey: rsa2PrivateKey)</div><div class="line">        <span class="keyword">let</span> signString = signer?.sign(orderInfo, withRSA2: <span class="literal">true</span>)</div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> signString = signString ,<span class="keyword">let</span> orderInfoEncoded = orderInfoEncoded&#123;</div><div class="line">        <span class="keyword">let</span> appScheme = <span class="string">"BYshemes"</span>   <span class="comment">//避免使用 alipay</span></div><div class="line">        orderString = <span class="type">String</span>.<span class="keyword">init</span>(format: <span class="string">"%@&amp;sign=%@"</span>,orderInfoEncoded,signString)</div><div class="line">            </div><div class="line">            <span class="type">AlipaySDK</span>.defaultService().payOrder(orderString, fromScheme: appScheme, callback: &#123; (resultDic) <span class="keyword">in</span></div><div class="line">                <span class="built_in">print</span>(resultDic)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>我们来测试一下吧</p>
+<p><strong>rsa_private read error : private key is NULL</strong>遇到了这样的错误，不要方，It’s fine</p>
+<blockquote>
+<p>在RSADataSigner.m文件中 搜索代码 [result appendString:@”—–BEGIN PRIVATE KEY—–\n”]; 将其改成 [result appendString:@”—–BEGIN RSA PRIVATE KEY—–\n”];</p>
+<p> 在RSADataSigner.m文件中 搜索代码 [result appendString:@”\n—–END PRIVATE KEY—–”]; 将其改成 [result appendString:@”\n—–END RSA PRIVATE KEY—–”];就OK了</p>
+</blockquote>
+<p>来看一下结果吧：<img src="https://ws1.sinaimg.cn/large/006tNc79gy1fmsde72pgtj30i40xeq30.jpg" alt=""></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>不要怕，支付宝的SDK已经比微信好很多了哈哈，just enjoy it</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS开发经验/" rel="tag"># iOS开发经验</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/18/swift-Algorithm/" rel="next" title="算法导论-笔记">
+                <i class="fa fa-chevron-left"></i> 算法导论-笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Skate Cloud" />
+          <p class="site-author-name" itemprop="name">Skate Cloud</p>
+           
+              <p class="site-description motion-element" itemprop="description">hi,这里是记录我学习还有一些思考的地方，欢迎您的访问(-_^)</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#first-of-all"><span class="nav-number">1.</span> <span class="nav-text">first of all</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#second"><span class="nav-number">2.</span> <span class="nav-text">second</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#end"><span class="nav-number">3.</span> <span class="nav-text">end</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">4.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Skate Cloud</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
