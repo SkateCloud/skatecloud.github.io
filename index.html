@@ -250,6 +250,320 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/15/ios-multithread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/15/ios-multithread/" itemprop="url">
+                  iOS 多线程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-15T12:58:03+08:00">
+                2018-04-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="多线程的基本概念"><a href="#多线程的基本概念" class="headerlink" title="多线程的基本概念"></a>多线程的基本概念</h2><ul>
+<li>进程：可以理解成一个运行中的应用程序，是系统进行资源分配和调度的基本单位，是操作系统结构的基础，主要管理资源。</li>
+<li>线程：是进程的基本执行单元，一个进程对应多个线程。</li>
+<li>主线程：处理UI，所有更新UI的操作都必须在主线程上执行。不要把耗时操作放在主线程，会卡界面。</li>
+<li>多线程：在同一时刻，一个CPU只能处理1条线程，但CPU可以在多条线程之间快速的切换，只要切换的足够快，就造成了多线程一同执行的假象。</li>
+<li>线程就像火车的一节车厢，进程则是火车。车厢（线程）离开火车（进程）是无法跑动的，而火车（进程）至少有一节车厢（主线程）。多线程可以看做多个车厢，它的出现是为了提高效率。</li>
+<li>多线程是通过提高资源使用率来提高系统总体的效率。</li>
+<li>我们运用多线程的目的是：将耗时的操作放在后台执行！</li>
+</ul>
+<h2 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h2><ul>
+<li>新建：实例化线程对象</li>
+<li>就绪：向线程对象发送start消息，线程对象被加入可调度线程池等待CPU调度。</li>
+<li>运行：CPU 负责调度可调度线程池中线程的执行。线程执行完成之前，状态可能会在就绪和运行之间来回切换。就绪和运行之间的状态变化由CPU负责，程序员不能干预。</li>
+<li>阻塞：当满足某个预定条件时，可以使用休眠或锁，阻塞线程执行。sleepForTimeInterval（休眠指定时长），sleepUntilDate（休眠到指定日期），@synchronized(self)：（互斥锁）。</li>
+<li>死亡：正常死亡，线程执行完毕。非正常死亡，当满足某个条件后，在线程内部中止执行/在主线程中止线程对象</li>
+</ul>
+<h2 id="线程安全问题"><a href="#线程安全问题" class="headerlink" title="线程安全问题"></a>线程安全问题</h2><p>当多个线程访问同一块资源时，很容易引发数据错乱和数据安全问题。就好比几个人在同一时修改同一个表格，造成数据的错乱。</p>
+<p>解决多线程安全问题的方法</p>
+<ul>
+<li>方法一：互斥锁（同步锁）</li>
+</ul>
+<p>判断的时候锁对象要存在，如果代码中只有一个地方需要加锁，大多都使用self作为锁对象，这样可以避免单独再创建一个锁对象。</p>
+<p>加了互斥做的代码，当新线程访问时，如果发现其他线程正在执行锁定的代码，新线程就会进入休眠。</p>
+<ul>
+<li>方法二：自旋锁</li>
+</ul>
+<p>加了自旋锁，当新线程访问代码时，如果发现有其他线程正在锁定代码，新线程会用死循环的方式，一直等待锁定的代码执行完成。相当于不停尝试执行代码，比较消耗性能。</p>
+<h2 id="GCD的理解与使用"><a href="#GCD的理解与使用" class="headerlink" title="GCD的理解与使用"></a>GCD的理解与使用</h2><h3 id="GCD的特点"><a href="#GCD的特点" class="headerlink" title="GCD的特点"></a>GCD的特点</h3><ul>
+<li>GCD会自动利用更多的CPU内核</li>
+<li>GCD自动管理线程的生命周期（创建线程，调度任务，销毁线程等）</li>
+<li>程序员只需要告诉 GCD 想要如何执行什么任务，不需要编写任何线程管理代码</li>
+</ul>
+<h3 id="GCD的基本概念"><a href="#GCD的基本概念" class="headerlink" title="GCD的基本概念"></a>GCD的基本概念</h3><ul>
+<li>任务（block）：任务就是将要在线程中执行的代码，将这段代码用block封装好，然后将这个任务添加到指定的执行方式（同步执行和异步执行），等待CPU从队列中取出任务放到对应的线程中执行。</li>
+<li>同步（sync）：一个接着一个，前一个没有执行完，后面不能执行，不开线程。</li>
+<li>异步（async）：开启多个新线程，任务同一时间可以一起执行。异步是多线程的代名词</li>
+<li>队列：装载线程任务的队形结构。(系统以先进先出的方式调度队列中的任务执行)。在GCD中有两种队列：串行队列和并发队列。</li>
+<li>并发队列：线程可以同时一起进行执行。实际上是CPU在多条线程之间快速的切换。（并发功能只有在异步（dispatch_async）函数下才有效）</li>
+<li>串行队列：线程只能依次有序的执行。</li>
+<li>GCD总结：将任务(要在线程中执行的操作block)添加到队列(自己创建或使用全局并发队列)，并且指定执行任务的方式(异步dispatch_async，同步dispatch_sync)</li>
+</ul>
+<h3 id="队列的创建方法"><a href="#队列的创建方法" class="headerlink" title="队列的创建方法"></a>队列的创建方法</h3><ul>
+<li>使用dispatch_queue_create来创建队列对象，传入两个参数，第一个参数表示队列的唯一标识符，可为空。第二个参数用来表示串行队列（DISPATCH_QUEUE_SERIAL）或并发队列（DISPATCH_QUEUE_CONCURRENT）。</li>
+<li>GCD队列种类：<ul>
+<li>主队列：主队列负责在主线程上调度任务，如果在主线程上已经有任务正在执行，主队列会等到主线程空闲后再调度任务。通常是返回主线程更新UI的时候使用。dispatch_get_main_queue()</li>
+<li>全局并发队列：全局并发队列是就是一个并发队列，是为了让我们更方便的使用多线程。dispatch_get_global_queue(0, 0)</li>
+</ul>
+</li>
+</ul>
+<h3 id="同步-异步-任务"><a href="#同步-异步-任务" class="headerlink" title="同步/异步/任务"></a>同步/异步/任务</h3><ul>
+<li>同步（sync）使用dispatch_sync来表示。</li>
+<li>异步（async）使用dispatch_async。</li>
+</ul>
+<h3 id="GCD的使用"><a href="#GCD的使用" class="headerlink" title="GCD的使用"></a>GCD的使用</h3><p>由于有多种队列（串行/并发/主队列）和两种执行方式（同步/异步），所以他们之间可以有多种组合方式。</p>
+<ul>
+<li>串行同步</li>
+<li>串行异步</li>
+<li>并发同步</li>
+<li>并发异步</li>
+<li>主队列同步</li>
+<li>主队列异步</li>
+</ul>
+<h3 id="线程通讯"><a href="#线程通讯" class="headerlink" title="线程通讯"></a>线程通讯</h3><p>开发中需要在主线程上进行UI的相关操作，通常会把一些耗时的操作放在其他线程，比如说图片文件下载等耗时操作。</p>
+<p>当完成了耗时操作之后，需要回到主线程进行UI的处理，这里就用到了线程之间的通讯。</p>
+<ul>
+<li></li>
+<li><p>开发中需要在主线程上进行UI的相关操作，通常会把一些耗时的操作放在其他线程，比如说图片文件下载等耗时操作。</p>
+<p>当完成了耗时操作之后，需要回到主线程进行UI的处理，这里就用到了线程之间的通讯。</p>
+</li>
+<li><p>开发中需要在主线程上进行UI的相关操作，通常会把一些耗时的操作放在其他线程，比如说图片文件下载等耗时操作。</p>
+<p>当完成了耗时操作之后，需要回到主线程进行UI的处理，这里就用到了线程之间的通讯。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/28/advanced-swift-self-conclusion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/12/28/advanced-swift-self-conclusion/" itemprop="url">
+                  advanced swift self conclusion
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T17:35:41+08:00">
+                2017-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/24/Alipay-SDK-swift4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1513,426 +1827,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/Life-Cycle-Of-a-project/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Skate Cloud">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skate Cloud's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/21/Life-Cycle-Of-a-project/" itemprop="url">
-                  Life Cycle Of a project
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T20:23:59+08:00">
-                2017-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Device-Architecture-And-Conditional-Code"><a href="#Device-Architecture-And-Conditional-Code" class="headerlink" title="Device Architecture And Conditional Code"></a>Device Architecture And Conditional Code</h1><ul>
-<li>iPhone: iPhone/iPod,可以在iPad上运行，但不是原生的，仿生（兼容模式</li>
-<li>iPad：只在iPad运行</li>
-<li>universal：各种</li>
-<li>两种决定运行平台的settings</li>
-<li>Base SDK: </li>
-<li>Xcode 8: iOS10.0/latest iOS(better,自动使用最新SDK)</li>
-<li>iOS Development Target</li>
-</ul>
-<h1 id="向后兼容"><a href="#向后兼容" class="headerlink" title="向后兼容"></a>向后兼容</h1><ul>
-<li>主要问题：</li>
-<li>行为差异：在不同的系统中，功能模块也会存在差异</li>
-<li>不支持的特性： 新系统中，Apple会加入很多新特性</li>
-<li>例如：在iOS10中，绘制一个图形：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let r = UIGraphicsImageRenderer(size:CGSize(width:10,height:10))</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>但是UIGraphicsImageRenderer class只在iOS10及以后才会有，所以应该修改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">if #available(iOS 10.0,*)&#123;</div><div class="line">let r = UIGraphicsImageRenderer(size:CGSize(width:10,height:10))</div><div class="line">&#125;else&#123;</div><div class="line">//Fallback on earlier versions</div><div class="line">&#125;</div><div class="line"></div><div class="line"># 版本控制</div><div class="line">* 安全性</div><div class="line">* 合作</div><div class="line">* freedom</div><div class="line"></div><div class="line"></div><div class="line"># Debug</div><div class="line">* 基本断点</div><div class="line">* 监视变量 </div><div class="line">* 全局断点</div><div class="line">* 条件断点</div><div class="line">* 打印</div><div class="line">* NSLog</div><div class="line">* Console命令（lldb）</div><div class="line">* Profile(instruments)</div><div class="line">* &quot;No Warning! Pass Analyze&quot;</div><div class="line">* Xcode视图调试</div><div class="line">* iOS模拟器调试</div><div class="line"></div><div class="line"># Testing</div><div class="line">* Unit tests</div><div class="line">* Interface(UI) tests</div><div class="line"># Clean</div><div class="line"></div><div class="line">Main函数入口</div><div class="line"></div><div class="line">所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现。示例代码如下：</div><div class="line"></div><div class="line">```swift</div><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">#import &quot;AppDelegate.h&quot;</div><div class="line"></div><div class="line">int main(int argc, char * argv[])</div><div class="line">&#123;</div><div class="line">@autoreleasepool &#123;</div><div class="line">return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</div><div class="line">&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>上面实例代码中有一个很重要的函数UIApplicationMain，它主要是创建app的几个核心对象来处理以下过程：</p>
-<p>从可用Storyboard文件加载用户界面<br>调用AppDelegate自定义代码来做一些初始化设置<br>将app放入Main Run Loop环境中来响应和处理与用户交互产生的事件</p>
-<h1 id="应用程序的架构"><a href="#应用程序的架构" class="headerlink" title="应用程序的架构"></a>应用程序的架构</h1><p>iOS应用程序都遵循<code>Model-View-Controller</code>的架构，<code>Model</code>负责存储数据和处理业务逻辑，<code>View</code>负责显示数据和与用户交互，<code>Controller</code>是两者的中介，协调<code>Model</code>和<code>View</code>相互协作。它们的通讯规则如下：</p>
-<ol>
-<li><code>Controller</code>能够访问<code>Model</code>和<code>View</code>，<code>Model</code>和<code>View</code>不能互相访问</li>
-</ol>
-<p><img src="resources/1CECFB4615999ADC67A4DC2EBFDC19B3.png" alt=""></p>
-<p>MVC Communication - Reference from Stanford University.png</p>
-<ol>
-<li>当<code>View</code>与用户交互产生事件时，使用<code>target-action</code>方式来处理</li>
-</ol>
-<p><img src="resources/20CA350F814109E5A3F7CA7A1B15B04B.png" alt=""></p>
-<p>MVC Communication - Reference from Stanford University.png</p>
-<ol>
-<li>当<code>View</code>需要处理一些特殊UI逻辑或获取数据源时，通过<code>delegate</code>或<code>data source</code>方式交给<code>Controller</code>来处理</li>
-</ol>
-<p><img src="resources/33CBF8FF022F1B8849FD3764617EC6FA.png" alt=""></p>
-<p>MVC Communication - Reference from Stanford University.png</p>
-<ol>
-<li><code>Model</code>不能直接与<code>Controller</code>通信，当<code>Model</code>有数据更新时，可以通过<code>Notification</code>或<code>KVO (Key Value Observing)</code>来通知<code>Controller</code>更新<code>View</code></li>
-</ol>
-<p><img src="resources/82E7A457EC13FD5D49416F14F8193686.png" alt=""></p>
-<p>MVC Communication - Reference from Stanford University.png</p>
-<p><img src="resources/6193AB3A4F8C240888CBA743C85F2384.png" alt=""></p>
-<p>The Structure of an App.png</p>
-<ul>
-<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplication_Class/" target="_blank" rel="external">UIApplication</a>对象<br>用户与iOS设备交互时产生的事件(Multitouch Events，Motion Event，Remote Control Event)交由<code>UIApplication</code>对象来分发给control objects(<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/index.html#//apple_ref/occ/cl/UIControl" target="_blank" rel="external">UIControl</a>)对应的target objects来处理并且管理整个事件循环，而一些关于app运行时重要事件委托给<code>app delegate</code>来处理。</li>
-<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/" target="_blank" rel="external">App delegate</a>对象<br><code>App delegate</code>对象遵循<code>UIApplicationDelegate</code>协议，响应app运行时重要事件(app启动、app内存不足、app终止、切换到另一个app、切回app)，主要用于app在启动时初始化一些重要数据结构；例如，初始化<code>UIWindow</code>，设置一些属性，为window添加<code>rootViewController</code>。</li>
-<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/" target="_blank" rel="external">View controller</a>对象<br><code>View Controller</code>有一个<code>view</code>属性是view层次结构中的根view，你可以添加子view来构建复杂的view；controller有一些<code>viewDidLoad</code>、<code>viewWillAppear</code>等方法来管理view的生命周期；由于它继承<code>UIResponder</code>，所有还会响应和处理用户事件。</li>
-<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDocument_Class/" target="_blank" rel="external">Documents</a>和data model对象<br>data model对象主要用来存储数据。例如，饿了么app在搜索切换地址后，有历史记录搜索地址历史，当app下次启动时，读取和显示搜索地址历史。<br>document对象(继承UIDocument)用来管理一些或所有的data model对象。document对象并不是必须的，但提供一种方便的方式来分组属于单个文件或多个文件的数据。</li>
-<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIWindow_Class/" target="_blank" rel="external">UIWindow</a>对象<br><code>UIWindow</code>对象位于view层次结构中的最顶层，它充当一个基本容器而不显示内容，如果想显示内容，添加一个content view到window。<br>它也是继承<code>UIResponder</code>，所以它也是会响应和处理用户事件。</li>
-<li><a href="https://developer.apple.com/library/prerelease/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">View</a>、<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIControl_Class/" target="_blank" rel="external">control</a>、<a href="https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CALayer_class/" target="_blank" rel="external">layer</a>对象<br><code>View</code>对象可以通过addSubview和removeFromSuperview 等方法管理view的层次结构，使用layoutIfNeeded和setNeedsLayout等方法布局view的层次结构，当你发现系统提供view已经满足不了你想要的外观需求时，可以重写drawRect方法或通过layer属性来构造复杂的图形外观和动画。还有一点，UIView也是继承UIResponder，所以也能够处理用户事件。<br><code>Control</code>对象通常就是处理特定类型用户交互的View，常用的有button、switch、text field等。<br>除了使用<code>View</code>和<code>Control</code>来构建view层次结构来影响app外观之外，还可以使用Core Animation框架的<code>Layer</code>对象来渲染view外观和构建复杂的动画。</li>
-</ul>
-<h1 id="Main-Run-Loop"><a href="#Main-Run-Loop" class="headerlink" title="Main Run Loop"></a>Main Run Loop</h1><p>一个iOS应用程序的main run loop主要作用是处理所有与用户相关的事件。<code>UIApplication</code>对象在启动时就设置main run loop和使用它来处理事件和更新基于view的界面。正如它名字所示，main run loop是运行在应用程序的主线程。这样就确保与接收到用户相关的事件被有序地处理。</p>
-<p>下图显示main run loop的架构和用户事件最终是怎样被应用程序处理。当用户与设备交互时，系统就会生成与交互关联的事件，然后被应用程序的UIKit通过一个特殊的端口来分发。应用程序把事件放入队列，然后逐个分发到main run loop来执行。<code>UIApplication</code>对象是第一个对象接收到事件，然后决定怎样处理它。一个touch event通常都被分发到main window对象，然后依次分发到发生触碰的view。其他event的接收事件对象路径可能有点不同。</p>
-<p><img src="resources/2649D8A3229B53C7FD8F81D8645A6565.png" alt=""></p>
-<p>Main Run Loop from Apple Document</p>
-<p>大多数的事件通过使用main run loop来分发，但有些不是。有些事件被发送到一个delegate对象或传递到你提供的block中。想了解更多如何处理大多数类型的事件，其中包括touch、remote control、motion、accelerometer和gyroscopic等事件，请查阅<a href="https://developer.apple.com/library/ios/documentation/EventHandling/Conceptual/EventHandlingiPhoneOS/Introduction/Introduction.html" target="_blank" rel="external">Event Handle Guide for iOS</a>。</p>
-<h1 id="应用程序的状态和多任务"><a href="#应用程序的状态和多任务" class="headerlink" title="应用程序的状态和多任务"></a>应用程序的状态和多任务</h1><p>有时系统会从app一种状态切换另一种状态来响应系统发生的事件。例如，当用户按下home键、电话打入、或其他中断发生时，当前运行的应用程序会切换状态来响应。应用程序的状态有以下几种：</p>
-<p><img src="resources/BA67975B1CA3730AF7AECBE34153E4D8.png" alt=""></p>
-<p>App State from Apple Document</p>
-<ul>
-<li>Not running：app还没运行</li>
-<li>Inactive：app运行在foreground但没有接收事件</li>
-<li>Active：app运行在foreground和正在接收事件</li>
-<li>Background：运行在background和正在执行代码</li>
-<li>Suspended：运行在background但没有执行代码</li>
-</ul>
-<p>大多数发生状态转换时都会调用<code>delegate</code>对象对应的方法来响应app的状态改变。下面汇总了<code>delegate</code>对象的所有方法，当app状态发生转换时，你可能会使用到它们。</p>
-<ul>
-<li><code>application:willFinishLaunchingWithOptions:</code> - 这个方法是你在启动时的第一次机会来执行代码</li>
-<li><code>application:didFinishLaunchingWithOptions:</code> - 这个方法允许你在显示app给用户之前执行最后的初始化操作</li>
-<li><code>applicationDidBecomeActive:</code> - app已经切换到active状态后需要执行的操作</li>
-<li><code>applicationWillResignActive:</code> - app将要从前台切换到后台时需要执行的操作</li>
-<li><code>applicationDidEnterBackground:</code> - app已经进入后台后需要执行的操作</li>
-<li><code>applicationWillEnterForeground:</code> - app将要从后台切换到前台需要执行的操作，但app还不是active状态</li>
-<li><code>applicationWillTerminate:</code> - app将要结束时需要执行的操作</li>
-</ul>
-<p>现在讲下app启动、来回切换app和锁屏时状态的切换和调用对应哪些delegate对象的方法：</p>
-<ul>
-<li>app启动和active/inactive</li>
-</ul>
-<p><img src="resources/F360F2D7309834625B91EC245E65B0F9.gif" alt=""></p>
-<p>Launch and active/inactive from Apple WWDC 2011 Session</p>
-<p>如图所示，当app启动时，首先由<code>not running</code>状态切换到<code>inactive</code>状态，此时调用<code>application:didFinishLaunchingWithOptions:</code>方法；然后由<code>inactive</code>状态切换到<code>active</code>状态，此时调用<code>applicationDidBecomeActive:</code>方法。</p>
-<p><img src="resources/7E923AE84EB215494E1212FBCA8EC019.gif" alt=""></p>
-<p>Launch and active/inactive 2 from Apple WWDC 2011 Session</p>
-<p>当app发生中断时，由<code>active</code>状态切换到<code>inactive</code>状态，此时调用<code>applicationWillResignActive:</code>方法。</p>
-<ul>
-<li>来回切换app</li>
-</ul>
-<p><img src="resources/A58B11BD99500F91873C0D597B9EE8ED.gif" alt=""></p>
-<p>Switch from an app from Apple WWDC 2011 Session</p>
-<p>如图所示，当切换到另一个app时，由状态<code>active</code>切换到<code>inactive</code>，此时调用<code>applicationWillResignActive:</code>方法；然后从<code>inactive</code>状态切换到<code>running</code>状态，此时调用<code>applicationDidEnterBackground:</code>方法。</p>
-<p><img src="resources/A51653A1539E7C0BFBFE6A2DE07F2678.gif" alt=""></p>
-<p>Switch to an app from Apple WWDC 2011 Session</p>
-<p>而当切换回本来的app时，由<code>running</code>状态切换到<code>inactive</code>状态，此时调用<code>applicationWillEnterForeground:</code>方法，然后由<code>inactive</code>状态切换到<code>active</code>状态，调用<code>applicationDidBecomeActive:</code>方法。</p>
-<ul>
-<li>锁屏</li>
-</ul>
-<p><img src="resources/D83BFA1B5F26C91B285EFAC211904A9D.gif" alt=""></p>
-<p>Device lock from Apple WWDC 2011 Session</p>
-<p>如何所示，当手机锁屏时，由状态<code>active</code>切换到<code>inactive</code>，此时调用<code>applicationWillResignActive:</code>；然后再由<code>inactive</code>状态切换到<code>running</code>状态，此时调用<code>applicationDidEnterBackground:</code>方法。</p>
-<p>更多关于app状态切换以及调用<code>app delegate</code>哪些方法，请观看WWDC 2011 Session的<a href="https://developer.apple.com/videos/wwdc/2011/" target="_blank" rel="external">session_320__adopting_multitasking_in_your_app</a>视频。</p>
-<h1 id="应用程序的终止"><a href="#应用程序的终止" class="headerlink" title="应用程序的终止"></a>应用程序的终止</h1><p>系统常常是为其他app启动时由于内存不足而回收内存最后需要终止应用程序，但有时也会是由于app很长时间才响应而终止。如果app当时运行在后台并且没有暂停，系统会在应用程序终止之前调用<code>applicationWillTerminate:</code>来保存用户的一些重要数据以便下次启动时恢复到app原来的状态。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/21/Custom-Cell/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Skate Cloud">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skate Cloud's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/21/Custom-Cell/" itemprop="url">
-                  Custom Cell
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-21T20:22:42+08:00">
-                2017-05-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>UITableViewCell的使用方法</p>
-<p>重点：UITableView和UITableViewCell的核心方法</p>
-<p>预定义Cell</p>
-<p>iOS自定义了4种常见的Cell格式，在UITableViewCell.h中的注释中Apple给了一些明确的提示这些预置的style一般都适用于什么场景：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef <span class="class"><span class="keyword">enum</span> </span>&#123;</div><div class="line"><span class="type">UITableViewCellStyleDefault</span>, <span class="comment">// Simple cell with text label and optional image view (behavior of UITableViewCell in iPhoneOS 2.x)</span></div><div class="line"><span class="type">UITableViewCellStyleValue1</span>, <span class="comment">// Left aligned label on left and right aligned label on right with blue text (Used in Settings)</span></div><div class="line"><span class="type">UITableViewCellStyleValue2</span>, <span class="comment">// Right aligned label on left with blue text and left aligned label on right (Used in Phone/Contacts)</span></div><div class="line"><span class="type">UITableViewCellStyleSubtitle</span> <span class="comment">// Left aligned label on top and left aligned label on bottom with gray text (Used in iPod).</span></div><div class="line">&#125; <span class="type">UITableViewCellStyle</span></div></pre></td></tr></table></figure>
-<p>4种类型在Xcode中对应的选项为：Basic, Right Detail, Left Detail和Subtitle。</p>
-<p>在这4种格式都统一有3个property可以供你使用：</p>
-<p>textLabel：一个主标题</p>
-<p>detailTextLabel：一个副标题</p>
-<p>imageView：一张详情缩略图片</p>
-<p>实际上这些预置类型就是把这3种元素做了些取舍然后在不同的位置组合了一下。我觉得在设计App的时候，在任何情况下，设计师和工程师都应当首先考虑这些预置的类型能不能满足需求，除非有足够的必要，否则不要轻易的浪费经历在重复构造定制化的View上。个人觉得Subtile模式已经适用于绝大多数对UI要求不高的场合。你完全可以自己修改这3个控件的一些属性来对UI进行微调。比如你可以尝试将imageView的大小放大一些。</p>
-<p>自定义Cell</p>
-<p>UITableView是通过调用UITableViewDataSource中的tableView:cellForRowAtIndexPath:方法来获取每一行所需要的Cell的，所以绝大多自定义Cell的处理过程都是在这一步完成，另外由于UITableViewCell本身也是一个UIView，所以你也可以在UITableViewDelegate中的tableView:willDisplayCell:forRowAtIndexPath: 方法中对Cell的view做最后的定制化。</p>
-<p>注意： Apple明确指出，在tableView:willDisplayCell:forRowAtIndexPath:中应当只修改”state-based properties”，比如selection和background color等等，但是不应该是内容（content），也就是不要在这里进行任何数据处理。</p>
-<p>2.1 自定义Cell的创建</p>
-<p>有以下几种方法：</p>
-<ul>
-<li>方法1：使用Code继承预定义的cell样式，然后再手动添加自己的view</li>
-</ul>
-<p>============================================</p>
-<p>这是Apple官方文档中的示例，它通过调用initWithStyle:reuseIdentifier:使用UITableViewCellStyleDefault参数来创建一个Cell，为了方便期间，我对代码稍做了些改动，一个是简化了数据加载，另一个是用NSTextAlignment替换了废弃的UITextAlignment：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">define MAINLABEL_TAG <span class="number">1</span></div><div class="line"></div><div class="line">define SECONDLABEL_TAG <span class="number">2</span></div><div class="line"></div><div class="line">define PHOTO_TAG <span class="number">3</span></div><div class="line"></div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> )tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *CellIdentifier = <span class="string">@"ImageOnRightCell"</span>;</div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line"><span class="built_in">UILabel</span> *mainLabel, *secondLabel;</div><div class="line"><span class="built_in">UIImageView</span> *photo;</div><div class="line"></div><div class="line"><span class="built_in">UITableViewCell</span> *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];</div><div class="line"></div><div class="line"><span class="keyword">if</span> (cell == <span class="literal">nil</span>) &#123;</div><div class="line">cell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:CellIdentifier];</div><div class="line">cell.accessoryType = <span class="built_in">UITableViewCellAccessoryDetailDisclosureButton</span>;</div><div class="line"></div><div class="line">mainLabel = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">220.0</span>, <span class="number">15.0</span>)];</div><div class="line">mainLabel.tag = MAINLABEL_TAG;</div><div class="line">mainLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">mainLabel.textAlignment = <span class="built_in">NSTextAlignmentRight</span>;</div><div class="line">mainLabel.textColor = [<span class="built_in">UIColor</span> blackColor];</div><div class="line">mainLabel.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div><div class="line">[cell.contentView addSubview:mainLabel];</div><div class="line"></div><div class="line">secondLabel = [[<span class="built_in">UILabel</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0.0</span>, <span class="number">20.0</span>, <span class="number">220.0</span>, <span class="number">25.0</span>)];</div><div class="line">secondLabel.tag = SECONDLABEL_TAG;</div><div class="line">secondLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12.0</span>];</div><div class="line">secondLabel.textAlignment = <span class="built_in">NSTextAlignmentRight</span>;</div><div class="line">secondLabel.textColor = [<span class="built_in">UIColor</span> darkGrayColor];</div><div class="line"></div><div class="line">secondLabel.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div><div class="line">[cell.contentView addSubview:secondLabel];</div><div class="line"></div><div class="line">photo = [[<span class="built_in">UIImageView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">225.0</span>, <span class="number">0.0</span>, <span class="number">80.0</span>, <span class="number">45.0</span>)];</div><div class="line">photo.tag = PHOTO_TAG;</div><div class="line">photo.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleLeftMargin</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div><div class="line">[cell.contentView addSubview:photo];</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">mainLabel = (<span class="built_in">UILabel</span> *)[cell.contentView viewWithTag:MAINLABEL_TAG];</div><div class="line">secondLabel = (<span class="built_in">UILabel</span> *)[cell.contentView viewWithTag:SECONDLABEL_TAG];</div><div class="line">photo = (<span class="built_in">UIImageView</span> *)[cell.contentView viewWithTag:PHOTO_TAG];</div><div class="line">&#125;</div><div class="line"></div><div class="line">mainLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Title_%d"</span>, i];</div><div class="line">secondLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"Description_%d"</span>, i];</div><div class="line">i++;</div><div class="line"><span class="built_in">NSString</span> *imagePath = [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"test"</span> ofType:<span class="string">@"jpg"</span>];</div><div class="line">photo.image = theImage;</div><div class="line"></div><div class="line"><span class="keyword">return</span> cell;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>1) Cell的重用机制</p>
-<p>重用机制对于UITableView而言是非常重要的概念，这能够显著提高滑动TableView时的性能。如果不使用重用，那么每次新的Cell出现在屏幕上时都需要新创建一个，这对快速滑动而言是非常影响用户体验，并且会占用系统大量的内存开销。iOS的TableView使用的重用机制在原理上很简单，就是系统自动维护一个queue，这个队列放着一定数量的准备好的Cell UI object，滑出屏幕范围之外一定”距离”的Cell都会被回收到这个queue里，给马上要滑入屏幕范围内的Cell复用。</p>
-<p>使用重用的方法核心是两个概念：Cell Identity和dequeue。前者是标识一种具体的Cell的id，后者是将Cell从复用队列中取出的实际操作。首先你需要用这个id告诉系统你将要用于重用的Cell是谁（注册），然后你使用这个id从重用的队列里取出来（复用）。具体到本例中的API就是如下两个：initWithStyle:reuseIdentifier:和dequeueReusableCellWithIdentifier:。后面将看到，对于不同情况下创建的Cell，注册和复用的调用也并不相同。</p>
-<p>2) 必须把自定义的控件添加在cell的contentView上，而不是view上，也就是：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cell = [[<span class="built_in">UITableViewCell</span> alloc] initWithStyle:<span class="built_in">UITableViewCellStyleDefault</span> reuseIdentifier:CellIdentifier];</div><div class="line">...</div><div class="line"><span class="comment">// Correct!</span></div><div class="line">[cell.contentView addSubview:yourCustomComponetView];</div><div class="line"><span class="comment">// Wrong!</span></div><div class="line">[cell.view addSubview:yourCustomComponentView];</div></pre></td></tr></table></figure>
-<p>再次强调一点，Cell的Content View不是自己的root view。关于Cell View的结构可以参考这篇文章：《制作一个可以滑动操作的 Table View Cell》</p>
-<p>对于一个如图所示的Table而言:</p>
-<p><img src="resources/28CD515DE52E2B4F372B17DBEB5DCA34.jpg" alt=""></p>
-<p>sample.png</p>
-<p>它的TableViewCell的View层级结构是：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="built_in">UITableViewCell</span>; frame = (<span class="number">0</span> <span class="number">396</span>; <span class="number">320</span> <span class="number">44</span>);&gt; <span class="comment">//1</span></div><div class="line">| &lt;<span class="built_in">UITableViewCellScrollView</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">320</span> <span class="number">44</span>); &gt; <span class="comment">//2</span></div><div class="line">|    | &lt;<span class="built_in">UIButton</span>; frame = (<span class="number">302</span> <span class="number">16</span>; <span class="number">8</span> <span class="number">12.5</span>)&gt; <span class="comment">//3</span></div><div class="line">|    |    | &lt;<span class="built_in">UIImageView</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">8</span> <span class="number">12.5</span>);&gt; <span class="comment">//4</span></div><div class="line">|    | &lt;<span class="built_in">UITableViewCellContentView</span>; frame = (<span class="number">0</span> <span class="number">0</span>; <span class="number">287</span> <span class="number">44</span>);&gt; <span class="comment">//5</span></div><div class="line">|    |    | &lt;<span class="built_in">UILabel</span>; frame = (<span class="number">15</span> <span class="number">0</span>; <span class="number">270</span> <span class="number">43</span>);&gt; <span class="comment">//6</span></div></pre></td></tr></table></figure>
-<p>这个Cell 里有六个视图：</p>
-<p>UITableViewCell 这是最高层的视图。 Frame 显示它有 320 点宽和 44 点高——宽度和高度都和预期的一致，因为它和屏幕一样宽，而高度就是 44 点。</p>
-<p>UITableViewCellScrollView 虽然你不能直接使用这个私有类，但它的名字很好地暗示了它的功能。它的 Size 和 Cell 的一样。</p>
-<p>UIButton 它在 Cell 的最右边，就是 Disclosure Indicator 按钮。</p>
-<p>UIImageView 是上面 UIButton 的子视图，装载着 Disclosure Indicator 的图像。</p>
-<p>UITableViewCellContentView 另外一个私有类，它包含 Cell 的内容。这个类对于开发者来说就是 UITableViewCell 的 contentView 属性。但它只作为一个 UIView 来暴露在外，这就意味着你只在其上调用使用公开的 UIView 方法；而不能使用任何与这个类关联的任何私有方法。</p>
-<p>UILabel 显示 “Item #“ 文本。</p>
-<p>很显然，这里cell.contentView并不是cell.view。</p>
-<p>方法2：使用xib绘制Custom Cell View</p>
-<p>这是自定义Cell最常见也是最省力的方法：</p>
-<p>1) 首先在xcode中创建custom xib，拖拽需要的控件到xib上，并做好布局和限制；</p>
-<p>2）新建自己的custom class，定义对应的outlet properties；</p>
-<p>3）将xib的class设置成对应的custom class，然后将outlet和控件连接起来；</p>
-<p>4）在适当的位置（一般为初始化的地方）调用registerNib:forCellReuseIdentifier:注册Cell；</p>
-<p>5）在tableView:cellForRowAtIndexPath:中调用dequeueReusableCellWithIdentifier:forIndexPath:复用cell</p>
-<p>下面的这个示例演示了上述步骤。在这个示例中，首先创建Custom Cell和xib的界面，其中有一张大图，下面有两个独立的label，然后我使用了tableView:willDisplayCell:forRowAtIndexPath:对每一行Cell的背景颜色做出最终设置，而在tableView cellForRowAtIndexPath:中对Cell的内容进行填充：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Custom View：</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MyTableCellView</span> : <span class="title">UITableViewCell</span></span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIImageView</span> imageView;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> name;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UILabel</span> *date;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">在table View Controller中：</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">[<span class="keyword">super</span> viewDidLoad];</div><div class="line"><span class="comment">// Do any additional setup here ...</span></div><div class="line">...</div><div class="line"><span class="comment">// register the cell to tell the system preparing to reuse it.</span></div><div class="line">[<span class="keyword">self</span>.tableView registerNib:[<span class="built_in">UINib</span> nibWithNibName:<span class="string">@"TableCellView"</span> bundle:<span class="literal">nil</span>] forCellReuseIdentifier:cellId];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UITableViewCell</span> *)tableView:(<span class="built_in">UITableView</span> *)tableView cellForRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line"><span class="comment">// always reuse the cell</span></div><div class="line">MyTableCellView *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];</div><div class="line"></div><div class="line">cell.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, [[<span class="built_in">UIScreen</span> mainScreen] bounds].size.width, <span class="number">250</span>);</div><div class="line"><span class="built_in">NSString</span> *path = [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:<span class="string">@"test"</span> ofType:<span class="string">@"jpg"</span>];</div><div class="line">cell.imageView.image = [<span class="built_in">UIImage</span> imageWithContentsOfFile:path];</div><div class="line"><span class="built_in">NSDate</span> *object = <span class="keyword">self</span>.objects[indexPath.row];</div><div class="line">cell.date.text = [object description];</div><div class="line"><span class="keyword">return</span> cell;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView willDisplayCell:(<span class="built_in">UITableViewCell</span> *)cell forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"indexpath = %ld"</span>, indexPath.row);</div><div class="line"><span class="keyword">if</span> ( indexPath.row % <span class="number">2</span> == <span class="number">0</span>) &#123;</div><div class="line">cell.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">cell.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>方法3：使用code定义一个Custom Cell Class</p>
-<p>这个在本质上和上一种使用xib的方法是一样的，只不过一个是用代码完全定制，一个是借助xib操作。但是在Cell重用的方式上有一定区别。上一种方法中，需要调用registerNib:forCellReuseIdentifier:来注册重用的Cell，在这里就需要用registerClass:forCellReuseIdentifier:方法来注册。与之对应的，获取重用的Cell的时候，调用dequeueReusableCellWithIdentifier:forIndexPath:方法。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Class myClass = [MyTableCellView <span class="keyword">class</span>];</div><div class="line">[<span class="keyword">self</span>.tableView registerClass: myClass forCellReuseIdentifier:<span class="string">@"CustomCell"</span>];</div><div class="line">...</div><div class="line">...</div><div class="line">MyTableCellView *cell = [<span class="keyword">self</span>.tableView dequeueReusableCellWithIdentifier:<span class="string">@"CustomCell"</span> forIndexPath:path];</div><div class="line">cell.label.text = <span class="string">@"text"</span>;</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>注意 dequeueReusableCellWithIdentifier:和dequeueReusableCellWithIdentifier:forIndexPath:的区别!!</p>
-<p>如果你注册过Cell，在没有可用的cell时，前者会返回nil；而后者永远都会从注册的nib或者class中替你创建一个可用的Cell。也就是说，前者调用你需要手动检查nil，而后者不需要；<br>如果你从没有注册过cell，在没有可用的cell时，前者会返回nil，后者……直接崩溃！也就是说，调用后者你 必须确保注册过cell </p>
-<p>2.2 访问Cell中的控件：</p>
-<p>xib中使用outlet</p>
-<p>这个应该不用多说，在Cell的原型中（不管是Static cell还是Dynamic cell）定义outlet properties，然后在xib中拖拽连接对应的控件即可；Apple官方文档上的示意图：</p>
-<p>connect_outlet.jpg</p>
-<p>connect_static_objects.jpg</p>
-<p>代码中使用viewWithTag:</p>
-<p>这个是获取parent view上某个特定view的快捷方法，首先需要设置一个sub view的tag，然后使用viewWithTag:来访问这个sub view。设置时可以通过xcode在xib中设置tag标签，也可以直接通过tag property手动设置：</p>
-<p>创建时：</p>
-<p>mainLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 220.0, 15.0)];</p>
-<p>mainLabel.tag = MAINLABEL_TAG;</p>
-<p>// customize the label here…</p>
-<p>[cell.contentView addSubview:mainLabel];</p>
-<p>44</p>
-<p>mainLabel = (UILabel *)[cell.contentView viewWithTag:MAINLABEL_TAG];</p>
-<p>有关Table和Cell的性能需要注意的问题</p>
-<p>关于这个话题，Apple并没有用过多的篇幅介绍，但是在官方开发文档中明确提出了3点意见：</p>
-<p>注意重用（Reuse Cell）</p>
-<p>这点我们已经在上文中着重强调过了。</p>
-<p>避免反复的调整Cell的布局（Avoid relayout of content）</p>
-<p>只在创建每一个Cell的时候布局一次，而不要每一次获取Cell的时候都去重新布局。</p>
-<p>避免透明的subviews （Use opaque subviews）</p>
-<p>自定义cell的时候，尽可能避免使用透明的控件，因为透明控件在table滑动时将增大渲染开销。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1982,7 +1876,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2037,7 +1931,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
