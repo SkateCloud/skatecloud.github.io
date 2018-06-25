@@ -250,6 +250,262 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/mac-Automator-link-HUST-WIRELESS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/06/25/mac-Automator-link-HUST-WIRELESS/" itemprop="url">
+                  mac_Automator_link_HUST_WIRELESS
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T20:33:51+08:00">
+                2018-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="手动创造简单的连接校园网方式"><a href="#手动创造简单的连接校园网方式" class="headerlink" title="手动创造简单的连接校园网方式"></a>手动创造简单的连接校园网方式</h2><h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>创建python脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import time</div><div class="line">time.sleep(5)</div><div class="line">str = (requests.get(&quot;http://123.123.123.123&quot;).text.split(&apos;\&apos;&apos;))[1]</div><div class="line">#在userId里面键入自己的帐号，password里键入密码</div><div class="line">postjson = &#123;&apos;userId&apos;:&apos;&apos;,&apos;password&apos;:&apos;&apos;,&apos;service&apos;:&apos;&apos;,&apos;queryString&apos;:str,&apos;operatorPwd&apos;:&apos;&apos;,&apos;validcode&apos;:&apos;&apos;&#125;</div><div class="line">r=requests.post(&apos;http://192.168.50.3:8080/eportal/InterFace.do?method=login&apos;,data=postjson)</div></pre></td></tr></table></figure>
+<p>保存文件，例如<code>linknet.py</code>,也可以在<a href="https://github.com/SkateCloud/Link_HUST_WIRELESS/blob/master/linknet.py" target="_blank" rel="external">文件下载地址</a>获取，记得填入帐号和密码😁</p>
+<p>打开终端—— 》将<code>linknet.py</code>拖入，控制台会打印出实际路径，例如：<code>/Users/mac/Downloads/linknet.py</code></p>
+<p>那么<code>linknet.py</code>所处的文件夹地址即为<code>/Users/mac/Downloads</code></p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>打开automator-&gt;新建文稿-&gt;应用程序-&gt;选取-&gt;搜索<code>shell</code>-&gt;运行Shell脚本-&gt;按住并拖入右边空白/双击-&gt;</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fsnq3nycjyj31ka17ogoa.jpg" alt=""></p>
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fsnq6y6t15j310c0lct95.jpg" alt=""></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fsnqmqhpzuj30yc0ds0t8.jpg" alt=""></p>
+<p><code>Command+S</code>存储为linknet.app</p>
+<p><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fsnqop2w6oj30na0f6mxd.jpg" alt=""></p>
+<h3 id="最后一步：使用"><a href="#最后一步：使用" class="headerlink" title="最后一步：使用"></a>最后一步：使用</h3><p><code>Control+空格</code>打开<code>Spotlight</code>,输入<code>linknet</code>-&gt;点击即可运行</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fsnqrduc4hj313k0qc40i.jpg" alt=""></p>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p>运行报错: requests包的问题-&gt;<img src="https://blog.csdn.net/qq_36305327/article/details/60144614" alt="配置]参考解决方案"></p>
+<p>进度缓慢: 如果运行时间过长，很可能是WIRELESS的信号太差了😁，待会儿再跑一次就好了</p>
+<p>其他问题: 可以直接联系我<a href="mailto:baiyun@bingyan,net" target="_blank" rel="external">Email</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/post-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Skate Cloud">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Skate Cloud's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/06/25/post-3/" itemprop="url">
+                  post
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T20:32:38+08:00">
+                2018-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/15/ios-multithread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1492,341 +1748,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/11/object-types/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Skate Cloud">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skate Cloud's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/11/object-types/" itemprop="url">
-                  object types
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-11T01:24:31+08:00">
-                2017-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Object Type：</p>
-<ul>
-<li><p><a href="#jump1">class</a></p>
-</li>
-<li><p><a href="#jump2">struct</a> </p>
-</li>
-<li><p><a href="#jump3">enum</a></p>
-<h3 id="class"><a href="#class" class="headerlink" title="class"></a><span id="jump1">class</span></h3></li>
-<li><p><code>init</code></p>
-</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span></span>&#123;</div><div class="line">    <span class="keyword">var</span> name = <span class="string">"hello"</span></div><div class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.name = name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> puppy = <span class="type">Dog</span>(name: <span class="string">"puppy"</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span></span>&#123;</div><div class="line">    <span class="keyword">var</span> name:<span class="type">String</span></div><div class="line">    <span class="keyword">init</span>(name: <span class="type">String</span> = <span class="string">"hello"</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.name = name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> puppy = <span class="type">Dog</span>()</div><div class="line"><span class="comment">//puppy.name:hello</span></div></pre></td></tr></table></figure>
-<ul>
-<li><p><code>property</code></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span></span>&#123;</div><div class="line"><span class="keyword">let</span> name = <span class="string">"pupy"</span></div><div class="line"><span class="keyword">let</span> lastname = <span class="string">"M"</span></div><div class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> all:<span class="type">String</span> = <span class="keyword">self</span>.name + <span class="keyword">self</span>.lastname</div><div class="line"><span class="comment">// var all:String = &#123;return self.name + self.lastname&#125;</span></div><div class="line"><span class="comment">//lazy var wholo:String = &#123;</span></div><div class="line"><span class="comment">//     return self.first</span></div><div class="line"><span class="comment">// &#125;()</span></div><div class="line"><span class="comment">//&#125;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><code>static</code></li>
-</ul>
-<blockquote>
-<p>static 属性可以互相引用来进行初始化工作，因为它也是采用lazy的方式初始化</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dag</span> </span>&#123;</div><div class="line"> <span class="keyword">static</span> <span class="keyword">let</span> a = <span class="string">"A"</span></div><div class="line"> <span class="keyword">static</span> <span class="keyword">let</span> b = <span class="string">"B"</span></div><div class="line"> <span class="keyword">static</span> <span class="keyword">let</span> <span class="built_in">c</span> = a + b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a><span id="jump2">struct</span></h3><ul>
-<li>Subscripts</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Digit</span></span>&#123;</div><div class="line">    <span class="keyword">var</span> number: <span class="type">Int</span></div><div class="line">    <span class="keyword">init</span>(<span class="number">_</span> n:<span class="type">Int</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.number = n</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">subscript</span>(ix:<span class="type">Int</span>) -&gt; <span class="type">Int</span>&#123;</div><div class="line">        <span class="keyword">get</span>&#123;</div><div class="line">            <span class="keyword">let</span> s = <span class="type">String</span>(<span class="keyword">self</span>.number)</div><div class="line">            <span class="keyword">return</span> <span class="type">Int</span>(<span class="type">String</span>(s[s.index(s.startIndex, offsetBy: ix)]))!</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">set</span>&#123;</div><div class="line">            <span class="keyword">var</span> s = <span class="type">String</span>(<span class="keyword">self</span>.number)</div><div class="line">            <span class="keyword">let</span> i = s.index(s.startIndex, offsetBy: ix)</div><div class="line">            s.replaceSubrange(i...i, with: <span class="type">String</span>(newValue))</div><div class="line">            <span class="keyword">self</span>.number = <span class="type">Int</span>(s)!</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> d = <span class="type">Digit</span>(<span class="number">1234</span>)</div><div class="line"><span class="keyword">let</span> aDigit = d[<span class="number">2</span>]  <span class="comment">//3</span></div><div class="line">d[<span class="number">0</span>] = <span class="number">2</span></div><div class="line"><span class="built_in">print</span>(d.number)  <span class="comment">//2234</span></div></pre></td></tr></table></figure>
-<h3 id="enum"><a href="#enum" class="headerlink" title="enum"></a><span id="jump3">enum</span></h3><ul>
-<li><p>declaration</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Type</span></span>&#123;</div><div class="line">    <span class="keyword">case</span> a</div><div class="line">    <span class="keyword">case</span> b</div><div class="line">    <span class="keyword">case</span> <span class="built_in">c</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> type = <span class="type">Type</span>.a <span class="comment">//let type: Type = .a</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>rawValue</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Type1</span>:<span class="title">Int</span></span>&#123;</div><div class="line">    <span class="keyword">case</span> a = <span class="number">0</span></div><div class="line">    <span class="keyword">case</span> b = <span class="number">1</span></div><div class="line">    <span class="keyword">case</span> <span class="built_in">c</span> = <span class="number">2</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="type">Type1</span>.a.rawValue) <span class="comment">//0</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>枚举变量携带的值被叫做<code>raw values</code>,因此可以通过它的<code>rawValue</code>属性获取它的值</p>
-</blockquote>
-<ul>
-<li>init<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> type = <span class="type">Type1</span>(rawValue: <span class="number">0</span>)</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/07/post-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Skate Cloud">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Skate Cloud's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/07/post-1/" itemprop="url">
-                  swift3.0 变量和简单的类型
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-07T10:20:58+08:00">
-                2017-06-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>didset/willset </li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//普通属性</span></div><div class="line"><span class="keyword">var</span> str = <span class="string">"hello"</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//计算属性</span></div><div class="line"><span class="keyword">var</span> str1:<span class="type">String</span> &#123;</div><div class="line"><span class="keyword">get</span>&#123;</div><div class="line"><span class="keyword">return</span> <span class="string">"hi"</span>+str</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//属性监察器</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</div><div class="line"><span class="comment">//提示：属性监察器只能在class内部使用，直接定义变量时不可用 </span></div><div class="line"><span class="keyword">var</span> str:<span class="type">String</span> = <span class="string">"hello"</span>&#123;</div><div class="line"><span class="keyword">willSet</span>&#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"str will change"</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"now: <span class="subst">\(str)</span>"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">didSet</span>&#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"str has changed"</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"after: <span class="subst">\(str)</span>"</span>)</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> h = <span class="type">Test</span>()</div><div class="line">h.str = <span class="string">"hi"</span></div><div class="line"><span class="comment">//output:</span></div><div class="line">str will change</div><div class="line">now: hello</div><div class="line">str has changed</div><div class="line">after: hi</div></pre></td></tr></table></figure>
-<ul>
-<li>lazy initialization</li>
-</ul>
-<blockquote>
-<p>创建一个新的值是很昂贵的开销，所以我们应该避免在未使用的时候就创建，所以我们使用<code>lazy</code>关键字（一般用于view／image的加载）</p>
-</blockquote>
-<ul>
-<li>typealias</li>
-</ul>
-<blockquote>
-<p>typealias Point = (x:Int, y:Int)</p>
-<p><code>typealias</code>类似于C语言中的<code>typedef</code></p>
-</blockquote>
-<ul>
-<li>optional</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">func optionalExpecter(_ s: String)&#123;&#125;</div><div class="line">let str: String? = &quot;he&quot;</div><div class="line">optionalExpecter(str)</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">// 错误信息： Value of optional type &apos;String?&apos; not unwrapped; did you mean to use &apos;!&apos; or &apos;?&apos;?</div></pre></td></tr></table></figure>
-<ul>
-<li>unwrapping</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">optionalExpecter</span><span class="params">(<span class="number">_</span> s: String)</span></span>&#123;&#125;</div><div class="line"><span class="keyword">let</span> str: <span class="type">String</span>? = <span class="string">"he"</span></div><div class="line">optionalExpecter(str!)</div></pre></td></tr></table></figure>
-<blockquote>
-<p>str是可选的string，而<code>str!</code>则是获取了str的内容，即string</p>
-</blockquote>
-<ul>
-<li>implicitly unwrapped optional</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">realString</span><span class="params">(<span class="number">_</span> s: String)</span></span>&#123;&#125;</div><div class="line"><span class="keyword">var</span> str: <span class="type">String</span>! = <span class="string">"how"</span></div><div class="line">realString(str)</div></pre></td></tr></table></figure>
-<ul>
-<li>nil</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str: <span class="type">String</span>? = <span class="string">"how"</span></div><div class="line"><span class="keyword">if</span> str == <span class="literal">nil</span>&#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"str is empty"</span>)</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    str = <span class="literal">nil</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"now str is empty"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>// <em>output</em>: <strong>now str is empty</strong></p>
-</blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str: <span class="type">String</span>? = <span class="literal">nil</span></div><div class="line"><span class="built_in">print</span>(str!)</div></pre></td></tr></table></figure>
-<blockquote>
-<p>//<strong>fatal error: unexpectedly found nil while unwrapping an Optional value</strong></p>
-<p>//<strong>reason: str is empty,there is nothing to unwrap</strong></p>
-<ul>
-<li>修改：</li>
-</ul>
-</blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str: <span class="type">String</span>? = <span class="literal">nil</span></div><div class="line"><span class="keyword">if</span> str != <span class="literal">nil</span>&#123;  <span class="built_in">print</span>(str!)&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1876,7 +1797,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1889,7 +1810,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
